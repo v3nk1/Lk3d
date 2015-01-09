@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":2,"url":"http:\/\/www.geeksforgeeks.org\/structure-member-alignment-padding-and-data-packing\/"});

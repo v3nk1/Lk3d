@@ -1,0 +1,1068 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Common Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/cpl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Contents</title>
+
+<style type="text/css">
+/*******************************************************************************
+ * Copyright (c) 2000, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
+BODY {
+	background-color: Window;
+	font: icon;
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+UL { 
+	border-width:0; 
+	margin-left:20px; 
+}
+
+#root {
+	margin-top:5px;
+	margin-left:5px;
+}
+  
+UL.expanded {
+	display:block; 
+}
+
+UL.collapsed { 
+	display: none;
+}
+
+LI { 
+	margin-top:3px; 
+	list-style-image:none;
+	list-style-type:none;
+		white-space: nowrap;
+}
+
+IMG {
+	border:0px;
+	margin:0px;
+	padding:0px;
+	margin-right:4px;
+}
+
+
+A {
+	text-decoration:none; 
+	color:WindowText;
+	padding-right:2px;
+	/* this works in ie5.5, but not in ie5.0  */
+	white-space: nowrap;
+}
+
+A:hover{
+	text-decoration:underline; 
+}
+
+A.active{ 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+A.active:hover{
+	text-decoration:underline; 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+
+UL { 
+	margin-left:-20px;
+} 
+#root{ 
+	margin-left:-35px; 
+	margin-top:5px;
+} 
+ 
+
+
+.h {
+	visibility:hidden;
+}
+ 
+</style>  
+    
+<!-- base href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/advanced/tocView.jsp?view=toc&topic=/com.ibm.vacpp6m.doc/language/ref/clrc03defbitf.htm" -->
+<script language="JavaScript">
+
+// Preload images
+minus = new Image();
+minus.src = "images"+"/minus.gif";
+plus = new Image();
+plus.src = "images"+"/plus.gif";
+toc_open_img = new Image();
+toc_open_img.src = "images"+"/toc_open.gif";
+toc_closed_img = new Image();
+toc_closed_img.src = "images"+"/toc_closed.gif";
+folder_img = new Image();
+folder_img.src = "images"+"/container_obj.gif";
+topic_img = new Image();
+topic_img.src = "images"+"/topic.gif";
+altTopicClosed = "Topic\u0020closed";
+altTopicOpen = "Topic\u0020open";
+</script>
+
+<script language="JavaScript" src="tocView_data/toc.html"></script>
+<script language="JavaScript"> 
+ 
+/**
+ * Loads the specified table of contents
+ */                
+function loadTOC(tocHref)
+{
+        // navigate to this toc, if not already loaded
+        if (window.location.href.indexOf("tocView.jsp?toc="+tocHref) != -1)
+                return;
+        window.location.replace("tocView.jsp?toc="+tocHref);
+}
+
+var tocTitle = "";
+var tocId = "";
+        
+function onloadHandler()
+{
+
+        tocTitle = 'XL\u0020C\u002FC\u002B\u002B\u0020\u0028V\u0036\u002E\u0030\u0029';
+        var tocTopic = "about:blank";
+        
+        // set title on the content toolbar
+        parent.parent.parent.setContentToolbarTitle(tocTitle);
+                
+        var topicSelected=false;
+        // select specified topic, or else the book
+
+		//HPSYS00000181
+        var topic = "../topic/com.ibm.vacpp6m.doc/language/ref/clrc03defbitf.htm";
+        //HPSYS00000252
+        if (parent.parent.parent.parent.ContentFrame.ContentViewFrame.window.location.href.indexOf(topic)!=-1)
+        	topic=parent.parent.parent.parent.ContentFrame.ContentViewFrame.window.location.href;
+        //end HPSYS00000252
+		//end of HPSYS00000181
+        if (topic != "about:blank" && topic != tocTopic) {
+                if (topic.indexOf(window.location.protocol) != 0 && topic.length > 2) {
+                        // remove the .. from topic
+                        topic = topic.substring(2);
+                        // remove advanced/tocView.jsp from path to obtain contextPath
+                        var contextPath = window.location.pathname;
+                        var slash = contextPath.lastIndexOf('/');
+                        if(slash > 0) {
+                                slash = contextPath.lastIndexOf('/', slash-1);
+                                if(slash >= 0) {
+                                        contextPath = contextPath.substr(0, slash);
+                                        topic = window.location.protocol + "//" +window.location.host + contextPath + topic;
+                                }
+                        }                        
+                }
+                topicSelected = selectTopic(topic);
+        } else {
+                topicSelected = selectTopicById(tocId);
+        }
+        // if topic failed to be selected, but we know it exist in some book,
+        // offer to turn on "show all"
+
+        if(!topicSelected){
+                if(parent.parent.activityFiltering){
+                        askShowAll();
+                }
+        }
+
+
+        //HPSYS00000140,155,141,139 
+        focusHandler(null); 
+        //end HPSYS00000140,155,141,139 
+}
+
+var askShowAllDialog;
+var w = 470;
+var h = 270;
+
+function askShowAll(){
+
+        var l = top.screenX + (top.innerWidth - w) / 2;
+        var t = top.screenY + (top.innerHeight - h) / 2;
+
+        // move the dialog just a bit higher than the middle
+        if (t-50 > 0) t = t-50;
+        
+        window.location="javascript://needModal";
+        askShowAllDialog = window.open("askShowAll.jsp", "askShowAllDialog", "resizeable=no,height="+h+",width="+w+",left="+l+",top="+t );
+        askShowAllDialog.focus(); 
+}
+
+function yesShowAll(){
+        window.parent.parent.showAll();
+}
+
+function closeAskShowAllDialog(){
+        try {
+                if (askShowAllDialog){
+                        askShowAllDialog.close();
+                }
+        }
+        catch(e) {}
+}
+
+function onunloadHandler() {
+        closeAskShowAllDialog();
+
+}
+
+</script>
+</head>
+
+
+<body dir="ltr" onload="onloadHandler()" onunload="onunloadHandler()">
+<!--  HPSYS00000088  -->
+        <ul dir="ltr" class="expanded" id="root">
+<!--  end of HPSYS00000088  -->
+
+                <li>
+                <!--HPSYS00000137 part 2 of 2-->
+                <img src="tocView_data/toc_closed.gif" alt="Book closed"><a title="Using this information center" id="b0" name="/com.ibm.mac_compilers.doc/toc.xml" style="font-weight: bold;" href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.mac_compilers.doc/welcome.htm" onclick='loadTOC("%2f%63%6f%6d%2e%69%62%6d%2e%6d%61%63%5f%63%6f%6d%70%69%6c%65%72%73%2e%64%6f%63%2f%74%6f%63%2e%78%6d%6c")'>Using this information center</a>
+                <!--end HPSYS00000137 part 2 of 2-->
+
+                </li>        
+
+                <li>
+                <!--HPSYS00000137 part 1 of 2-->
+                <img src="tocView_data/toc_open.gif" alt="Book open"><a id="b1" name="opened" style="font-weight: bold;" href="about:blank" onclick="">XL C/C++ (V6.0)</a>
+                <!--end HPSYS00000137 part 1 of 2-->
+</li><li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Getting started</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/overview.htm#HDROVERVIEW"><img src="tocView_data/container_obj.gif" alt="">XL C/C++ Overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/overview.htm#HDRCOMP_LIBRARIES"><img src="tocView_data/topic.gif" alt="">Libraries</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/overview.htm#HDRCOMP_TOOLS"><img src="tocView_data/topic.gif" alt="">Utilities and Commands</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/overview.htm#HDRMAC_HELP"><img src="tocView_data/topic.gif" alt="">Documentation and online help</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_intro.htm#HDRINSTALL"><img src="tocView_data/container_obj.gif" alt="">Installing XL C/C++ for Mac OS X</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_sysreq.htm#HDRSYSREQ"><img src="tocView_data/topic.gif" alt="">System requirements</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_prereq.htm#HDRPREREQ"><img src="tocView_data/topic.gif" alt="">Prerequisite tasks and conditions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_install_methods.htm#HDRINSTALL_BASIC"><img src="tocView_data/topic.gif" alt="">Installation Procedures</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_configure.htm#HDRCONFIG"><img src="tocView_data/topic.gif" alt="">Configure the compiler</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_uninstall.htm#HDRUNINSTALL"><img src="tocView_data/topic.gif" alt="">Uninstalling IBM XL C/C++ for Mac OS X</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/inst_test_install.htm#HDRTEST_INSTALL"><img src="tocView_data/topic.gif" alt="">Testing the installation</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_intro.htm#HDRCUSTOMIZE_ENVIRON"><img src="tocView_data/container_obj.gif" alt="">Customizing the Compilation Environment</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_intro.htm#HDRENV_VARS"><img src="tocView_data/topic.gif" alt="">Environment variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_intro.htm#HDRINCLUDE_FILES"><img src="tocView_data/topic.gif" alt="">Include files</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_config_files.htm#HDRCONFIG_FILES"><img src="tocView_data/topic.gif" alt="">Configuration files</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_config_utility.htm#HDRCONFIG_UTILITY"><img src="tocView_data/topic.gif" alt="">The vacpp_configure utility</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_command_line_opts.htm#HDRENV_CMD_LINE_OPTS"><img src="tocView_data/topic.gif" alt="">Command-line options</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_apple_ides.htm"><img src="tocView_data/container_obj.gif" alt="">Using XL C/C++ with Xcode and Project Builder</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_apple_ides.htm#HDRXCODE_SCR"><img src="tocView_data/topic.gif" alt="">Configure the Xcode IDE</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/custom_env_apple_ides.htm#HDRUSE_PB"><img src="tocView_data/topic.gif" alt="">Using Project Builder with XL C/C++</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/compile_process.htm#HDRCOMPILING"><img src="tocView_data/container_obj.gif" alt="">Controlling the Compilation Process</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/compile_process.htm#HDRINVOCATION"><img src="tocView_data/topic.gif" alt="">Invoking the compiler</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/compile_process.htm#HDRDEFAULT_BEHAVIOR"><img src="tocView_data/topic.gif" alt="">Default behavior</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/options.htm#HDROPTIONS"><img src="tocView_data/container_obj.gif" alt="">Getting Started with Compiler Options</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/options_opsum_c.htm"><img src="tocView_data/topic.gif" alt="">C/C++ Options summary</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/options_opsum_cpp.htm"><img src="tocView_data/topic.gif" alt="">C++ Options summary</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/options.htm#HDRCOMPILER_MSGS"><img src="tocView_data/topic.gif" alt="">Compiler Messages</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/options.htm#HDRPLATFORM_OPTS"><img src="tocView_data/topic.gif" alt="">Platform-specific Options</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_gs_optimization.htm#HDRGS_OPTIMIZATION"><img src="tocView_data/container_obj.gif" alt="">Getting Started with Optimization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_opt_levels.htm#HDROPT_LEVELS"><img src="tocView_data/topic.gif" alt="">Optimization levels</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_opts_target_machine.htm#HDROPTS_TARGET_MACHINE"><img src="tocView_data/topic.gif" alt="">Optimizing for a particular processor architecture</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_opt2.htm#HDROPT2"><img src="tocView_data/topic.gif" alt="">Optimization level -O2</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_opt3.htm#HDROPT3"><img src="tocView_data/topic.gif" alt="">Optimization level -O3</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_qhot_opts.htm#HDRQHOT_OPTS"><img src="tocView_data/topic.gif" alt="">High-order transformations (-qhot)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_qipa_opts.htm#HDRQIPA_OPTS"><img src="tocView_data/topic.gif" alt="">Interprocedural analysis (-qipa)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_opt4_opt5.htm#HDROPT4_OPT5"><img src="tocView_data/topic.gif" alt="">The -O4 and -O5 macro options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_prgrm_behavior_opts.htm"><img src="tocView_data/topic.gif" alt="">Other program behavior options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_diagnostic_opts.htm#HDRDIAGNOSTIC_OPTS"><img src="tocView_data/topic.gif" alt="">Diagnostic options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_pdf_opts.htm#HDRPDF_OPTS"><img src="tocView_data/topic.gif" alt="">Profile-directed feedback (PDF)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_other_perf_opts.htm#HDROTHER_PERF_OPTS"><img src="tocView_data/topic.gif" alt="">Other performance options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_float_opts.htm#HDRFLOAT_OPTS"><img src="tocView_data/topic.gif" alt="">Floating-point options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/opt_cmp_friendly_programming.htm#HDRFRIENDLY"><img src="tocView_data/topic.gif" alt="">Compiler-friendly programming</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/port_intro.htm"><img src="tocView_data/container_obj.gif" alt="">Porting Considerations</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/port_gcc.htm#HDRGCC"><img src="tocView_data/topic.gif" alt="">Features related to GNU C/C++ portability</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/getstart/overview/apx_lang_support.htm#HDRLANG_SUPPORT"><img src="tocView_data/topic.gif" alt="">Language Support</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Language reference</a><ul class="expanded">
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc00ibm_lang_extensions.htm"><img src="tocView_data/container_obj.gif" alt="">The IBM Language Extensions</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr012.htm"><img src="tocView_data/container_obj.gif" alt="">Scope</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr013.htm"><img src="tocView_data/topic.gif" alt="">Local Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr014.htm"><img src="tocView_data/topic.gif" alt="">Function Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01function_prototype_scope.htm"><img src="tocView_data/topic.gif" alt="">Function Prototype Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr015.htm"><img src="tocView_data/topic.gif" alt="">Global Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr016.htm#HDRCPLR016"><img src="tocView_data/topic.gif" alt="">Class Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01name_spaces_of_identifiers.htm"><img src="tocView_data/topic.gif" alt="">Name Spaces of Identifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01name_hiding.htm#HDRNAME_HIDING"><img src="tocView_data/topic.gif" alt="">Name Hiding</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr080.htm"><img src="tocView_data/container_obj.gif" alt="">Program Linkage</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr081.htm"><img src="tocView_data/topic.gif" alt="">Internal Linkage</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr082.htm"><img src="tocView_data/topic.gif" alt="">External Linkage</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr083.htm"><img src="tocView_data/topic.gif" alt="">No Linkage</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01cplr020.htm#HDRCPLR020"><img src="tocView_data/container_obj.gif" alt="">Linkage Specifications -- Linking to Non-C++ Programs</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc01name_mangling.htm#HDRNAME_MANGLING"><img src="tocView_data/topic.gif" alt="">Name Mangling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02lexcvn.htm#HDRLEXCVN"><img src="tocView_data/container_obj.gif" alt="">Lexical Elements</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02cplr262.htm#HDRCPLR262"><img src="tocView_data/container_obj.gif" alt="">Tokens</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02punctuators.htm#HDRPUNCTUATORS"><img src="tocView_data/container_obj.gif" alt="">Punctuators</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02alternative_tokens.htm#HDRALTERNATIVE_TOKENS"><img src="tocView_data/topic.gif" alt="">Alternative Tokens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02charset.htm#HDRCHARSET"><img src="tocView_data/container_obj.gif" alt="">Source Program Character Set</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02escape.htm#HDRESCAPE"><img src="tocView_data/topic.gif" alt="">Escape Sequences</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02unicode_standard.htm#HDRUNICODE_STANDARD"><img src="tocView_data/topic.gif" alt="">The Unicode Standard</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02trigraf.htm#HDRTRIGRAF"><img src="tocView_data/topic.gif" alt="">Trigraph Sequences</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02multibyte_characters.htm#HDRMULTIBYTE_CHARACTERS"><img src="tocView_data/topic.gif" alt="">Multibyte Characters</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02com.htm#HDRCOM"><img src="tocView_data/topic.gif" alt="">Comments</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02ident.htm#HDRIDENT"><img src="tocView_data/container_obj.gif" alt="">Identifiers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02reserved_identifiers.htm#HDRRESERVED_IDENTIFIERS"><img src="tocView_data/topic.gif" alt="">Reserved Identifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02spechar.htm#HDRSPECHAR"><img src="tocView_data/topic.gif" alt="">Case Sensitivity and Special Characters in Identifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02predefined_identifiers.htm#HDRPREDEFINED_IDENTIFIERS"><img src="tocView_data/topic.gif" alt="">Predefined Identifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02keyw.htm#HDRKEYW"><img src="tocView_data/container_obj.gif" alt="">Keywords</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02keyw.htm"><img src="tocView_data/topic.gif" alt="">Keywords for Language Extensions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02alt_repr_ops_puncts.htm#HDRALT_REPR_OPS_PUNCTS"><img src="tocView_data/topic.gif" alt="">Alternative Representations of Operators and Punctuators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02conref.htm#HDRCONREF"><img src="tocView_data/container_obj.gif" alt="">Literals</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02boolean_literals.htm#HDRBOOLEAN_LITERALS"><img src="tocView_data/topic.gif" alt="">Boolean Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02ic.htm#HDRIC"><img src="tocView_data/container_obj.gif" alt="">Integer Literals</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02deccon.htm#HDRDECCON"><img src="tocView_data/topic.gif" alt="">Decimal Integer Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02hexcon.htm#HDRHEXCON"><img src="tocView_data/topic.gif" alt="">Hexadecimal Integer Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02octcon.htm#HDROCTCON"><img src="tocView_data/topic.gif" alt="">Octal Integer Literals</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02fc.htm#HDRFC"><img src="tocView_data/container_obj.gif" alt="">Floating-Point Literals</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02hex_float_constants.htm#HDRHEX_FLOAT_CONSTANTS"><img src="tocView_data/topic.gif" alt="">Hexadecimal Floating Constants</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02ccon.htm#HDRCCON"><img src="tocView_data/topic.gif" alt="">Character Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02stricn.htm#HDRSTRICN"><img src="tocView_data/topic.gif" alt="">String Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02compound_literals.htm#HDRCOMPOUND_LITERALS"><img src="tocView_data/topic.gif" alt="">Compound Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc02av_literals.htm#HDRAV_LITERALS"><img src="tocView_data/topic.gif" alt="">Vector Literals</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03stcls.htm#HDRSTCLS"><img src="tocView_data/container_obj.gif" alt="">Declarations</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03dclover.htm#HDRDCLOVER"><img src="tocView_data/container_obj.gif" alt="">Declaration Overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03variable_attrib_declaration.htm#HDRVARIABLE_ATTRIB_DECLARATION"><img src="tocView_data/container_obj.gif" alt="">Variable Attributes</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_aligned.htm#HDRVAR_ATTRIB_ALIGNED"><img src="tocView_data/topic.gif" alt="">The aligned Variable Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_init_priority.htm#HDRVAR_ATTRIB_INIT_PRIORITY"><img src="tocView_data/topic.gif" alt="">The init_priority Variable Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_mode.htm#HDRVAR_ATTRIB_MODE"><img src="tocView_data/topic.gif" alt="">The mode Variable Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_nocommon.htm#HDRVAR_ATTRIB_NOCOMMON"><img src="tocView_data/topic.gif" alt="">The nocommon Variable Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_packed.htm#HDRVAR_ATTRIB_PACKED"><img src="tocView_data/topic.gif" alt="">The packed Variable Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03var_attrib_section.htm"><img src="tocView_data/topic.gif" alt="">The section Variable Attribute</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03align_specifier.htm#HDRALIGN_SPECIFIER"><img src="tocView_data/topic.gif" alt="">The __align Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03tentative_defn.htm#HDRTENTATIVE_DEFN"><img src="tocView_data/topic.gif" alt="">Tentative Definitions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr172.htm#HDRCPLR172"><img src="tocView_data/topic.gif" alt="">Objects</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03sc03.htm#HDRSC03"><img src="tocView_data/container_obj.gif" alt="">Storage Class Specifiers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03autdef.htm#HDRAUTDEF"><img src="tocView_data/topic.gif" alt="">auto Storage Class Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03extsc.htm#HDREXTSC"><img src="tocView_data/topic.gif" alt="">extern Storage Class Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03mutable_storage_class_specifier.htm#HDRMUTABLE_STORAGE_CLASS_SPECIFIER"><img src="tocView_data/topic.gif" alt="">mutable Storage Class Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03regdef.htm#HDRREGDEF"><img src="tocView_data/topic.gif" alt="">register Storage Class Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03statdef.htm#HDRSTATDEF"><img src="tocView_data/topic.gif" alt="">static Storage Class Specifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03typdef.htm#HDRTYPDEF"><img src="tocView_data/topic.gif" alt="">typedef</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03prmdata.htm#HDRPRMDATA"><img src="tocView_data/container_obj.gif" alt="">Type Specifiers</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03type_names.htm#HDRTYPE_NAMES"><img src="tocView_data/topic.gif" alt="">Type Names</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03type_attributes.htm#HDRTYPE_ATTRIBUTES"><img src="tocView_data/topic.gif" alt="">Type Attributes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03compatible_types.htm#HDRCOMPATIBLE_TYPES"><img src="tocView_data/topic.gif" alt="">Compatible Types</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03simple_type_specifiers.htm#HDRSIMPLE_TYPE_SPECIFIERS"><img src="tocView_data/container_obj.gif" alt="">Simple Type Specifiers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03boolean_variables.htm#HDRBOOLEAN_VARIABLES"><img src="tocView_data/topic.gif" alt="">Boolean Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ch.htm#HDRCH"><img src="tocView_data/container_obj.gif" alt="">char and wchar_t Type Specifiers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ch.htm"><img src="tocView_data/topic.gif" alt="">The wchar_t Type Specifier</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03fltvar.htm#HDRFLTVAR"><img src="tocView_data/topic.gif" alt="">Floating-Point Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03intvar.htm#HDRINTVAR"><img src="tocView_data/topic.gif" alt="">Integer Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03voidt.htm#HDRVOIDT"><img src="tocView_data/topic.gif" alt="">void Type</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03compound_types.htm#HDRCOMPOUND_TYPES"><img src="tocView_data/container_obj.gif" alt="">Compound Types</a><ul class="expanded">
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03strct.htm#HDRSTRCT"><img src="tocView_data/container_obj.gif" alt="">Structures</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defst.htm#HDRDEFST"><img src="tocView_data/topic.gif" alt="">Declaring and Defining a Structure</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defvst.htm#HDRDEFVST"><img src="tocView_data/topic.gif" alt="">Defining a Structure Variable</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03strin.htm#HDRSTRIN"><img src="tocView_data/topic.gif" alt="">Initializing Structures</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defstv.htm#HDRDEFSTV"><img src="tocView_data/topic.gif" alt="">Declaring Structure Types and Variables in the Same Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03aix_alignment_of_structures.htm#HDRAIX_ALIGNMENT_OF_STRUCTURES"><img src="tocView_data/topic.gif" alt="">Alignment of Structures</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a class="active" href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defbitf.htm#HDRDEFBITF"><img src="tocView_data/topic.gif" alt="">Declaring and Using Bit Fields in Structures</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03dstrtex.htm#HDRDSTRTEX"><img src="tocView_data/topic.gif" alt="">Example Program Using Structures</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03unions.htm#HDRUNIONS"><img src="tocView_data/container_obj.gif" alt="">Unions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defut.htm#HDRDEFUT"><img src="tocView_data/topic.gif" alt="">Declaring a Union</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defvut.htm#HDRDEFVUT"><img src="tocView_data/topic.gif" alt="">Defining a Union Variable</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr057.htm#HDRCPLR057"><img src="tocView_data/topic.gif" alt="">Anonymous Unions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03examples_unions.htm#HDREXAMPLES_UNIONS"><img src="tocView_data/topic.gif" alt="">Examples of Unions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03enumdec.htm#HDRENUMDEC"><img src="tocView_data/container_obj.gif" alt="">Enumerations</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defent.htm#HDRDEFENT"><img src="tocView_data/topic.gif" alt="">Declaring an Enumeration Data Type</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ec.htm#HDREC"><img src="tocView_data/topic.gif" alt="">Enumeration Constants</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defvent.htm#HDRDEFVENT"><img src="tocView_data/topic.gif" alt="">Defining Enumeration Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03defetv.htm#HDRDEFETV"><img src="tocView_data/topic.gif" alt="">Defining an Enumeration Type and Enumeration Objects</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03enumprg.htm#HDRENUMPRG"><img src="tocView_data/topic.gif" alt="">Example Program Using Enumerations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03complex_types.htm#HDRCOMPLEX_TYPES"><img src="tocView_data/topic.gif" alt="">Complex Types</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cv_qualifiers.htm#HDRCV_QUALIFIERS"><img src="tocView_data/topic.gif" alt="">Type Qualifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03const_cv_qualifier.htm#HDRCONST_CV_QUALIFIER"><img src="tocView_data/topic.gif" alt="">The const Type Qualifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03volatile_type_qualifier.htm#HDRVOLATILE_TYPE_QUALIFIER"><img src="tocView_data/topic.gif" alt="">The volatile Type Qualifier</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03restrict_type_qualifier.htm#HDRRESTRICT_TYPE_QUALIFIER"><img src="tocView_data/topic.gif" alt="">The restrict Type Qualifier</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03asm.htm#HDRASM"><img src="tocView_data/topic.gif" alt="">The asm Declaration</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03incotyp.htm#HDRINCOTYP"><img src="tocView_data/topic.gif" alt="">Incomplete Types</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03altivec_types.htm#HDRALTIVEC_TYPES"><img src="tocView_data/topic.gif" alt="">AltiVec Types</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03declrts.htm#HDRDECLRTS"><img src="tocView_data/container_obj.gif" alt="">Declarators</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03initdcl.htm#HDRINITDCL"><img src="tocView_data/topic.gif" alt="">Initializers</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ptrdec.htm#HDRPTRDEC"><img src="tocView_data/container_obj.gif" alt="">Pointers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ptrdcl.htm#HDRPTRDCL"><img src="tocView_data/topic.gif" alt="">Declaring Pointers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03agnptr.htm#HDRAGNPTR"><img src="tocView_data/topic.gif" alt="">Assigning Pointers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03iniptr.htm#HDRINIPTR"><img src="tocView_data/topic.gif" alt="">Initializing Pointers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03usptr.htm#HDRUSPTR"><img src="tocView_data/topic.gif" alt="">Using Pointers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ptarith.htm#HDRPTARITH"><img src="tocView_data/topic.gif" alt="">Pointer Arithmetic</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03example_prog_pointers.htm#HDREXAMPLE_PROG_POINTERS"><img src="tocView_data/topic.gif" alt="">Example Program Using Pointers</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ary.htm#HDRARY"><img src="tocView_data/container_obj.gif" alt="">Arrays</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03arydcl.htm#HDRARYDCL"><img src="tocView_data/container_obj.gif" alt="">Declaring Arrays</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03variable_length_arrays.htm#HDRVARIABLE_LENGTH_ARRAYS"><img src="tocView_data/topic.gif" alt="">Variable Length Arrays</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03aryin.htm#HDRARYIN"><img src="tocView_data/container_obj.gif" alt="">Initializing Arrays</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03init_arrays_using_designators.htm#HDRINIT_ARRAYS_USING_DESIGNATORS"><img src="tocView_data/topic.gif" alt="">Initializing Arrays Using Designated Initializers</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03aryex.htm#HDRARYEX"><img src="tocView_data/topic.gif" alt="">Example Programs Using Arrays</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr099.htm#HDRCPLR099"><img src="tocView_data/topic.gif" alt="">Function Specifiers</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr110.htm#HDRCPLR110"><img src="tocView_data/container_obj.gif" alt="">References</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr116.htm#HDRCPLR116"><img src="tocView_data/topic.gif" alt="">Initializing References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05expaop.htm#HDREXPAOP"><img src="tocView_data/container_obj.gif" alt="">Expressions and Operators</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05preeval.htm#HDRPREEVAL"><img src="tocView_data/container_obj.gif" alt="">Operator Precedence and Associativity</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05exampl_of_exprs_and_precedence.htm#HDREXAMPL_OF_EXPRS_AND_PRECEDENCE"><img src="tocView_data/topic.gif" alt="">Examples of Expressions and Precedence</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05lvalue.htm#HDRLVALUE"><img src="tocView_data/topic.gif" alt="">Lvalues and Rvalues</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05primary_expressions.htm#HDRPRIMARY_EXPRESSIONS"><img src="tocView_data/container_obj.gif" alt="">Primary Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05id_expressions.htm#HDRID_EXPRESSIONS"><img src="tocView_data/topic.gif" alt="">Identifier Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05conexp.htm#HDRCONEXP"><img src="tocView_data/topic.gif" alt="">Integer Constant Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05peparen.htm#HDRPEPAREN"><img src="tocView_data/topic.gif" alt="">Parenthesized Expressions ( )</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr175.htm#HDRCPLR175"><img src="tocView_data/topic.gif" alt="">C++ Scope Resolution Operator ::</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05postfix_expressions.htm#HDRPOSTFIX_EXPRESSIONS"><img src="tocView_data/container_obj.gif" alt="">Postfix Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05funcall.htm#HDRFUNCALL"><img src="tocView_data/topic.gif" alt="">Function Call Operator ( )</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05arsubex.htm#HDRARSUBEX"><img src="tocView_data/topic.gif" alt="">Array Subscripting Operator [ ]</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr184.htm#HDRCPLR184"><img src="tocView_data/topic.gif" alt="">Dot Operator .</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr185.htm#HDRCPLR185"><img src="tocView_data/topic.gif" alt="">Arrow Operator -&gt;</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05the_typeid_operator.htm#HDRTHE_TYPEID_OPERATOR"><img src="tocView_data/topic.gif" alt="">The typeid Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05keyword_static_cast.htm#HDRKEYWORD_STATIC_CAST"><img src="tocView_data/topic.gif" alt="">static_cast Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05keyword_reinterpret_cast.htm#HDRKEYWORD_REINTERPRET_CAST"><img src="tocView_data/topic.gif" alt="">reinterpret_cast Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05keyword_const_cast.htm#HDRKEYWORD_CONST_CAST"><img src="tocView_data/topic.gif" alt="">const_cast Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05keyword_dynamic_cast.htm#HDRKEYWORD_DYNAMIC_CAST"><img src="tocView_data/topic.gif" alt="">dynamic_cast Operator</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05uexpres.htm#HDRUEXPRES"><img src="tocView_data/container_obj.gif" alt="">Unary Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05incex.htm#HDRINCEX"><img src="tocView_data/topic.gif" alt="">Increment  ++</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05decex.htm#HDRDECEX"><img src="tocView_data/topic.gif" alt="">Decrement  --</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05artaddi.htm#HDRARTADDI"><img src="tocView_data/topic.gif" alt="">Unary Plus  +</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05artnege.htm#HDRARTNEGE"><img src="tocView_data/topic.gif" alt="">Unary Minus  -</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05lognege.htm#HDRLOGNEGE"><img src="tocView_data/topic.gif" alt="">Logical Negation  !</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05bitnege.htm#HDRBITNEGE"><img src="tocView_data/topic.gif" alt="">Bitwise Negation  ~</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05addre.htm#HDRADDRE"><img src="tocView_data/topic.gif" alt="">Address  &amp;</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05inde.htm#HDRINDE"><img src="tocView_data/topic.gif" alt="">Indirection  *</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05alignof.htm#HDRALIGNOF"><img src="tocView_data/topic.gif" alt="">alignof Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05szofe.htm#HDRSZOFE"><img src="tocView_data/topic.gif" alt="">sizeof Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05typeof_operator.htm#HDRTYPEOF_OPERATOR"><img src="tocView_data/topic.gif" alt="">typeof Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05label_value_operator.htm#HDRLABEL_VALUE_OPERATOR"><img src="tocView_data/topic.gif" alt="">Label Value Operator  &amp;&amp;</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr199.htm#HDRCPLR199"><img src="tocView_data/container_obj.gif" alt="">C++ new Operator</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr201.htm#HDRCPLR201"><img src="tocView_data/topic.gif" alt="">Initializing Objects Created with the new Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05snewhnd.htm#HDRSNEWHND"><img src="tocView_data/topic.gif" alt="">set_new_handler() -- Set Behavior for new Failure</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr202.htm#HDRCPLR202"><img src="tocView_data/topic.gif" alt="">C++ delete Operator</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr188.htm#HDRCPLR188"><img src="tocView_data/topic.gif" alt="">Cast Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05binops.htm#HDRBINOPS"><img src="tocView_data/container_obj.gif" alt="">Binary Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05multe.htm#HDRMULTE"><img src="tocView_data/topic.gif" alt="">Multiplication  *</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05dive.htm#HDRDIVE"><img src="tocView_data/topic.gif" alt="">Division  /</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05mode.htm#HDRMODE"><img src="tocView_data/topic.gif" alt="">Remainder  %</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05addop9.htm#HDRADDOP9"><img src="tocView_data/topic.gif" alt="">Addition  +</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05subtrac.htm#HDRSUBTRAC"><img src="tocView_data/topic.gif" alt="">Subtraction  -</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05bitshe.htm#HDRBITSHE"><img src="tocView_data/topic.gif" alt="">Bitwise Left and Right Shift  &lt;&lt; &gt;&gt;</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05rele.htm#HDRRELE"><img src="tocView_data/topic.gif" alt="">Relational  &lt;  &gt;  &lt;= &gt;=</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05eqle.htm#HDREQLE"><img src="tocView_data/topic.gif" alt="">Equality  ==  !=</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05bitande.htm#HDRBITANDE"><img src="tocView_data/topic.gif" alt="">Bitwise AND  &amp;</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05biteore.htm#HDRBITEORE"><img src="tocView_data/topic.gif" alt="">Bitwise Exclusive OR  ^</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05bitiore.htm#HDRBITIORE"><img src="tocView_data/topic.gif" alt="">Bitwise Inclusive OR  |</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05logande.htm#HDRLOGANDE"><img src="tocView_data/topic.gif" alt="">Logical AND  &amp;&amp;</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05logore.htm#HDRLOGORE"><img src="tocView_data/topic.gif" alt="">Logical OR  ||</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr205.htm#HDRCPLR205"><img src="tocView_data/topic.gif" alt="">C++ Pointer to Member Operators .* -&gt;*</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cond.htm#HDRCOND"><img src="tocView_data/container_obj.gif" alt="">Conditional Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05type_of_conditional_c_exprs.htm#HDRTYPE_OF_CONDITIONAL_C_EXPRS"><img src="tocView_data/topic.gif" alt="">Type of Conditional C Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05type_of_conditional_cpp_expr.htm#HDRTYPE_OF_CONDITIONAL_CPP_EXPR"><img src="tocView_data/topic.gif" alt="">Type of Conditional C++ Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05examples_of_conditional_exprs.htm#HDREXAMPLES_OF_CONDITIONAL_EXPRS"><img src="tocView_data/topic.gif" alt="">Examples of Conditional Expressions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05aso.htm#HDRASO"><img src="tocView_data/container_obj.gif" alt="">Assignment Expressions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05simasse.htm#HDRSIMASSE"><img src="tocView_data/topic.gif" alt="">Simple Assignment  =</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05comasse.htm#HDRCOMASSE"><img src="tocView_data/topic.gif" alt="">Compound Assignment</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05co.htm#HDRCO"><img src="tocView_data/topic.gif" alt="">Comma Expressions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05cplr203.htm#HDRCPLR203"><img src="tocView_data/topic.gif" alt="">C++ throw Expressions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06convns.htm#HDRCONVNS"><img src="tocView_data/container_obj.gif" alt="">Implicit Type Conversions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr066.htm#HDRCPLR066"><img src="tocView_data/topic.gif" alt="">Integral and Floating-Point Promotions</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr067.htm#HDRCPLR067"><img src="tocView_data/container_obj.gif" alt="">Standard Type Conversions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06lvalue_to_rvalue.htm#HDRLVALUE_TO_RVALUE"><img src="tocView_data/topic.gif" alt="">Lvalue-to-Rvalue Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06boolean_conversions.htm#HDRBOOLEAN_CONVERSIONS"><img src="tocView_data/topic.gif" alt="">Boolean Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr068.htm#HDRCPLR068"><img src="tocView_data/topic.gif" alt="">Integral Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr070.htm#HDRCPLR070"><img src="tocView_data/topic.gif" alt="">Floating-Point Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06ptrconv.htm#HDRPTRCONV"><img src="tocView_data/topic.gif" alt="">Pointer Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr072.htm#HDRCPLR072"><img src="tocView_data/topic.gif" alt="">Reference Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr073.htm#HDRCPLR073"><img src="tocView_data/topic.gif" alt="">Pointer-to-Member Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06qualification_conversions.htm#HDRQUALIFICATION_CONVERSIONS"><img src="tocView_data/topic.gif" alt="">Qualification Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06funcarg.htm#HDRFUNCARG"><img src="tocView_data/topic.gif" alt="">Function Argument Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06cplr074.htm#HDRCPLR074"><img src="tocView_data/topic.gif" alt="">Other Conversions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06uac.htm#HDRUAC"><img src="tocView_data/topic.gif" alt="">Arithmetic Conversions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc06explicit_keyword.htm#HDREXPLICIT_KEYWORD"><img src="tocView_data/topic.gif" alt="">The explicit Keyword</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fnct.htm"><img src="tocView_data/container_obj.gif" alt="">Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr219.htm#HDRCPLR219"><img src="tocView_data/topic.gif" alt="">C++ Enhancements to C Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fundec.htm#HDRFUNDEC"><img src="tocView_data/container_obj.gif" alt="">Function Declarations</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cpfdcl.htm#HDRCPFDCL"><img src="tocView_data/container_obj.gif" alt="">C++ Function Declarations</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr222.htm#HDRCPLR222"><img src="tocView_data/topic.gif" alt="">Multiple Function Declarations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr224.htm#HDRCPLR224"><img src="tocView_data/topic.gif" alt="">Parameter Names in Function Declarations</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07function_attributes.htm#HDRFUNCTION_ATTRIBUTES"><img src="tocView_data/container_obj.gif" alt="">Function Attributes</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fn_attrib_const.htm#HDRFN_ATTRIB_CONST"><img src="tocView_data/topic.gif" alt="">The const Function Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fn_attrib_noreturn.htm#HDRFN_ATTRIB_NORETURN"><img src="tocView_data/topic.gif" alt="">The noreturn Function Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fn_attrib_pure.htm#HDRFN_ATTRIB_PURE"><img src="tocView_data/topic.gif" alt="">The pure Function Attribute</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fn_attrib_section.htm#HDRFN_ATTRIB_SECTION"><img src="tocView_data/topic.gif" alt="">The section Function Attribute</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07examples_function_decl.htm#HDREXAMPLES_FUNCTION_DECL"><img src="tocView_data/topic.gif" alt="">Examples of Function Declarations</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07funcdef.htm#HDRFUNCDEF"><img src="tocView_data/container_obj.gif" alt="">Function Definitions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07ellpvd.htm#HDRELLPVD"><img src="tocView_data/topic.gif" alt="">Ellipsis and void</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07fdecex.htm#HDRFDECEX"><img src="tocView_data/topic.gif" alt="">Examples of Function Definitions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07mainf.htm#HDRMAINF"><img src="tocView_data/container_obj.gif" alt="">The main() Function</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07mainarg.htm#HDRMAINARG"><img src="tocView_data/topic.gif" alt="">Arguments to main</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07argcvex.htm#HDRARGCVEX"><img src="tocView_data/topic.gif" alt="">Example of Arguments to main</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cfpv.htm#HDRCFPV"><img src="tocView_data/container_obj.gif" alt="">Calling Functions and Passing Arguments</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07examples_calling_functions.htm#HDREXAMPLES_CALLING_FUNCTIONS"><img src="tocView_data/topic.gif" alt="">Passing Arguments by Value</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr233.htm#HDRCPLR233"><img src="tocView_data/topic.gif" alt="">Passing Arguments by Reference</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr237.htm#HDRCPLR237"><img src="tocView_data/container_obj.gif" alt="">Default Arguments in C++ Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr238.htm#HDRCPLR238"><img src="tocView_data/topic.gif" alt="">Restrictions on Default Arguments</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr239.htm#HDRCPLR239"><img src="tocView_data/topic.gif" alt="">Evaluating Default Arguments</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr240.htm#HDRCPLR240"><img src="tocView_data/container_obj.gif" alt="">Function Return Values</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr241.htm#HDRCPLR241"><img src="tocView_data/topic.gif" alt="">Using References as Return Types</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07allocation_and_deallocation.htm#HDRALLOCATION_AND_DEALLOCATION"><img src="tocView_data/topic.gif" alt="">Allocation and Deallocation Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr242.htm#HDRCPLR242"><img src="tocView_data/topic.gif" alt="">Pointers to Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc07cplr243.htm#HDRCPLR243"><img src="tocView_data/topic.gif" alt="">Inline Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08dirst.htm#HDRDIRST"><img src="tocView_data/container_obj.gif" alt="">Statements</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08labels.htm#HDRLABELS"><img src="tocView_data/container_obj.gif" alt="">Labels</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08locally_declared_labels.htm#HDRLOCALLY_DECLARED_LABELS"><img src="tocView_data/topic.gif" alt="">Locally Declared Labels</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08labels_as_values.htm#HDRLABELS_AS_VALUES"><img src="tocView_data/topic.gif" alt="">Labels as Values</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08xprssn.htm#HDRXPRSSN"><img src="tocView_data/container_obj.gif" alt="">Expression Statements</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08cplr403.htm#HDRCPLR403"><img src="tocView_data/topic.gif" alt="">Resolving Ambiguous Statements in C++</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08csor.htm#HDRCSOR"><img src="tocView_data/container_obj.gif" alt="">Block Statement</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08statement_expressions.htm#HDRSTATEMENT_EXPRESSIONS"><img src="tocView_data/topic.gif" alt="">Statement Expressions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08is.htm#HDRIS"><img src="tocView_data/topic.gif" alt="">if Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08ssits.htm#HDRSSITS"><img src="tocView_data/topic.gif" alt="">switch Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08ws.htm#HDRWS"><img src="tocView_data/topic.gif" alt="">while Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08do_statement.htm#HDRDO"><img src="tocView_data/topic.gif" alt="">do Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08fs.htm#HDRFS"><img src="tocView_data/topic.gif" alt="">for Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08bs.htm#HDRBS"><img src="tocView_data/topic.gif" alt="">break Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08contin.htm#HDRCONTIN"><img src="tocView_data/topic.gif" alt="">continue Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08rs.htm#HDRRS"><img src="tocView_data/container_obj.gif" alt="">return Statement</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08value_return_function.htm#HDRVALUE_RETURN_FUNCTION"><img src="tocView_data/topic.gif" alt="">Value of a return Expression and Function Value</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08gsals.htm#HDRGSALS"><img src="tocView_data/topic.gif" alt="">goto Statement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc08ns.htm#HDRNS"><img src="tocView_data/topic.gif" alt="">Null Statement</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pcl.htm#HDRPCL"><img src="tocView_data/container_obj.gif" alt="">Preprocessor Directives</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09prepovr.htm#HDRPREPOVR"><img src="tocView_data/topic.gif" alt="">Preprocessor Overview</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09ppsform.htm#HDRPPSFORM"><img src="tocView_data/topic.gif" alt="">Preprocessor Directive Format</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09define.htm#HDRDEFINE"><img src="tocView_data/container_obj.gif" alt="">Macro Definition and Expansion (#define)</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09smpmac.htm#HDRSMPMAC"><img src="tocView_data/topic.gif" alt="">Object-Like Macros</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09cpxmac.htm#HDRCPXMAC"><img src="tocView_data/topic.gif" alt="">Function-Like Macros</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pundef.htm#HDRPUNDEF"><img src="tocView_data/topic.gif" alt="">Scope of Macro Names (#undef)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09num.htm#HDRNUM"><img src="tocView_data/topic.gif" alt=""># Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09numnum.htm#HDRNUMNUM"><img src="tocView_data/topic.gif" alt="">Macro Concatenation with the ## Operator</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09error.htm#HDRERROR"><img src="tocView_data/container_obj.gif" alt="">Preprocessor Error Directive (#error)</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09war_directive.htm#HDRWAR_DIRECTIVE"><img src="tocView_data/topic.gif" alt="">Preprocessor Warning Directive (#warning)</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09fi.htm#HDRFI"><img src="tocView_data/topic.gif" alt="">File Inclusion (#include)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09include_next.htm#HDRINCLUDE_NEXT"><img src="tocView_data/topic.gif" alt="">Specialized File Inclusion (#include_next)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09cplr367.htm#HDRCPLR367"><img src="tocView_data/topic.gif" alt="">ISO Standard Predefined Macro Names</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pcond.htm#HDRPCOND"><img src="tocView_data/container_obj.gif" alt="">Conditional Compilation Directives</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pif.htm#HDRPIF"><img src="tocView_data/topic.gif" alt="">#if, #elif</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pifdef.htm#HDRPIFDEF"><img src="tocView_data/topic.gif" alt="">#ifdef</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pifndef.htm#HDRPIFNDEF"><img src="tocView_data/topic.gif" alt="">#ifndef</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pelse.htm#HDRPELSE"><img src="tocView_data/topic.gif" alt="">#else</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pendif.htm#HDRPENDIF"><img src="tocView_data/topic.gif" alt="">#endif</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09conddex.htm#HDRCONDDEX"><img src="tocView_data/topic.gif" alt="">Examples of Conditional Compilation Directives</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09lc.htm#HDRLC"><img src="tocView_data/topic.gif" alt="">Line Control (#line)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09ppns.htm#HDRPPNS"><img src="tocView_data/topic.gif" alt="">Null Directive (#)</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pragma.htm#HDRPRAGMA"><img src="tocView_data/container_obj.gif" alt="">Pragma Directives (#pragma)</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09std_pragmas.htm#HDRSTD_PRAGMAS"><img src="tocView_data/topic.gif" alt="">Standard Pragmas</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc09pragma_operator.htm#HDRPRAGMA_OPERATOR"><img src="tocView_data/topic.gif" alt="">The _Pragma Operator</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10namespace.htm#HDRNAMESPACE"><img src="tocView_data/container_obj.gif" alt="">Namespaces</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10defining_namespaces.htm#HDRDEFINING_NAMESPACES"><img src="tocView_data/topic.gif" alt="">Defining Namespaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10declaring_namespaces.htm#HDRDECLARING_NAMESPACES"><img src="tocView_data/topic.gif" alt="">Declaring Namespaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10creating_a_namespace_alias.htm#HDRCREATING_A_NAMESPACE_ALIAS"><img src="tocView_data/topic.gif" alt="">Creating a Namespace Alias</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10alias_for_a_nested_namespace.htm#HDRALIAS_FOR_A_NESTED_NAMESPACE"><img src="tocView_data/topic.gif" alt="">Creating an Alias for a Nested Namespace</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10extending_namespaces.htm#HDREXTENDING_NAMESPACES"><img src="tocView_data/topic.gif" alt="">Extending Namespaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10namespaces_and_overloading.htm#HDRNAMESPACES_AND_OVERLOADING"><img src="tocView_data/topic.gif" alt="">Namespaces and Overloading</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10unnamed_namespaces.htm#HDRUNNAMED_NAMESPACES"><img src="tocView_data/topic.gif" alt="">Unnamed Namespaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10namespace_member_definitions.htm#HDRNAMESPACE_MEMBER_DEFINITIONS"><img src="tocView_data/topic.gif" alt="">Namespace Member Definitions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10namespaces_and_friends.htm#HDRNAMESPACES_AND_FRIENDS"><img src="tocView_data/topic.gif" alt="">Namespaces and Friends</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10using_directive.htm#HDRUSING_DIRECTIVE"><img src="tocView_data/topic.gif" alt="">Using Directive</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10using_declaration.htm#HDRUSING_DECLARATION"><img src="tocView_data/topic.gif" alt="">The using Declaration and Namespaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc10explicit_access.htm#HDREXPLICIT_ACCESS"><img src="tocView_data/topic.gif" alt="">Explicit Access</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11overl.htm#HDROVERL"><img src="tocView_data/container_obj.gif" alt="">Overloading</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr312.htm#HDRCPLR312"><img src="tocView_data/container_obj.gif" alt="">Overloading Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr314.htm#HDRCPLR314"><img src="tocView_data/topic.gif" alt="">Restrictions on Overloaded Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr318.htm#HDRCPLR318"><img src="tocView_data/container_obj.gif" alt="">Overloading Operators</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr323.htm#HDRCPLR323"><img src="tocView_data/topic.gif" alt="">Overloading Unary Operators</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr330.htm#HDRCPLR330"><img src="tocView_data/topic.gif" alt="">Overloading Increment and Decrement</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr324.htm#HDRCPLR324"><img src="tocView_data/topic.gif" alt="">Overloading Binary Operators</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr326.htm#HDRCPLR326"><img src="tocView_data/topic.gif" alt="">Overloading Assignments</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr327.htm#HDRCPLR327"><img src="tocView_data/topic.gif" alt="">Overloading Function Calls</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr328.htm#HDRCPLR328"><img src="tocView_data/topic.gif" alt="">Overloading Subscripting</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr329.htm#HDRCPLR329"><img src="tocView_data/topic.gif" alt="">Overloading Class Member Access</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11cplr315.htm#HDRCPLR315"><img src="tocView_data/container_obj.gif" alt="">Overload Resolution</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11implicit_conversion_sequences.htm#HDRIMPLICIT_CONVERSION_SEQUENCES"><img src="tocView_data/topic.gif" alt="">Implicit Conversion Sequences</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc11address_overload_function.htm#HDRADDRESS_OVERLOAD_FUNCTION"><img src="tocView_data/topic.gif" alt="">Resolving Addresses of Overloaded Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12class.htm"><img src="tocView_data/container_obj.gif" alt="">Classes</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr058.htm#HDRCPLR058"><img src="tocView_data/container_obj.gif" alt="">Declaring Class Types</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12useclas.htm#HDRUSECLAS"><img src="tocView_data/topic.gif" alt="">Using Class Objects</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr054.htm#HDRCPLR054"><img src="tocView_data/topic.gif" alt="">Classes and Structures</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr059.htm#HDRCPLR059"><img src="tocView_data/topic.gif" alt="">Scope of Class Names</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr060.htm#HDRCPLR060"><img src="tocView_data/topic.gif" alt="">Incomplete Class Declarations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr061.htm#HDRCPLR061"><img src="tocView_data/topic.gif" alt="">Nested Classes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr062.htm#HDRCPLR062"><img src="tocView_data/topic.gif" alt="">Local Classes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc12cplr063.htm#HDRCPLR063"><img src="tocView_data/topic.gif" alt="">Local Type Names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cmemb.htm#HDRCMEMB"><img src="tocView_data/container_obj.gif" alt="">Class Members and Friends</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr022.htm#HDRCPLR022"><img src="tocView_data/topic.gif" alt="">Class Member Lists</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr024.htm#HDRCPLR024"><img src="tocView_data/topic.gif" alt="">Data Members</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr027.htm#HDRCPLR027"><img src="tocView_data/container_obj.gif" alt="">Member Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr028.htm#HDRCPLR028"><img src="tocView_data/topic.gif" alt="">const and volatile Member Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr029.htm#HDRCPLR029"><img src="tocView_data/topic.gif" alt="">Virtual Member Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr030.htm#HDRCPLR030"><img src="tocView_data/topic.gif" alt="">Special Member Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr033.htm#HDRCPLR033"><img src="tocView_data/topic.gif" alt="">Member Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr034.htm#HDRCPLR034"><img src="tocView_data/topic.gif" alt="">Pointers to Members</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr035.htm#HDRCPLR035"><img src="tocView_data/topic.gif" alt="">The this Pointer</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr036.htm#HDRCPLR036"><img src="tocView_data/container_obj.gif" alt="">Static Members</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr037.htm#HDRCPLR037"><img src="tocView_data/topic.gif" alt="">Using the Class Access Operators with Static Members</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr038.htm#HDRCPLR038"><img src="tocView_data/topic.gif" alt="">Static Data Members</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr039.htm#HDRCPLR039"><img src="tocView_data/topic.gif" alt="">Static Member Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr040.htm#HDRCPLR040"><img src="tocView_data/topic.gif" alt="">Member Access</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr042.htm#HDRCPLR042"><img src="tocView_data/container_obj.gif" alt="">Friends</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr043.htm#HDRCPLR043"><img src="tocView_data/topic.gif" alt="">Friend Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc13cplr044.htm#HDRCPLR044"><img src="tocView_data/topic.gif" alt="">Friend Access</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14inher.htm#HDRINHER"><img src="tocView_data/container_obj.gif" alt="">Inheritance</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr126.htm#HDRCPLR126"><img src="tocView_data/topic.gif" alt="">Derivation</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr128.htm#HDRCPLR128"><img src="tocView_data/container_obj.gif" alt="">Inherited Member Access</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr129.htm#HDRCPLR129"><img src="tocView_data/topic.gif" alt="">Protected Members</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr130.htm#HDRCPLR130"><img src="tocView_data/topic.gif" alt="">Access Control of Base Class Members</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14using_declaration_class_members.htm#HDRUSING_DECLARATION_CLASS_MEMBERS"><img src="tocView_data/container_obj.gif" alt="">The using Declaration and Class Members</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14overload_member_fn_base_derived.htm#HDROVERLOAD_MEMBER_FN_BASE_DERIVED"><img src="tocView_data/topic.gif" alt="">Overloading Member Functions from Base and Derived Classes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14change_access_class_member.htm#HDRCHANGE_ACCESS_CLASS_MEMBER"><img src="tocView_data/topic.gif" alt="">Changing the Access of a Class Member</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr134.htm#HDRCPLR134"><img src="tocView_data/container_obj.gif" alt="">Multiple Inheritance</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr135.htm#HDRCPLR135"><img src="tocView_data/topic.gif" alt="">Virtual Base Classes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr136.htm#HDRCPLR136"><img src="tocView_data/topic.gif" alt="">Multiple Access</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr138.htm#HDRCPLR138"><img src="tocView_data/topic.gif" alt="">Ambiguous Base Classes</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr139.htm#HDRCPLR139"><img src="tocView_data/container_obj.gif" alt="">Virtual Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr140.htm#HDRCPLR140"><img src="tocView_data/topic.gif" alt="">Ambiguous Virtual Function Calls</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr141.htm#HDRCPLR141"><img src="tocView_data/topic.gif" alt="">Virtual Function Access</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc14cplr142.htm#HDRCPLR142"><img src="tocView_data/topic.gif" alt="">Abstract Classes</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15spmfn.htm#HDRSPMFN"><img src="tocView_data/container_obj.gif" alt="">Special Member Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr374.htm#HDRCPLR374"><img src="tocView_data/topic.gif" alt="">Constructors and Destructors Overview</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr375.htm#HDRCPLR375"><img src="tocView_data/container_obj.gif" alt="">Constructors</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr376.htm#HDRCPLR376"><img src="tocView_data/topic.gif" alt="">Default Constructors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr387.htm#HDRCPLR387"><img src="tocView_data/topic.gif" alt="">Explicit Initialization with Constructors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr388.htm#HDRCPLR388"><img src="tocView_data/topic.gif" alt="">Initializing Base Classes and Members</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr389.htm#HDRCPLR389"><img src="tocView_data/topic.gif" alt="">Construction Order of Derived Class Objects</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr380.htm#HDRCPLR380"><img src="tocView_data/topic.gif" alt="">Destructors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr381.htm#HDRCPLR381"><img src="tocView_data/topic.gif" alt="">Free Store</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr382.htm#HDRCPLR382"><img src="tocView_data/topic.gif" alt="">Temporary Objects</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr383.htm#HDRCPLR383"><img src="tocView_data/container_obj.gif" alt="">User-Defined Conversions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr384.htm#HDRCPLR384"><img src="tocView_data/topic.gif" alt="">Conversion by Constructor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr385.htm#HDRCPLR385"><img src="tocView_data/topic.gif" alt="">Conversion Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr390.htm#HDRCPLR390"><img src="tocView_data/topic.gif" alt="">Copy Constructors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc15cplr392.htm#HDRCPLR392"><img src="tocView_data/topic.gif" alt="">Copy Assignment Operators</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16templates.htm#HDRTEMPLATES"><img src="tocView_data/container_obj.gif" alt="">Templates</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_parameters.htm#HDRTEMPLATE_PARAMETERS"><img src="tocView_data/container_obj.gif" alt="">Template Parameters</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16type_template_parameters.htm#HDRTYPE_TEMPLATE_PARAMETERS"><img src="tocView_data/topic.gif" alt="">Type Template Parameters</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16non-type_template_parameters.htm#HDRNON-TYPE_TEMPLATE_PARAMETERS"><img src="tocView_data/topic.gif" alt="">Non-Type Template Parameters</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_template_parameters.htm#HDRTEMPLATE_TEMPLATE_PARAMETERS"><img src="tocView_data/topic.gif" alt="">Template Template Parameters</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16default_args_for_templ_params.htm#HDRDEFAULT_ARGS_FOR_TEMPL_PARAMS"><img src="tocView_data/topic.gif" alt="">Default Arguments for Template Parameters</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_arguments.htm#HDRTEMPLATE_ARGUMENTS"><img src="tocView_data/container_obj.gif" alt="">Template Arguments</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_type_arguments.htm#HDRTEMPLATE_TYPE_ARGUMENTS"><img src="tocView_data/topic.gif" alt="">Template Type Arguments</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_non-type_arguments.htm#HDRTEMPLATE_NON-TYPE_ARGUMENTS"><img src="tocView_data/topic.gif" alt="">Template Non-Type Arguments</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_template_arguments.htm#HDRTEMPLATE_TEMPLATE_ARGUMENTS"><img src="tocView_data/topic.gif" alt="">Template Template Arguments</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16class_templates.htm#HDRCLASS_TEMPLATES"><img src="tocView_data/container_obj.gif" alt="">Class Templates</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16class_templ_decl_and_defn.htm#HDRCLASS_TEMPL_DECL_AND_DEFN"><img src="tocView_data/topic.gif" alt="">Class Template Declarations and Definitions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16static_data_members_and_templ.htm#HDRSTATIC_DATA_MEMBERS_AND_TEMPL"><img src="tocView_data/topic.gif" alt="">Static Data Members and Templates</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16member_function_templates.htm#HDRMEMBER_FUNCTION_TEMPLATES"><img src="tocView_data/topic.gif" alt="">Member Functions of Class Templates</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16friends_and_templates.htm#HDRFRIENDS_AND_TEMPLATES"><img src="tocView_data/topic.gif" alt="">Friends and Templates</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16function_templates.htm#HDRFUNCTION_TEMPLATES"><img src="tocView_data/container_obj.gif" alt="">Function Templates</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_argument_deduction.htm#HDRTEMPLATE_ARGUMENT_DEDUCTION"><img src="tocView_data/container_obj.gif" alt="">Template Argument Deduction</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16deducing_type_templ_param.htm#HDRDEDUCING_TYPE_TEMPL_PARAM"><img src="tocView_data/topic.gif" alt="">Deducing Type Template Arguments</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16deduct_non-type.htm#HDRDEDUCT_NON-TYPE"><img src="tocView_data/topic.gif" alt="">Deducing Non-Type Template Arguments</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16overloading_function_templates.htm#HDROVERLOADING_FUNCTION_TEMPLATES"><img src="tocView_data/topic.gif" alt="">Overloading Function Templates</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16partial_ordering_funct_templ.htm#HDRPARTIAL_ORDERING_FUNCT_TEMPL"><img src="tocView_data/topic.gif" alt="">Partial Ordering of Function Templates</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_instantiation.htm#HDRTEMPLATE_INSTANTIATION"><img src="tocView_data/container_obj.gif" alt="">Template Instantiation</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16implicit_instantiation.htm#HDRIMPLICIT_INSTANTIATION"><img src="tocView_data/topic.gif" alt="">Implicit Instantiation</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_instantiation.htm#HDREXPLICIT_INSTANTIATION"><img src="tocView_data/topic.gif" alt="">Explicit Instantiation</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16template_specialization.htm#HDRTEMPLATE_SPECIALIZATION"><img src="tocView_data/container_obj.gif" alt="">Template Specialization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_specialization.htm#HDREXPLICIT_SPECIALIZATION"><img src="tocView_data/container_obj.gif" alt="">Explicit Specialization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16defn_decl_explicit_spec.htm#HDRDEFN_DECL_EXPLICIT_SPEC"><img src="tocView_data/topic.gif" alt="">Definition and Declaration of Explicit Specializations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_spec_and_scope.htm#HDREXPLICIT_SPEC_AND_SCOPE"><img src="tocView_data/topic.gif" alt="">Explicit Specialization and Scope</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_spec_class_templates.htm#HDREXPLICIT_SPEC_CLASS_TEMPLATES"><img src="tocView_data/topic.gif" alt="">Class Members of Explicit Specializations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_spec_function_templates.htm#HDREXPLICIT_SPEC_FUNCTION_TEMPLATES"><img src="tocView_data/topic.gif" alt="">Explicit Specialization of Function Templates</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16explicit_spec_members.htm#HDREXPLICIT_SPEC_MEMBERS"><img src="tocView_data/topic.gif" alt="">Explicit Specialization of Members of Class Templates</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16partial_specialization.htm#HDRPARTIAL_SPECIALIZATION"><img src="tocView_data/container_obj.gif" alt="">Partial Specialization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16templ_param_arg_lists_partial.htm#HDRTEMPL_PARAM_ARG_LISTS_PARTIAL"><img src="tocView_data/topic.gif" alt="">Template Parameter and Argument Lists of Partial Specializations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16matching_class_templ_partial.htm#HDRMATCHING_CLASS_TEMPL_PARTIAL"><img src="tocView_data/topic.gif" alt="">Matching of Class Template Partial Specializations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16name_binding.htm#HDRNAME_BINDING"><img src="tocView_data/topic.gif" alt="">Name Binding and Dependent Names</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16keyword_typename.htm#HDRKEYWORD_TYPENAME"><img src="tocView_data/topic.gif" alt="">The typename Keyword</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc16keyword_template_qualifier.htm#HDRKEYWORD_TEMPLATE_QUALIFIER"><img src="tocView_data/topic.gif" alt="">The Keyword template as Qualifier</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17exceptn.htm#HDREXCEPTN"><img src="tocView_data/container_obj.gif" alt="">Exception Handling</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17the_try_keyword.htm#HDRTHE_TRY_KEYWORD"><img src="tocView_data/container_obj.gif" alt="">The try Keyword</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr152.htm#HDRCPLR152"><img src="tocView_data/topic.gif" alt="">Nested Try Blocks</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17the_catch_keyword.htm#HDRTHE_CATCH_KEYWORD"><img src="tocView_data/container_obj.gif" alt="">catch Blocks</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17function_try_block_handlers.htm#HDRFUNCTION_TRY_BLOCK_HANDLERS"><img src="tocView_data/topic.gif" alt="">Function try block Handlers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17arguments_of_catch_blocks.htm#HDRARGUMENTS_OF_CATCH_BLOCKS"><img src="tocView_data/topic.gif" alt="">Arguments of catch Blocks</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr151.htm#HDRCPLR151"><img src="tocView_data/topic.gif" alt="">Matching between Exceptions Thrown and Caught</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr150.htm#HDRCPLR150"><img src="tocView_data/topic.gif" alt="">Order of Catching</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17the_throw_keyword.htm#HDRTHE_THROW_KEYWORD"><img src="tocView_data/container_obj.gif" alt="">The throw Expression</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr153.htm#HDRCPLR153"><img src="tocView_data/topic.gif" alt="">Rethrowing an Exception</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr155.htm#HDRCPLR155"><img src="tocView_data/topic.gif" alt="">Stack Unwinding</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr156.htm#HDRCPLR156"><img src="tocView_data/topic.gif" alt="">Exception Specifications</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr161.htm#HDRCPLR161"><img src="tocView_data/container_obj.gif" alt="">Special Exception Handling Functions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr162.htm#HDRCPLR162"><img src="tocView_data/topic.gif" alt="">unexpected()</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr163.htm#HDRCPLR163"><img src="tocView_data/topic.gif" alt="">terminate()</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17cplr164.htm#HDRCPLR164"><img src="tocView_data/topic.gif" alt="">set_unexpected() and set_terminate()</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc17xhnsfnx.htm#HDRXHNSFNX"><img src="tocView_data/topic.gif" alt="">Example Using the Exception Handling Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrapxgcc.htm#HDRAIX_C_EXTENSIONS"><img src="tocView_data/topic.gif" alt="">IBM C Language Extensions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrapxgpp.htm#HDRAIX_CPP_EXTENSIONS"><img src="tocView_data/topic.gif" alt="">IBM C++ Language Extensions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrapxav_types.htm"><img src="tocView_data/topic.gif" alt="">AltiVec Data Types and Literals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrapxaix_macros.htm"><img src="tocView_data/topic.gif" alt="">Predefined Macros</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Compiler reference</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cuxlcovr.htm#HDRCUXLCOVR"><img src="tocView_data/container_obj.gif" alt="">Overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cuselect.htm#HDRCUSELECT"><img src="tocView_data/topic.gif" alt="">Compiler Modes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cuspecop.htm#HDRCUSPECOP"><img src="tocView_data/topic.gif" alt="">Compiler Options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cuinputs.htm#HDRCUINPUTS"><img src="tocView_data/topic.gif" alt="">Types of Input Files</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cuoutput.htm#HDRCUOUTPUT"><img src="tocView_data/topic.gif" alt="">Types of Output Files</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/cumsginf.htm#HDRCUMSGINF"><img src="tocView_data/topic.gif" alt="">Compiler Message and Listing Information</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruliblnk.htm#HDRORDER_OF_LINKING"><img src="tocView_data/topic.gif" alt="">Order of Linking</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Configuration and Use</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tusetenv.htm#HDRTUSETENV"><img src="tocView_data/topic.gif" alt="">Set Up the Compilation Environment</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tusetenv1.htm#HDRTUSETENV1"><img src="tocView_data/topic.gif" alt="">Set Environment Variables in bash</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tusetenv6.htm"><img src="tocView_data/topic.gif" alt="">Set Other Environment Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuinvoke.htm#HDRTUINVOKE"><img src="tocView_data/topic.gif" alt="">Invoke the Compiler</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuledinv.htm#HDRTULEDINV"><img src="tocView_data/topic.gif" alt="">Invoke the Linkage Editor</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuspecop.htm#HDRTUSPECOP"><img src="tocView_data/container_obj.gif" alt="">Specify Compiler Options</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuoptcmd.htm#HDRTUOPTCMD"><img src="tocView_data/topic.gif" alt="">On the Command Line</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuoptsrc.htm#HDRTUOPTSRC"><img src="tocView_data/topic.gif" alt="">In Your Program Source Files</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuoptcfg.htm#HDRTUOPTCFG"><img src="tocView_data/topic.gif" alt="">In a Configuration File</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuset64b.htm#HDRTUSET64B"><img src="tocView_data/topic.gif" alt="">For Architecture-Specific Compilation</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruoptres.htm#HDRRUOPTRES"><img src="tocView_data/topic.gif" alt="">Resolving Conflicting Compiler Options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tuinclud.htm#HDRTUINCLUD"><img src="tocView_data/topic.gif" alt="">Specify Path Names for Include Files</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rucmpopt.htm#HDRRUCMPOPT"><img src="tocView_data/container_obj.gif" alt="">Compiler Options</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruoptlst.htm#HDRRUOPTLST"><img src="tocView_data/topic.gif" alt="">Compiler Command Line Options</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rupragen.htm#HDRRUPRAGEN"><img src="tocView_data/topic.gif" alt="">General Purpose Pragmas</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rumodlst.htm#HDRRUMODLST"><img src="tocView_data/topic.gif" alt="">Acceptable Compiler Mode and Processor Architecture Combinations</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rucmpmsg.htm#HDRRUCMPMSG"><img src="tocView_data/topic.gif" alt="">Compiler Messages</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rubifunc.htm#HDRRUBIFUNC"><img src="tocView_data/topic.gif" alt="">Built-in Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat.htm#HDRTUTMPLAT"><img src="tocView_data/container_obj.gif" alt="">Structure a Program that Uses Templates</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat1.htm#HDRTUTMPLAT1"><img src="tocView_data/topic.gif" alt="">Declaration of Stack in stack.h</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat2.htm#HDRTUTMPLAT2"><img src="tocView_data/topic.gif" alt="">Declaration of operator Functions in stack.c</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat3.htm#HDRTUTMPLAT3"><img src="tocView_data/topic.gif" alt="">Template Functions Declared Inline and Template Functions With Internal Linkage</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat4.htm#HDRTUTMPLAT4"><img src="tocView_data/topic.gif" alt="">Template Functions Defined within the Compilation Unit</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5"><img src="tocView_data/container_obj.gif" alt="">Use -qtempinc to Generate Template Functions Automatically</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5A"><img src="tocView_data/topic.gif" alt="">How the Compiler Generates the Function Definitions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5B"><img src="tocView_data/topic.gif" alt="">Specifying the Template-Implementation File</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5C"><img src="tocView_data/topic.gif" alt="">Specifying a Different Path for the tempinc Subdirectory</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5D"><img src="tocView_data/topic.gif" alt="">Regenerating the Template Instantiation File</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5E"><img src="tocView_data/topic.gif" alt="">Breaking a Template Instantiation File into More Than One File</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5F"><img src="tocView_data/topic.gif" alt="">Contents of Template Instantiation File</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat5.htm#HDRTUTMPLAT5G"><img src="tocView_data/topic.gif" alt="">Using #pragma Directives in Header Files</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat6.htm#HDRTUTMPLAT6"><img src="tocView_data/topic.gif" alt="">Use -qnotempinc to Define Template Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/tutmplat7.htm#HDRTUTMPLAT7"><img src="tocView_data/topic.gif" alt="">Use -qtemplateregistry to Define Template Functions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Problem Solving</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rumsgerr.htm#HDRRUMSGERR"><img src="tocView_data/topic.gif" alt="">Message Catalog Errors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rupgerr.htm#HDRRUPGERR"><img src="tocView_data/topic.gif" alt="">Correcting Paging Space Errors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rumsgsev.htm#HDRRUMSGSEV"><img src="tocView_data/topic.gif" alt="">Message Severity Levels and Compiler Response</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruretcod.htm#HDRRURETCOD"><img src="tocView_data/topic.gif" alt="">Compiler Return Codes</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rumsgfmt.htm#HDRRUMSGFMT"><img src="tocView_data/topic.gif" alt="">Compiler Message Format</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rumacros.htm"><img src="tocView_data/topic.gif" alt="">Predefined Macros</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/rubifunc.htm"><img src="tocView_data/topic.gif" alt="">Built-in Functions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruascii.htm#HDRRUASCII"><img src="tocView_data/topic.gif" alt="">ASCII Character Set</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Programming tasks</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cviiostp.htm#HDRCVIIOSTP"><img src="tocView_data/container_obj.gif" alt="">Stream Processing</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cviiocss.htm#HDRCVIIOCSS"><img src="tocView_data/topic.gif" alt="">Standard Streams</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvirprst.htm#HDRTVIRPRST"><img src="tocView_data/topic.gif" alt="">Redirecting Standard Streams</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rviiofhs.htm#HDRRVIIOFHS"><img src="tocView_data/topic.gif" alt="">File Handles for Standard Streams</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvimap.htm#HDRRVIMAP"><img src="tocView_data/container_obj.gif" alt="">Data Mapping and Storage</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/calgnagg.htm#HDRCALGNAGG"><img src="tocView_data/topic.gif" alt="">Default Alignment of Aggregates</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/calgnbit.htm#HDRCALGNBIT"><img src="tocView_data/topic.gif" alt="">Alignment of Bit Fields</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/ralgnexa.htm#HDRRALGNEXA"><img src="tocView_data/topic.gif" alt="">Alignment Examples</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvimaebf.htm#HDRRVIMAEBF"><img src="tocView_data/topic.gif" alt="">Storage of Floating Point Data</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvcldfl.htm#HDRRVCLDFL"><img src="tocView_data/topic.gif" alt="">Storage of float and double Types</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvcldint.htm#HDRRVCLDINT"><img src="tocView_data/topic.gif" alt="">Storage of int, long, and short Types</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvcldalt.htm"><img src="tocView_data/topic.gif" alt="">Storage of Vector Types</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cvimadam.htm#HDRCVIMADAM"><img src="tocView_data/topic.gif" alt="">Mapping of Automatic Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvimacdt.htm#HDRRVIMACDT"><img src="tocView_data/topic.gif" alt="">Mapping of Compound Data Types</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="about:blank"><img src="tocView_data/container_obj.gif" alt="">Signals and Exception Handling</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cviexsae.htm#HDRCVIEXSAE"><img src="tocView_data/topic.gif" alt="">Signals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cviexhse.htm#HDRCVIEXHSE"><img src="tocView_data/topic.gif" alt="">Signal Handling</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tviexsif.htm#HDRTVIEXSIF"><img src="tocView_data/topic.gif" alt="">Program Signal Handling</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/xviexvvs.htm#HDRXVIEXVVS"><img src="tocView_data/topic.gif" alt="">Example of Using Volatile Variables</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cvopconc.htm#HDRCVOPCONC"><img src="tocView_data/container_obj.gif" alt="">Overview of Optimization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cvopttec.htm#HDRCVOPTTEC"><img src="tocView_data/topic.gif" alt="">Optimization Techniques Used by XL C++</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvophome.htm#HDRTVOPHOME"><img src="tocView_data/container_obj.gif" alt="">Coding Your Application to Improve Performance</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvopi_o.htm#HDRTVOPI_O"><img src="tocView_data/topic.gif" alt="">Find Faster I/O Techniques</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvopfunc.htm#HDRTVOPFUNC"><img src="tocView_data/topic.gif" alt="">Reduce Function-Call Overhead</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvoptvar.htm#HDRTVOPTVAR"><img src="tocView_data/topic.gif" alt="">Optimize Variables</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvopstrg.htm#HDRTVOPSTRG"><img src="tocView_data/topic.gif" alt="">Manipulate Strings Efficiently</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tvoptexp.htm#HDRTVOPTEXP"><img src="tocView_data/topic.gif" alt="">Optimize Expressions and Program Logic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cvriscfp.htm#HDRCVRISCFP"><img src="tocView_data/container_obj.gif" alt="">Floating Point Hardware</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cvfltar.htm#HDRCVFLTAR"><img src="tocView_data/topic.gif" alt="">Compile-Time Floating-Point Arithmetic</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvround.htm#HDRRVROUND"><img src="tocView_data/topic.gif" alt="">Rounding Mode Restrictions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/cuconlib.htm#HDRCUCONLIB"><img src="tocView_data/container_obj.gif" alt="">Constructing a Library (C++)</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tushrlib.htm#HDRTUSHRLIB"><img src="tocView_data/topic.gif" alt="">Initialize Shared Library</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tupriobj.htm#HDRTUPRIOBJ"><img src="tocView_data/topic.gif" alt="">Specify Priority Levels for Library Objects</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/tuobjiex.htm#HDRTUOBJIEX"><img src="tocView_data/topic.gif" alt="">Example of Object Initialization in a Group of Files</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/ruframew.htm"><img src="tocView_data/topic.gif" alt="">Framework Header Files</a></li>
+</ul>
+</li>
+
+                        <script language="JavaScript">tocId="b"+1</script>
+
+                        
+
+                <li>
+                <!--HPSYS00000137 part 2 of 2-->
+                <img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b2" name="/com.ibm.xlf81m.doc/toc.xml" style="font-weight: bold;" href="about:blank" onclick='loadTOC("%2f%63%6f%6d%2e%69%62%6d%2e%78%6c%66%38%31%6d%2e%64%6f%63%2f%74%6f%63%2e%78%6d%6c")'>XL Fortran (V8.1)</a>
+                <!--end HPSYS00000137 part 2 of 2-->
+
+                </li>        
+
+                <li>
+                <!--HPSYS00000137 part 2 of 2-->
+                <img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b3" name="/com.ibm.ibmcom.doc/toc.xml" style="font-weight: bold;" href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.ibmcom.doc/footerssi.htm" onclick='loadTOC("%2f%63%6f%6d%2e%69%62%6d%2e%69%62%6d%63%6f%6d%2e%64%6f%63%2f%74%6f%63%2e%78%6d%6c")'>ibm.com: About IBM - Privacy - Contact</a>
+                <!--end HPSYS00000137 part 2 of 2-->
+
+                </li>        
+                
+        </ul>
+   <iframe name="dynLoadFrame" title="Layout frame: dynLoadFrame" style="visibility:hidden" tabindex="-1" scrolling="no" frameborder="no" height="0" width="0">
+    </iframe>
+
+
+</body></html>

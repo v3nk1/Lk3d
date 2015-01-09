@@ -1,0 +1,3776 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" dir="ltr" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" dir="ltr" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="js no-touch localstorage sessionstorage contenteditable use-opacity-transitions" dir="ltr" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Disqus Comments</title>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <style>
+        html {
+            overflow: hidden;
+        }
+        
+    </style>
+
+<link href="a_data/lounge.css" rel="stylesheet"><script src="a_data/config.js" data-requiremodule="remote/config" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/common.js" data-requiremodule="common.bundle" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/lounge_002.js" data-requiremodule="lounge.bundle" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="Understanding%20%22volatile%22%20qualifier%20in%20C%20%7C%20GeeksforGeeks_files/ga.js" data-requiremodule="http://www.google-analytics.com/ga.js" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="a_data/beacon.js" data-requiremodule="http://b.scorecardresearch.com/beacon.js" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><style id="css_1403245970598"></style><!-- base href="http://www.geeksforgeeks.org/understanding-volatile-qualifier-in-c/" --><script src="a_data/highlight.js" data-requiremodule="highlight" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script charset="UTF-8" async="" src="a_data/event.js"></script></head>
+<body>
+    
+    <!--[if lte IE 8]>
+<script src="//a.disquscdn.com/1402432716/build/vendor/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="//a.disquscdn.com/1402432716/build/vendor/ie9.js"></script>
+<![endif]-->
+
+    
+<script type="text/json" id="disqus-urls">{
+    "root":"//disqus.com",
+    "next":"//a.disquscdn.com/next/8d8f15d3"
+}</script>
+
+    
+
+    <div id="error" style="display:none; text-align: center">
+        <p>We were unable to load Disqus. If you are a moderator please see our <a href="http://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+    </div>
+
+    
+    <script type="text/json" id="disqus-forumData">{"session":{"canModerate":false,"isReadOnly":null,"audienceSyncVerified":false,"canReply":true,"notificationCount":null,"mustVerifyEmail":false},"features":{},"forum":{"name":"GeeksforGeeks","founder":"65619083","settings":{"canEnableSponsoredComments":false,"discoveryVariant":null,"allowAnonPost":true,"allowMedia":false,"moderatorText":"","typeface":"auto","promotedDiscoveryEnabled":false,"discoveryMax":false,"ssoRequired":false,"discoveryLocked":false,"audienceSyncEnabled":false,"hasCustomAvatar":false,"organicDiscoveryEnabled":false,"backplaneEnabled":false,"discoverySettingsUrl":"http://geeksforgeeks.disqus.com/admin/settings/ads/","discoveryThumbnailsEnabled":false,"colorScheme":"auto","sponsoredCommentsEnabled":false,"linkAffiliationEnabled":false},"url":"http://www.geeksforgeeks.org/","favicon":{"permalink":"http://disqus.com/api/forums/favicons/geeksforgeeks.jpg","cache":"//a.disquscdn.com/1402432716/images/favicon-default.png"},"language":"en","avatar":{"small":{"permalink":"http://disqus.com/api/forums/avatars/geeksforgeeks.jpg?size=32","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"http://disqus.com/api/forums/avatars/geeksforgeeks.jpg?size=92","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"}},"pk":2480709,"id":"geeksforgeeks"}}</script>
+
+    
+    <script type="text/json" id="disqus-threadData">{"cursor":{"hasPrev":false,"prev":null,"total":23,"hasNext":false,"next":"1:0:0"},"code":0,"response":{"lastModified":1402088169,"posts":[{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"username":"disqus_22RgvBchMB","about":"","name":"Sandeep Pawar","url":"","isAnonymous":false,"rep":1.232124,"profileUrl":"http://disqus.com/disqus_22RgvBchMB/","reputation":1.232124,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2014-06-01T10:33:08","id":"109065119","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/disqus_22RgvBchMB.jpg","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/disqus_22RgvBchMB.jpg","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/disqus_22RgvBchMB.jpg","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"nice...","createdAt":"2014-06-01T10:33:17","id":"1414601539","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>nice...\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"James Bond","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"gcc -O3 volatile.c -o volatile \u2013save-temp\n\n\nstill printing for second program in gcc (Declared just const int or No volatile)\n\n\n  Initial value of local : 10\n  Modified value of local: 100\n\n\ninspite of \n\n\n  Initial value of local : 10\n  Modified value of local: 10\n\n\nas mentioned can you tell why?","createdAt":"2013-10-08T17:59:36","id":"1075249478","thread":"1639422575","depth":0,"numReports":0,"likes":17,"isEdited":false,"message":"\u003cp>gcc -O3 volatile.c -o volatile \u2013save-temp\u003c/p>\u003cp>still printing for second program in gcc (Declared just const int or No volatile)\u003c/p>\u003cp>  Initial value of local : 10\u003cbr>  Modified value of local: 100\u003c/p>\u003cp>inspite of\u003c/p>\u003cp>  Initial value of local : 10\u003cbr>  Modified value of local: 10\u003c/p>\u003cp>as mentioned can you tell why?\u003c/p>","isSpam":false,"isHighlighted":false,"points":17},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Raghu","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"GOOD!","createdAt":"2013-09-21T08:03:25","id":"1053734181","thread":"1639422575","depth":0,"numReports":0,"likes":2,"isEdited":false,"message":"\u003cp>GOOD!\u003c/p>","isSpam":false,"isHighlighted":false,"points":2},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"username":"yogeshgiri","about":"","name":"Yogesh Giri","url":"","isAnonymous":false,"rep":1.232222,"profileUrl":"http://disqus.com/yogeshgiri/","reputation":1.232222,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-09-13T10:57:43","id":"72948871","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/yogeshgiri.jpg","cache":"//a.disquscdn.com/uploads/users/7294/8871/avatar32.jpg?1379069864"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/yogeshgiri.jpg","cache":"//a.disquscdn.com/uploads/users/7294/8871/avatar92.jpg?1379069864","large":{"permalink":"http://disqus.com/api/users/avatars/yogeshgiri.jpg","cache":"//a.disquscdn.com/uploads/users/7294/8871/avatar92.jpg?1379069864"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Awesome!","createdAt":"2013-09-13T10:57:53","id":"1042028992","thread":"1639422575","depth":0,"numReports":0,"likes":1,"isEdited":false,"message":"\u003cp>Awesome!\u003c/p>","isSpam":false,"isHighlighted":false,"points":1},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"username":"disqus_hynb3aUHQ9","about":"","name":"Pixel","url":"","isAnonymous":false,"rep":1.211428,"profileUrl":"http://disqus.com/disqus_hynb3aUHQ9/","reputation":1.211428,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-08-27T06:07:55","id":"69978661","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/disqus_hynb3aUHQ9.jpg","cache":"//a.disquscdn.com/uploads/users/6997/8661/avatar32.jpg?1385466703"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/disqus_hynb3aUHQ9.jpg","cache":"//a.disquscdn.com/uploads/users/6997/8661/avatar92.jpg?1385466703","large":{"permalink":"http://disqus.com/api/users/avatars/disqus_hynb3aUHQ9.jpg","cache":"//a.disquscdn.com/uploads/users/6997/8661/avatar92.jpg?1385466703"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Appreciable Thanks man","createdAt":"2013-08-28T12:03:23","id":"1020419673","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Appreciable Thanks man\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"username":"disqus_GoKtdvCp3b","about":"","name":"Renu","url":"","isAnonymous":false,"rep":1.232516,"profileUrl":"http://disqus.com/disqus_GoKtdvCp3b/","reputation":1.232516,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-08-25T02:26:37","id":"69625590","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/disqus_GoKtdvCp3b.jpg","cache":"//a.disquscdn.com/uploads/users/6962/5590/avatar32.jpg?1377397730"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/disqus_GoKtdvCp3b.jpg","cache":"//a.disquscdn.com/uploads/users/6962/5590/avatar92.jpg?1377397730","large":{"permalink":"http://disqus.com/api/users/avatars/disqus_GoKtdvCp3b.jpg","cache":"//a.disquscdn.com/uploads/users/6962/5590/avatar92.jpg?1377397730"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Thanks..! and I have a question \n\nmy qt compiler was not happy with the first program itself when i tried modifying the const variable.. error: assignment of read-only location '* ptr'..\nIs it compiler dependent or is it different between C and C++ ?","createdAt":"2013-08-25T02:28:49","id":"1016554171","thread":"1639422575","depth":0,"numReports":0,"likes":4,"isEdited":true,"message":"\u003cp>Thanks..! and I have a question\u003c/p>\u003cp>my qt compiler was not happy with the first program itself when i tried modifying the const variable.. error: assignment of read-only location '* ptr'..\u003cbr>Is it compiler dependent or is it different between C and C++ ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":4},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Nitin Magdum","url":"http://www.facebook.com/nitin.magdum.125","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"very good explanation............thanks.","createdAt":"2013-07-28T10:26:44","id":"1016413724","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>very good explanation............thanks.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Matheen Shk","url":"http://www.facebook.com/matheen.shk","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"nice I get lot...........","createdAt":"2013-07-21T21:49:54","id":"1016413721","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>nice I get lot...........\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Faraaz","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Hey,\nI have written a code below where variable of type const inst is getting modified through a pointer though i compiled with optimization option, want to know why its happens this way, As per the above description it shouldn't be the case,\nalthough i havent used virtual at all\npasted below is code \n\n\n\u003cpre> \u003ccode language=\"C\">\n#include&#60;iostream&#62;\nusing namespace std;\n\nclass A\n{\n const int a;\n public:\n  A(int i):a(i){}\n  void print() {\n   cout&#60;&#60;a&#60;&#60;endl;\n  }\n  void ModifyConst() const {\n   int* ptr = (int*) &#38;a;\n   *ptr = 2;\n   cout&#60;&#60;a&#60;&#60;endl;\n  }\n};\n\nint main()\n{\n const A a(1);\n a.ModifyConst();\n return 0;\n}\n\nOutput:\n# g++ -o cp -O3 cp.cpp (with optimization)\n# ./cp\n2\n# g++ -o cp cp.cpp (without optimization)\n# ./cp\n2\n\u003c/code> \u003c/pre>","createdAt":"2013-06-19T18:13:29","id":"1016413720","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Hey,\u003cbr>I have written a code below where variable of type const inst is getting modified through a pointer though i compiled with optimization option, want to know why its happens this way, As per the above description it shouldn't be the case,\u003cbr>although i havent used virtual at all\u003cbr>pasted below is code\u003c/p>\u003cp>\u003c/p>\u003cpre> \u003ccode>\u003cbr>#include&lt;iostream&gt;\u003cbr>using namespace std;\u003cbr>\u003cbr>class A\u003cbr>{\u003cbr> const int a;\u003cbr> public:\u003cbr>  A(int i):a(i){}\u003cbr>  void print() {\u003cbr>   cout&lt;&lt;a&lt;&lt;endl;\u003cbr>  }\u003cbr>  void ModifyConst() const {\u003cbr>   int* ptr = (int*) &amp;a;\u003cbr>   *ptr = 2;\u003cbr>   cout&lt;&lt;a&lt;&lt;endl;\u003cbr>  }\u003cbr>};\u003cbr>\u003cbr>int main()\u003cbr>{\u003cbr> const A a(1);\u003cbr> a.ModifyConst();\u003cbr> return 0;\u003cbr>}\u003cbr>\u003cbr>Output:\u003cbr># g++ -o cp -O3 cp.cpp (with optimization)\u003cbr># ./cp\u003cbr>2\u003cbr># g++ -o cp cp.cpp (without optimization)\u003cbr># ./cp\u003cbr>2\u003cbr>\u003c/code> \u003c/pre>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"sharma","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"do you really think this tricks work well for chaging const values on all the compiler.\n\n\n\u003cpre> \u003ccode language=\"C\">\n/* Paste your code here (You may delete these lines if not writing code) */\n\u003c/code> \u003c/pre>","createdAt":"2013-05-23T22:31:32","id":"1016413714","thread":"1639422575","depth":0,"numReports":0,"likes":1,"isEdited":false,"message":"\u003cp>do you really think this tricks work well for chaging const values on all the compiler.\u003c/p>\u003cp>\u003c/p>\u003cpre> \u003ccode>\u003cbr>/* Paste your code here (You may delete these lines if not writing code) */\u003cbr>\u003c/code> \u003c/pre>","isSpam":false,"isHighlighted":false,"points":1},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Nandan","url":"http://www.iamnandans.wordpress.com/","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Learnt a tricky method of changing value of const variable :)","createdAt":"2013-05-17T08:28:44","id":"1016413711","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Learnt a tricky method of changing value of const variable :)\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":1016413711,"author":{"name":"Rachit","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"What is the use of declaring the variable constant if you want to change it?","createdAt":"2013-06-05T11:32:42","id":"1016413717","thread":"1639422575","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>What is the use of declaring the variable constant if you want to change it?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":1016413717,"author":{"name":"csourc","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"For example, you need a global const variable that later will be initialized with a value returned by a function. I've faced such situation when I needed to get the terminal window size in ncurses.","createdAt":"2014-02-20T16:22:43","id":"1253381162","thread":"1639422575","depth":2,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>For example, you need a global const variable that later will be initialized with a value returned by a function. I've faced such situation when I needed to get the terminal window size in ncurses.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"nueman.fernandez","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"[sourcecode language=\"\"]\r\n/* Narendra Kangralkar, you awsome C and System programming guru...keep rocking..!!! */\r\n\u003c/code> \u003c/pre>","createdAt":"2013-05-01T00:00:17","id":"1016413707","thread":"1639422575","depth":0,"numReports":0,"likes":1,"isEdited":false,"message":"\u003cp>[sourcecode language=\"\"]\u003cbr>/* Narendra Kangralkar, you awsome C and System programming guru...keep rocking..!!! */\u003cbr> \u003c/p>","isSpam":false,"isHighlighted":false,"points":1},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"mrkartikmishra","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"nice explanation","createdAt":"2013-03-11T17:43:35","id":"1016413706","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>nice explanation\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Sash","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"nyc explain","createdAt":"2013-01-22T19:16:02","id":"1016413702","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>nyc explain\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Sash","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"nyc example of sensor...\n\n\n\u003cpre> \u003ccode language=\"C\">\n/* Paste your code here (You may delete these lines if not writing code) */\n\u003c/code> \u003c/pre>","createdAt":"2013-01-22T19:15:14","id":"1016413699","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>nyc example of sensor...\u003c/p>\u003cp>\u003c/p>\u003cpre> \u003ccode>\u003cbr>/* Paste your code here (You may delete these lines if not writing code) */\u003cbr>\u003c/code> \u003c/pre>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Sandeep","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Very good explanation with such nice examples.\n\nJust that you code has used volatile and you have mentioned it as optimized solution. I think i should not be optimized. Correct me if i am wrong\n\nSnippet from above code\n\n\nIts not optimized right, so your comments are not the same\n\n/* Compile code with optimization option */\n#include \n \nint main(void)\n{\n    const volatile int local = 10;\n    int *ptr = (int*) &#38;local;\n \n    printf(\"Initial value of local : %d \\n\", local);\n \n    *ptr = 100;\n \n    printf(\"Modified value of local: %d \\n\", local);\n \n    return 0;\n}","createdAt":"2012-04-16T22:54:06","id":"1016413696","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Very good explanation with such nice examples.\u003c/p>\u003cp>Just that you code has used volatile and you have mentioned it as optimized solution. I think i should not be optimized. Correct me if i am wrong\u003c/p>\u003cp>Snippet from above code\u003c/p>\u003cp>Its not optimized right, so your comments are not the same\u003c/p>\u003cp>/* Compile code with optimization option */\u003cbr>#include\u003c/p>\u003cp>int main(void)\u003cbr>{\u003cbr>    const volatile int local = 10;\u003cbr>    int *ptr = (int*) &amp;local;\u003c/p>\u003cp>    printf(\"Initial value of local : %d \\n\", local);\u003c/p>\u003cp>    *ptr = 100;\u003c/p>\u003cp>    printf(\"Modified value of local: %d \\n\", local);\u003c/p>\u003cp>    return 0;\u003cbr>}\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"vinkal","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Thanks for this nice explanation","createdAt":"2012-04-15T19:44:05","id":"1016413694","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Thanks for this nice explanation\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Karthick","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Nice explanation. Thanks :)","createdAt":"2012-04-07T14:21:52","id":"1016413690","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Nice explanation. Thanks :)\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"electionreddy","url":"http://www.electionreddy.com/","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Well explained. The Touch sensor example is awesome.","createdAt":"2011-12-18T22:41:39","id":"1016413683","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Well explained. The Touch sensor example is awesome.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":null,"author":{"name":"Rohin","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"All the three code snippets written above don't work as stated using Turbo C compiler.","createdAt":"2011-12-13T15:22:28","id":"1016413686","thread":"1639422575","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>All the three code snippets written above don't work as stated using Turbo C compiler.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"geeksforgeeks","parent":1016413686,"author":{"name":"kartik","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar32.png","cache":"//a.disquscdn.com/1402432716/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1402432716/images/noavatar92.png","cache":"//a.disquscdn.com/1402432716/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"@Rohin:\n\nCould you provide more details?  What do you get when use Turbo C compiler.","createdAt":"2011-12-13T18:16:29","id":"1016424580","thread":"1639422575","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>@Rohin:\u003c/p>\u003cp>Could you provide more details?  What do you get when use Turbo C compiler.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0}],"thread":{"feed":"http://geeksforgeeks.disqus.com/understanding_8220volatile8221_qualifier_in_c/latest.rss","uploadAdd":"//geeksforgeeks.disqus.com/thread/understanding_8220volatile8221_qualifier_in_c/async_media_upload/","identifiers":["15764 http://www.geeksforgeeks.org/?p=15764"],"dislikes":0,"likes":1,"message":"","id":"1639422575","createdAt":"2013-08-24T19:12:21","category":"2517633","clean_title":"Understanding \u201cvolatile\u201d qualifier in C","userScore":0,"moderators":[65619083],"isDeleted":false,"hasStreaming":false,"uploadRemove":"//geeksforgeeks.disqus.com/thread/understanding_8220volatile8221_qualifier_in_c/async_media_remove/","isClosed":false,"link":"http://www.geeksforgeeks.org/understanding-volatile-qualifier-in-c/","slug":"understanding_8220volatile8221_qualifier_in_c","forum":"geeksforgeeks","author":"65619083","posts":23,"userSubscription":false,"title":"Understanding &#8220;volatile&#8221; qualifier in C","highlightedPost":null}},"order":"desc"}</script>
+
+    
+
+    <div id="fixed-content"></div>
+
+    <script src="a_data/lounge.js"></script>
+    
+
+
+<div id="layout" data-tracking-area="layout">
+
+<div id="discovery-top" data-tracking-area="discovery-north"></div>
+
+<div id="onboard" data-tracking-area="onboard"></div>
+
+<div style="display: none;" id="highlighted-post" data-tracking-area="highlighted" class="highlighted-post"></div>
+
+<header id="main-nav" data-tracking-area="main-nav">
+
+<nav class="nav nav-primary">
+<ul>
+<li class="tab-conversation active">
+
+<a href="#" data-role="post-count" class="publisher-nav-color" data-nav="conversation">
+
+<span class="comment-count">
+
+23 comments
+
+</span>
+
+
+<span class="comment-count-placeholder">
+Comments
+</span>
+</a>
+</li>
+<li class="tab-community">
+<a href="#" class="publisher-nav-color" data-nav="community" id="community-tab">
+
+
+<span class="community-name">
+
+<strong>GeeksforGeeks</strong>
+
+</span>
+
+
+<strong class="community-name-placeholder">Community</strong>
+</a>
+</li>
+<li class="dropdown user-menu" data-role="logout">
+
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown-toggle-wrapper">
+
+
+<span>
+Login
+</span>
+
+
+</span> <span class="caret"></span>
+</a>
+
+<ul class="dropdown-menu">
+
+
+
+
+<li>
+<a href="#" data-action="auth:disqus">Disqus</a>
+</li>
+<li>
+<a href="#" data-action="auth:facebook">Facebook</a>
+</li>
+<li>
+<a href="#" data-action="auth:twitter">Twitter</a>
+</li>
+<li>
+<a href="#" data-action="auth:google">Google</a>
+</li>
+
+
+
+
+
+
+
+</ul>
+</li>
+<li class="notification-menu" data-role="notification-menu">
+
+
+
+<a href="#" class="notification-container" data-action="auth:disqus">
+<span class="notification-icon icon-disqus"></span>
+
+
+</a></li>
+</ul>
+</nav>
+
+</header>
+
+
+
+
+<section id="conversation" data-role="main" data-tracking-area="main">
+
+<div class="nav nav-secondary" data-tracking-area="secondary-nav">
+<ul>
+
+<li data-role="post-sort" class="dropdown sorting">
+<a href="#" class="dropdown-toggle" data-nav="conversation" data-toggle="dropdown">
+
+Sort by Newest
+
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+<li>
+<a href="#" data-action="sort" data-sort="popular">Best</a>
+</li>
+
+<li class="selected">
+<a href="#" data-action="sort" data-sort="desc">Newest</a>
+</li>
+
+<li>
+<a href="#" data-action="sort" data-sort="asc">Oldest</a>
+</li>
+</ul>
+</li>
+
+
+<li id="thread-votes" class="favorite pull-right">
+<!-- rendered dynamically -->
+<div data-role="vote-button" class="thread-likes">
+<a href="#" data-action="upvote" title="Favorite this discussion">
+<span class="label">Favorite</span>
+<span class="icon-star"></span>
+<span class="icon-check"></span>
+</a>
+</div></li>
+
+<li id="thread-share-menu" class="dropdown share-menu">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+<span class="label">Share</span> <span class="icon-export"></span>
+</a>
+<ul class="share-menu dropdown-menu pull-right">
+<li class="share">Share this discussion on
+<ul>
+<li class="twitter">
+<a data-action="share:twitter" href="#">Twitter</a>
+</li>
+<li class="facebook">
+<a data-action="share:facebook" href="#">Facebook</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div id="posts">
+
+<div id="form"><form class="reply">
+<div class="alert error" style="display:none" role="alert">
+<a class="close" data-action="dismiss-alert" title="Dismiss">×</a>
+<span></span>
+</div>
+
+<div class="postbox">
+<div class="avatar">
+
+<span class="user">
+<img data-role="user-avatar" src="a_data/noavatar92.png">
+</span>
+
+</div>
+
+<div class="textarea-wrapper" data-role="textarea" dir="auto"><div><span class="placeholder">Join the discussion…</span><div aria-label="Join the discussion…" style="overflow: auto; max-height: 350px;" data-role="editable" aria-multiline="true" role="textbox" tabindex="-1" class="textarea" contenteditable="true"><p><br></p></div><div style="display: none;">
+<ul class="suggestions">
+<li class="header">
+<h5>in this conversation</h5>
+</li>
+</ul>
+</div></div>
+<div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+<div class="drag-text">
+⬇ Drag and drop your images here to upload them.
+</div>
+</div>
+
+<div class="edit-alert" role="postbox-alert"></div>
+<div class="post-actions">
+<ul class="wysiwyg">
+
+
+</ul>
+
+
+</div>
+</div>
+
+
+<div data-role="login-form"><div>
+
+<section class="auth-section logged-out">
+<div class="connect">
+<h6>Sign in with</h6>
+
+<ul data-role="login-menu" class="services login-buttons">
+
+
+
+<li class="auth-disqus">
+<button type="button" data-action="auth:disqus" title="Disqus"><i class="icon-disqus"></i></button>
+</li>
+<li class="auth-facebook">
+<button type="button" data-action="auth:facebook" title="Facebook"><i class="icon-facebook-circle"></i></button>
+</li>
+<li class="auth-twitter">
+<button type="button" data-action="auth:twitter" title="Twitter"><i class="icon-twitter-circle"></i></button>
+</li>
+<li class="auth-google">
+<button type="button" data-action="auth:google" title="Google"><i class="icon-google-plus-circle"></i></button>
+</li>
+<li class="auth-signup">
+<button type="button" data-action="auth:disqus" title="Disqus">Sign up for Disqus</button>
+</li>
+</ul>
+
+</div>
+
+<div class="guest">
+<h6 class="guest-form-title">
+
+or pick a name
+
+</h6>
+
+<div class="what-is-disqus help-icon">
+<div id="rules" class="tooltip show">
+<h3>Disqus is a conversation network</h3>
+<ul>
+<li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+<li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+<li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+</ul>
+<p class="clearfix"><a href="http://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+</div>
+</div>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Name" name="display_name" maxlength="30" type="text">
+</p>
+
+<div class="guest-details " data-role="guest-details">
+<p class="input-wrapper">
+<input dir="auto" placeholder="Email" name="email" type="email">
+</p>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Password" name="password" type="password">
+</p>
+
+<div class="guest-checkbox">
+<label>
+<input name="author-guest" type="checkbox">
+I'd rather post as guest
+</label>
+</div>
+
+
+</div>
+</div>
+<div class="proceed">
+
+<button type="submit" class="btn submit" aria-label="Post"><span class="icon-proceed"></span></button>
+<button type="submit" class="btn next" aria-label="Next"><span class="icon-proceed"></span></button>
+
+</div>
+
+</section>
+
+
+
+
+</div></div>
+
+</div>
+</form></div>
+
+<button class="alert realtime" style="display: none" data-role="realtime-notification">
+
+</button>
+
+
+<div id="no-posts" style="display:none">Be the first to comment.</div>
+
+<ul id="post-list" class="post-list"><li id="post-1414601539" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/disqus_22RgvBchMB/" class="user" data-action="profile" data-user="109065119">
+<img data-role="user-avatar" data-user="109065119" src="a_data/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="109065119" data-role="username">Sandeep Pawar</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1414601539" data-role="relative-time" class="time-ago" title="Sunday, June 1 2014 4:03 PM">
+19 days ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>nice...</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1414601539">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1414601539">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1075249478" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">James Bond</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1075249478" data-role="relative-time" class="time-ago" title="Tuesday, October 8 2013 11:29 PM">
+9 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>gcc -O3 volatile.c -o volatile –save-temp</p><p>still printing for second program in gcc (Declared just const int or No volatile)</p><p>  Initial value of local : 10<br>  Modified value of local: 100</p><p>inspite of</p><p>  Initial value of local : 10<br>  Modified value of local: 10</p><p>as mentioned can you tell why?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-17" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">17</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1075249478">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1075249478">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1053734181" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Raghu</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1053734181" data-role="relative-time" class="time-ago" title="Saturday, September 21 2013 1:33 PM">
+9 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>GOOD!</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-2" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">2</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1053734181">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1053734181">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1042028992" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/yogeshgiri/" class="user" data-action="profile" data-user="72948871">
+<img data-role="user-avatar" data-user="72948871" src="a_data/avatar92_003.jpg" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="72948871" data-role="username">Yogesh Giri</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1042028992" data-role="relative-time" class="time-ago" title="Friday, September 13 2013 4:27 PM">
+9 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Awesome!</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-1" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">1</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1042028992">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1042028992">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1020419673" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/disqus_hynb3aUHQ9/" class="user" data-action="profile" data-user="69978661">
+<img data-role="user-avatar" data-user="69978661" src="a_data/avatar92_002.jpg" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="69978661" data-role="username">Pixel</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1020419673" data-role="relative-time" class="time-ago" title="Wednesday, August 28 2013 5:33 PM">
+10 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Appreciable Thanks man</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1020419673">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1020419673">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016554171" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/disqus_GoKtdvCp3b/" class="user" data-action="profile" data-user="69625590">
+<img data-role="user-avatar" data-user="69625590" src="a_data/avatar92.jpg" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="69625590" data-role="username">Renu</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016554171" data-role="relative-time" class="time-ago" title="Sunday, August 25 2013 7:58 AM">
+10 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Thanks..! and I have a question</p><p>my qt compiler was not happy 
+with the first program itself when i tried modifying the const 
+variable.. error: assignment of read-only location '* ptr'..<br>Is it compiler dependent or is it different between C and C++ ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-4" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">4</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016554171">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016554171">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413724" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Nitin Magdum</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413724" data-role="relative-time" class="time-ago" title="Sunday, July 28 2013 3:56 PM">
+11 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>very good explanation............thanks.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413724">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413724">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413721" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Matheen Shk</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413721" data-role="relative-time" class="time-ago" title="Monday, July 22 2013 3:19 AM">
+11 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>nice I get lot...........</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413721">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413721">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413720" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Faraaz</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413720" data-role="relative-time" class="time-ago" title="Wednesday, June 19 2013 11:43 PM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div style="height: 374px;" class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Hey,<br>I have written a code below where variable of type const inst
+ is getting modified through a pointer though i compiled with 
+optimization option, want to know why its happens this way, As per the 
+above description it shouldn't be the case,<br>although i havent used virtual at all<br>pasted below is code</p><p></p><pre> <code class="cpp"><span class="preprocessor">#include&lt;iostream&gt;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
+
+<span class="keyword">class</span> A
+{
+ <span class="keyword">const</span> <span class="keyword">int</span> a;
+ <span class="keyword">public</span>:
+  A(<span class="keyword">int</span> i):a(i){}
+  <span class="keyword">void</span> print() {
+   <span class="built_in">cout</span>&lt;&lt;a&lt;&lt;endl;
+  }
+  <span class="keyword">void</span> ModifyConst() <span class="keyword">const</span> {
+   <span class="keyword">int</span>* ptr = (<span class="keyword">int</span>*) &amp;a;
+   *ptr = <span class="number">2</span>;
+   <span class="built_in">cout</span>&lt;&lt;a&lt;&lt;endl;
+  }
+};
+
+<span class="keyword">int</span> main()
+{
+ <span class="keyword">const</span> A a(<span class="number">1</span>);
+ a.ModifyConst();
+ <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+Output:
+<span class="preprocessor"># g++ -o cp -O3 cp.cpp (with optimization)</span>
+<span class="preprocessor"># ./cp</span>
+<span class="number">2</span>
+<span class="preprocessor"># g++ -o cp cp.cpp (without optimization)</span>
+<span class="preprocessor"># ./cp</span>
+<span class="number">2</span>
+</code> </pre>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413720">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413720">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413714" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">sharma</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413714" data-role="relative-time" class="time-ago" title="Friday, May 24 2013 4:01 AM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>do you really think this tricks work well for chaging const values on all the compiler.</p><p></p><pre> <code class="perl">/* Paste your code here (You may <span class="keyword">delete</span> these lines <span class="keyword">if</span> <span class="keyword">not</span> writing code) <span class="variable">*/</span>
+</code> </pre>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-1" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">1</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413714">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413714">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413711" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Nandan</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413711" data-role="relative-time" class="time-ago" title="Friday, May 17 2013 1:58 PM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Learnt a tricky method of changing value of const variable :)</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413711">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413711">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1016413717" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Rachit</span>
+
+
+
+<span><a href="#comment-1016413711" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Nandan</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413717" data-role="relative-time" class="time-ago" title="Wednesday, June 5 2013 5:02 PM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>What is the use of declaring the variable constant if you want to change it?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413717">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413717">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1253381162" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">csourc</span>
+
+
+
+<span><a href="#comment-1016413717" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Rachit</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1253381162" data-role="relative-time" class="time-ago" title="Thursday, February 20 2014 9:52 PM">
+4 months ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>For example, you need a global const variable that later will be 
+initialized with a value returned by a function. I've faced such 
+situation when I needed to get the terminal window size in ncurses.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1253381162">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1253381162">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li></ul>
+
+
+</li></ul>
+
+
+</li><li id="post-1016413707" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">nueman.fernandez</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413707" data-role="relative-time" class="time-ago" title="Wednesday, May 1 2013 5:30 AM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>[sourcecode language=""]<br>/* Narendra Kangralkar, you awsome C and System programming guru...keep rocking..!!! */<br> </p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-1" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">1</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413707">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413707">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413706" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">mrkartikmishra</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413706" data-role="relative-time" class="time-ago" title="Monday, March 11 2013 11:13 PM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>nice explanation</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413706">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413706">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413702" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Sash</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413702" data-role="relative-time" class="time-ago" title="Wednesday, January 23 2013 12:46 AM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>nyc explain</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413702">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413702">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413699" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Sash</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413699" data-role="relative-time" class="time-ago" title="Wednesday, January 23 2013 12:45 AM">
+a year ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>nyc example of sensor...</p><p></p><pre> <code class="perl">/* Paste your code here (You may <span class="keyword">delete</span> these lines <span class="keyword">if</span> <span class="keyword">not</span> writing code) <span class="variable">*/</span>
+</code> </pre>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413699">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413699">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413696" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Sandeep</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413696" data-role="relative-time" class="time-ago" title="Tuesday, April 17 2012 4:24 AM">
+2 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Very good explanation with such nice examples.</p><p>Just that you 
+code has used volatile and you have mentioned it as optimized solution. I
+ think i should not be optimized. Correct me if i am wrong</p><p>Snippet from above code</p><p>Its not optimized right, so your comments are not the same</p><p>/* Compile code with optimization option */<br>#include</p><p>int main(void)<br>{<br>    const volatile int local = 10;<br>    int *ptr = (int*) &amp;local;</p><p>    printf("Initial value of local : %d \n", local);</p><p>    *ptr = 100;</p><p>    printf("Modified value of local: %d \n", local);</p><p>    return 0;<br>}</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413696">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413696">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413694" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">vinkal</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413694" data-role="relative-time" class="time-ago" title="Monday, April 16 2012 1:14 AM">
+2 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Thanks for this nice explanation</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413694">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413694">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413690" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Karthick</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413690" data-role="relative-time" class="time-ago" title="Saturday, April 7 2012 7:51 PM">
+2 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Nice explanation. Thanks :)</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413690">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413690">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413683" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">electionreddy</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413683" data-role="relative-time" class="time-ago" title="Monday, December 19 2011 4:11 AM">
+3 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Well explained. The Touch sensor example is awesome.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413683">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413683">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li><li id="post-1016413686" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Rohin</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016413686" data-role="relative-time" class="time-ago" title="Tuesday, December 13 2011 8:52 PM">
+3 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>All the three code snippets written above don't work as stated using Turbo C compiler.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016413686">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016413686">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1016424580" class="post">
+<div role="alert"></div>
+
+<div data-role="post-content" class="post-content">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">kartik</span>
+
+
+
+<span><a href="#comment-1016413686" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Rohin</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1016424580" data-role="relative-time" class="time-ago" title="Tuesday, December 13 2011 11:46 PM">
+3 years ago
+</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>@Rohin:</p><p>Could you provide more details?  What do you get when use Turbo C compiler.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+<menu>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply" data-role="reply-link">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1016424580">Link</a></li>
+</ul>
+</li>
+
+
+
+<li class="realtime" data-role="realtime-notification:1016424580">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+
+
+</menu>
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul>
+
+
+</li></ul>
+
+
+</li></ul>
+
+<div class="load-more" data-role="more" style="display:none">
+<a href="#" data-action="more-posts" class="btn">Load more comments</a>
+</div>
+</div>
+
+</section>
+
+<section class="loading" id="community" data-tracking-area="main" style="display:none" data-role="main" data-outbound-link="embed:community">
+
+</section>
+
+<section id="dashboard" style="display:none" data-role="main" data-tracking-area="main">
+
+
+<p style="line-height: 1.4">Nothing for you here ... yet. But as you comment with Disqus and follow
+other Disqus users, you will start to receive notifications here, as well as a personalized
+feed of activity by you and the people you follow. So get out there and participate in
+some discussions!</p>
+</section>
+
+<section id="profile" style="display:none" data-role="main" data-tracking-area="main">
+</section>
+
+<div id="discovery" data-tracking-area="discovery-south"></div>
+
+<div id="footer" data-tracking-area="footer">
+<ul>
+<li class="logo"><a href="http://disqus.com/" title="Powered by Disqus">Powered by Disqus</a></li>
+<li id="thread-subscribe-button" class="email"> 
+<div class="default">
+<a href="#" data-action="subscribe" title="Subscribe and get email updates from this discussion"><i aria-hidden="true" class="icon-mail"></i><span class="clip">Subscribe</span> <i aria-hidden="true" class="icon-checkmark"></i></a>
+</div>
+<div class="form">
+<div class="input-wrapper"><input id="thread-subscribe-email" placeholder="yourname@email.com" type="email"></div>
+</div>
+</li>
+<li class="install">
+<a href="https://disqus.com/websites/?utm_source=geeksforgeeks&amp;utm_medium=Disqus-Footer" target="_blank">
+<i aria-hidden="true" class="icon-disqus"></i>
+<span class="clip">Add Disqus to your site</span>
+</a>
+</li>
+</ul>
+</div>
+</div></body></html>

@@ -1,0 +1,15 @@
+
+32-bit:
+------
+	-- Each time compiler takes 4bytes at a time, and 
+	-- try to populate the taken 4bytes, if the rest of the container size is not 
+	-- not suffice to populate member then it add null padding to the rest of bytes in the container,
+	-- And takes a fresh 4bytes to fill member.
+	-- It wont fill partial members like half in one segment and half in other.
+	-- Each member start address must be multiples of 4.
+
+64-bit:
+------
+	-- Each time compiler will take 8bytes at a time.
+	-- Each member start address must be multiples of 8.
+	-- Populate same as above.

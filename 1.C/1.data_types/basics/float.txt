@@ -1,0 +1,128 @@
+float miths:
+------------
+
+	If u have assigned a real number to float what will happen is,
+	
+EXAMPLE 1:
+==========
+
+		float f  = 4.3;
+		double d = 4.3;
+
+	1st left side of point(.) 4 and right is 3
+
+	Binary equalent of 4.3 is:
+		
+		4 = 100
+	for 0.3 
+		0.3 x 2 = 0.6		0
+		0.6 x 2 = 1.2		1(subract 1 from 1.2)
+		0.2 x 2 = 0.4		0
+		0.4 x 2 = 0.8		0
+		0.8 x 2 = 1.6		1
+		0.6 x 2 = 1.2		1
+		0.2 x 2 = 0.4	........................(it doesnt end)	
+	
+	so 4.3 equalent is :
+		
+		4.3 = 100.0 1001 1001 1001 1001 1001 1001 1001 1001 1001 1001 1001 ---------- so-on
+		To represent any precesion formate(float/double) u shud shift decimal such that left side of decimal		      has only one digit that digit must be 1(binary). Place 2^(some val) to equate.. see above example we 		    have left side stuff of point(.) So better to shift the decimal left and multiply that num of 2 
+		that will become like following
+		
+	Now float representation is
+	--------------------------- 
+		
+		FORMATE: M.MMMMMMMMMMMMMMMMMMMMMMMMM
+		f = 1. 00 0 1001 1001 1001 1001 1001 x (2)^2
+		
+		as 0.3 binary representation has infinite sequence, but float has 32 bits only to store Infinite odd
+		sequences in float or double we will lost some bits(less significant). So inorder to minimise error
+		compiler will add 1 to least significant bit(right part of decimal).
+		So above f will be
+
+		f = 1. 00 0 1001 1001 1001 1001 1010 x (2)^2
+		So e=2
+
+		according to IEEE float(single precision) exponent(e) shud add 127
+		127+2 = 129 
+		129 binary = 1000 0001
+
+		so entire 4 bytes of float will be:
+		
+		S  EEEEEEEE  MMM MMMM MMMM MMMM MMMM MMMM
+		0  10000001  000 1001 1001 1001 1001 1010
+
+	Now double representation is:
+	-----------------------------
+
+		d = 1.0001 00110011 00110011 00110011 00110011 00110011 00110011 x (2)^2
+
+		as 0.3 binary representation has infinite sequence, but float has 32 bits only to store Infinite odd
+                sequences in float or double we will lost some bits(less significant). So inorder to minimise error
+                compiler will add 1 to least significant bit(right part of decimal).
+                So above d will be
+		
+		d = 1.0001 00110011 00110011 00110011 00110011 00110011 00110100 x (2)^2
+		so e=2
+		
+		according to IEEE double(double precision) exponent(e) shud add 1023
+                1023+2 = 1025
+                1025 binary = 100 0000 0001
+
+                so entire 8 bytes of double will be:
+
+                S  EEEEEEEEEEE  MMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM MMMMMMMM
+                0  10000000001  0001 00110011 00110011 00110011 00110011 00110011 00110011
+
+		
+IF left part of point is multiples of 5:
+----------------------------------------
+		It's not an odd sequence..
+	FLOAT:
+		So if it has not stoped after (32-9)=23 bits has reached, then compiler may add 1 to reduce error.
+	DOUBLE:
+		if it has not stoped after (64-12)=52 bits has reached, then compiler may add 1 to reduce error.
+
+	Otherwise no padding of bits done by compiler.
+	
+	For example:
+		6.5	not an odd sequence
+		6.25 	not an odd sequence, but float may need add 1 to reduce error
+		6.355	not an odd sequence, but it may need padding bits to reduce error
+
+
+FOR COMPARISION:
+================
+		
+EX 1:
+-----	if(f==4.5) true;
+
+	bcoz it wont consider memory bits; its just consider the e=2, S=0, and MMMMMMMM... only
+	bcoz 4.5 is not an odd sequence it will end normally as 100.1
+	here mantissas also same since its and quick ended sequence
+	
+	So this if condition will be true.
+	
+EX 2:
+-----	float f=4.7;
+	if(f==4.7) false;
+		its an odd sequence
+		bcoz mantissas will not equal..
+
+EX 3:
+-----	float f=4.25;
+	if(f==4.25) true;
+		it not an odd sequence. it will end with in 4 multiplications by 2;
+				
+				0.25 x 2 = 0.5 =======>  0
+				0.5  x 2 = 1.0 =======>  1
+				0.0  x 2 = 0  ended
+		So 100.01
+	its must store as it is in float and double container.
+
+EX 4:
+-----	float f=4.765;
+	if(f==4.765) false;
+		its not an odd sequece but it will end by long time than float bits, but double it may/maynot be end
+	check it out on paper
+		bcoz mantissas will not equal

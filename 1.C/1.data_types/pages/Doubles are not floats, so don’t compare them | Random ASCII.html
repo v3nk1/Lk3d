@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Doubles are not floats, so don’t compare them | Random ASCII</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" media="all" href="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/style_002.css">
+<link rel="pingback" href="http://randomascii.wordpress.com/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="Random ASCII » Feed" href="http://randomascii.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Random ASCII » Comments Feed" href="http://randomascii.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Random ASCII » Doubles are not floats, so don’t compare&nbsp;them Comments Feed" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/feed/">
+<script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/videoTracker.js" type="text/javascript"></script><script type="text/javascript" async="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/quant.js"></script><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/find.js" id="gv_script_4336458813553375091447928"></script><script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<style type="text/css">
+	/*body div.jp-relatedposts { border-color:#cccccc; }
+	body div.jp-relatedposts .jp-relatedposts-headline em { background:#ffffff }
+	body div.jp-relatedposts, body div.jp-relatedposts .jp-relatedposts-post a { color:#333333 }*/
+	body div.jp-relatedposts .jp-relatedposts-headline em:before { border-color:#333333; }
+</style><link rel="stylesheet" id="all-css-0" href="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a_002.js"></script>
+<link rel="stylesheet" id="all-css-0" href="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://randomascii.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://randomascii.wordpress.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="WPA–Xperf Trace Analysis&nbsp;Reimagined" href="http://randomascii.wordpress.com/2012/06/19/wpaxperf-trace-analysis-reimagined/">
+<link rel="next" title="When Even Crashing Doesn’t&nbsp;Work" href="http://randomascii.wordpress.com/2012/07/05/when-even-crashing-doesnt-work/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/">
+<link rel="shortlink" href="http://wp.me/p1fTCO-aH">
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Frandomascii.wordpress.com%2F2012%2F06%2F26%2Fdoubles-are-not-floats-so-dont-compare-them%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Frandomascii.wordpress.com%2F2012%2F06%2F26%2Fdoubles-are-not-floats-so-dont-compare-them%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Doubles are not floats, so don’t compare them">
+<meta property="og:url" content="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/">
+<meta property="og:description" content="I’ve seen a few online discussions linking to my Comparing Floating Point Numbers page for misguided reasons and I wanted to discuss those reasons to help people understand why throwing epsilons at...">
+<meta property="og:site_name" content="Random ASCII">
+<meta property="og:image" content="http://1.gravatar.com/avatar/d69d2780728dfc033fcc8123f31ef8fa?s=200&amp;d=identicon&amp;r=G">
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="http://1.gravatar.com/avatar/d69d2780728dfc033fcc8123f31ef8fa?s=200&amp;d=identicon&amp;r=G">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:creator" content="@BruceDawson0xB">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g">
+<link rel="openid.server" href="http://randomascii.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://randomascii.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://randomascii.wordpress.com/osd.xml" title="Random ASCII">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style>
+		/* <![CDATA[ */
+		/* Block: reblog */
+		
+		.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+		.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+		.reblogger-note-content            { margin: 0 0 20px; }
+		.reblog-post .wpcom-enhanced-excerpt-content { border-left: 3px solid #eee; padding-left: 15px; }
+		.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+		.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+		.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+		.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+		
+		.reblog-post .wpcom-enhanced-excerpt { clear: both; }
+		
+		.reblog-post .wpcom-enhanced-excerpt address,
+		.reblog-post .wpcom-enhanced-excerpt li,
+		.reblog-post .wpcom-enhanced-excerpt h1,
+		.reblog-post .wpcom-enhanced-excerpt h2,
+		.reblog-post .wpcom-enhanced-excerpt h3,
+		.reblog-post .wpcom-enhanced-excerpt h4,
+		.reblog-post .wpcom-enhanced-excerpt h5,
+		.reblog-post .wpcom-enhanced-excerpt h6,
+		.reblog-post .wpcom-enhanced-excerpt p { font-size: 100% !important; }
+		
+		.reblog-post .wpcom-enhanced-excerpt blockquote,
+		.reblog-post .wpcom-enhanced-excerpt pre,
+		.reblog-post .wpcom-enhanced-excerpt code,
+		.reblog-post .wpcom-enhanced-excerpt q { font-size: 98% !important; }
+		
+
+		/* ]]> */
+		</style>
+		<meta name="application-name" content="Random ASCII"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Forecast for randomascii: programming, tech topics, with a chance of unicycling"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://randomascii.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Doubles are not floats, so don’t compare&nbsp;them | Random ASCII on WordPress.com">
+<meta name="description" content="I’ve seen a few online discussions linking to my Comparing Floating Point Numbers page for misguided reasons and I wanted to discuss those reasons to help people understand why throwing epsilons at the problem without understanding the situation is a Really Bad Idea™. In some cases, comparing floating-point numbers for exact equality is actually correct.If…">
+
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/google_ads.js"></script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post_adsafe"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 18565082, pt: 'permalink', wa: 0, as: 1, domain: 'randomascii.wordpress.com', url: 'http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/', gid: '', };
+</script>
+<style id="syntaxhighlighteranchor"></style>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ga.js" async="" type="text/javascript"></script>
+<script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/osd.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/services.css"><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a_003.html" async="" type="text/javascript"></script></head>
+
+<body class="single single-post postid-663 single-format-standard single-author mp6 highlander-enabled highlander-light">
+<div id="wrapper" class="hfeed">
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+								<div id="site-title">
+					<span>
+						<a sl-processed="1" href="http://randomascii.wordpress.com/" title="Random ASCII" rel="home">Random ASCII</a>
+					</span>
+				</div>
+				<div id="site-description">Forecast for randomascii: programming, tech topics, with a chance of unicycling</div>
+
+										<a sl-processed="1" class="home-link" href="http://randomascii.wordpress.com/" title="Random ASCII" rel="home">
+							<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/blog-header-from-p2090787.jpg" alt="" height="198" width="940">
+						</a>
+								</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+			  				<div class="skip-link screen-reader-text"><a sl-processed="1" href="#content" title="Skip to content">Skip to content</a></div>
+								<div class="menu"><ul><li><a sl-processed="1" href="http://randomascii.wordpress.com/">Home</a></li><li class="page_item page-item-2"><a sl-processed="1" href="http://randomascii.wordpress.com/about/">About</a></li></ul></div>
+			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+			
+
+				<div id="nav-above" class="navigation">
+					<div class="nav-previous"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/19/wpaxperf-trace-analysis-reimagined/" rel="prev"><span class="meta-nav">←</span> WPA–Xperf Trace Analysis&nbsp;Reimagined</a></div>
+					<div class="nav-next"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/07/05/when-even-crashing-doesnt-work/" rel="next">When Even Crashing Doesn’t&nbsp;Work <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-above -->
+
+				<div id="post-663" class="post-663 post type-post status-publish format-standard hentry category-floating-point category-programming tag-base-conversion tag-epsilon tag-float tag-floating-point-2 tag-precision">
+											<h2 class="entry-title"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" rel="bookmark">Doubles are not floats, so don’t compare&nbsp;them</a></h2>					
+					<div class="entry-meta">
+													<span class="meta-prep meta-prep-author">Posted on</span> <a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" title="2:52 pm" rel="bookmark"><span class="entry-date">June 26, 2012</span></a>							<span class="by-author"><span class="sep">by</span> <span class="author vcard"><a sl-processed="1" class="url fn n" href="http://randomascii.wordpress.com/author/brucedawson/" title="View all posts by brucedawson" rel="author">brucedawson</a></span> </span>											</div><!-- .entry-meta -->
+
+					<div class="entry-content">
+						<p>I’ve seen a few online discussions linking to my <a sl-processed="1" href="http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/">Comparing Floating Point Numbers</a>
+ page for misguided reasons and I wanted to discuss those reasons to 
+help people understand why throwing epsilons at the problem without 
+understanding the situation is a Really Bad Idea™. In some cases, 
+comparing floating-point numbers for exact equality is actually correct.</p>
+<p><span id="more-663"></span>
+</p><p>If you do a series of operations with floating-point numbers 
+then, since they have finite precision, it is normal and expected that 
+some error will creep in. If you do the same calculation in a slightly 
+different way then it is normal and expected that you might get slightly
+ different results. In that case a thoughtful comparison of the two 
+results with a carefully chosen relative and/or absolute epsilon value 
+is entirely appropriate.</p>
+<p>However if you start adding epsilons carelessly – if you allow for 
+error where there should be none – then you get a chaotic explosion of 
+uncertainty where you can’t tell truth from fiction.</p>
+<h2>Floating-point numbers aren’t cursed</h2>
+<p>Sometimes people think that floating-point numbers are magically 
+error prone. There seems to be a belief that if you redo the exact same 
+calculation with the exact same inputs then you might get a different 
+answer. Now this can happen if you change compilers (such as when 
+changing CPU architectures), change compiler settings (such as 
+optimization levels), and it can happen if you use instructions (like 
+fsin/fcos/ftan) whose value is not precisely defined by the IEEE 
+standard (and if you run your code on a different CPU that implements 
+them differently). But if you stick to the basic five operations (plus, 
+minus, divide, multiply, square root) and you haven’t recompiled your 
+code then you should absolutely expect the same results.</p>
+<p>Update: this guarantee is mostly straightforward (if you haven’t 
+recompiled then you’ll get the same results) but nailing it down 
+precisely is tricky. If you change CPUs or compilers or compiler options
+ then, as shown in <a sl-processed="1" href="http://randomascii.files.wordpress.com/2012/03/image6.png">this chart</a> from <a sl-processed="1" href="http://randomascii.wordpress.com/2012/03/21/intermediate-floating-point-precision/">this post</a>,
+ you can get different results from the same inputs, even on very simple
+ code. And, it turns out that you can get different results from the 
+same machine code – if you reconfigure your FPU. Most FPUs have a 
+(per-thread) setting to control the rounding mode, and x87 FPUs have a 
+setting to control register precision. If you change those then the 
+results will change. So the guarantee is really that the same machine 
+code will produce the same results, as long as you don’t do something 
+wacky.</p>
+<p>Understanding these guarantees is important. I talked to somebody who
+ had spent weeks trying to understand how to deal with floating-point 
+instability in his code – different results on different machines from 
+the same machine code – when it was clear to me that the results should 
+have been identical. Once he realized that floating-point instability 
+was not the problem he quickly found that his code had some race 
+conditions, and those had been the problem all along. Floating-point as 
+the scapegoat delayed his finding of the real bug by almost a month.</p>
+<h2>Constants compared to themselves</h2>
+<p>The other example I’ve seen where people are too quick to pull out an
+ epsilon value is comparing a constant to itself. Here is a typical 
+example of the code that triggers this:</p>
+<blockquote><p>float x = 1.1;<br>if (x != 1.1)<br>&nbsp;&nbsp;&nbsp; printf(“OMG! Floats suck!\n”);</p>
+</blockquote>
+<p>On a fairly regular basis somebody will write code like this and then
+ be shocked that the message is printed. Then somebody inevitably points
+ them to my article and tells them to use an epsilon, and whenever that 
+happens another angel loses their wings.</p>
+<p>If floating-point math is incapable of getting correct results when there are <em>no</em>
+ calculations (except for a conversion) involved then it is completely 
+broken. And yet, other developers manage to get excellent results from 
+it. The more logical conclusion – rather than “OMG! Floats suck!” is 
+that the code above is flawed in some way.</p>
+<p>And indeed it is.</p>
+<h2>Fatally flawed floats</h2>
+<p>The problem is that there are two main floating-point types in most 
+C/C++ implementations. These are float (32 bits) and double (64 bits). 
+Floating-point constants in C/C++ are double precision, so the code 
+above is equivalent to:</p>
+<blockquote><p>if (float(1.1) != (double)1.1)<br>&nbsp;&nbsp;&nbsp; printf(“OMG! Floats suck!\n”);</p>
+</blockquote>
+<p>In other words, if 1.1 is not the same when stored as a float as when stored as a double then the message will be printed.</p>
+<p>Given that there are twice as many bits in a double as there are in a
+ float it should be obvious that there are many doubles that cannot be 
+represented in a float. In fact, if you take a randomly selected double 
+then the odds of it being perfectly representable in a float are about 
+one part in 4 billion. Which is poor odds.</p>
+<h2>It looks so simple…</h2>
+<p>The confusion, presumably, comes from the fact that 1.1 looks like 
+such a simple number, and therefore the naive expectation is that it can
+ trivially be stored in a float. That expectation is incorrect – it is <em>impossible</em>
+ to perfectly represent 1.1 in a binary float. To see why let’s see what
+ happens when we try converting 1.1 to binary. But first let’s practice 
+base conversion.</p>
+<p>To convert the fractional part of a number to a particular base you 
+just repeatedly multiply the number by the base. After each step the 
+integer portion is the next digit. You then discard the integer portion 
+and continue. Let’s try this by converting 1/7 to base 10:</p>
+<ol>
+<li>1/7 (initial value)</li>
+<li><strong>10/7 = 1+3/7 (multiply by ten, first digit is one)</strong></li>
+<li><strong>30/7 = 4+2/7 (discard integer part, multiply by ten, next digit is four)</strong></li>
+<li><strong>20/7 = 2+6/7 (discard integer part, multiply by ten, next digit is two)</strong></li>
+<li><strong>60/7 = 8+4/7 (discard integer part, multiply by ten, next digit is eight)</strong></li>
+<li><strong>40/7 = 5+5/7 (discard integer part, multiply by ten, next digit is five)</strong></li>
+<li><strong>50/7 = 7+1/7 (discard integer part, multiply by ten, next digit is seven)</strong></li>
+<li>10/7 = 1+3/7 (discard integer part, multiply by ten, next digit is one)</li>
+</ol>
+<p>The answer is 0.<strong>142857</strong>142857… We can see that the 
+bold steps (2-7) repeat endlessly so therefore we will never get to a 
+remainder of zero. Instead those same six digits will repeat forever.</p>
+<h2>1.1 is not a binary float</h2>
+<p>Let’s try the same thing with converting 1.1 to base two. The leading
+ ‘1’ converts straight across, and to generate subsequent binary digits 
+we just repeatedly multiply by two. After each multiply we take the 
+integer portion of the result as our next digit, and discard the integer
+ portion before the next multiply:</p>
+<ol>
+<li>0.1 (initial value)</li>
+<li>0.2 (multiply by two, first digit is zero)</li>
+<li><strong>0.4 (multiply by two, next digit is zero)</strong></li>
+<li><strong>0.8 (multiply by two, next digit is zero)</strong></li>
+<li><strong>1.6 (multiply by two, next digit is one)</strong></li>
+<li><strong>1.2 (discard integer part then multiply by two, next digit is one)</strong></li>
+<li>0.4 (discard integer part, then multiply by two, next digit is zero)</li>
+<li>0.8 (multiply by two, next digit is zero)</li>
+</ol>
+<p>Notice that the steps in bold (3-6) repeat endlessly, so the binary 
+representation of 1.1 repeats endlessly. The net result is that the 
+binary representations of 1.1 in float (24-bit mantissa) and double 
+(53-bit mantissa) precision are:</p>
+<p>float(1.1) = %1.00011001100110011001101</p>
+<p>double(1.1) = %1.0001100110011001100110011001100110011001100110011010</p>
+<p>The slight breaking of the pattern at the end of both numbers is 
+because the conversion is done with round-to-nearest rather than 
+truncation, in order to minimize the error in the approximation, and in 
+both cases it is rounded up.</p>
+<p>All binary numbers can be exactly represented in decimal, but not all
+ decimal numbers can be exactly represented in binary. Just as 1/7 
+cannot be represented as a decimal number, 1/10 cannot be represented as
+ a binary number. For more details on conversions and precision see <a sl-processed="1" href="http://randomascii.wordpress.com/2012/03/08/float-precisionfrom-zero-to-100-digits-2/">this post</a>.</p>
+<h2>And therefore…</h2>
+<p>float(1.1) = 1.10000002384185791015625</p>
+<p>double(1.1) = 1.100000000000000088817841970012523233890533447265625</p>
+<p>and these values are not equal. Don’t expect the result of 
+double-precision calculations to equal the result of float-precision 
+calculations, even when the only ‘calculation’ is converting from 
+decimal to binary floating point. Two reasonable ways to fix the initial
+ code would be:</p>
+<blockquote><p>float x = 1.1f; // Float constant<br>if (x != 1.1f) // Float constant<br>&nbsp;&nbsp;&nbsp; printf(“OMG! Floats suck!\n”);</p>
+</blockquote>
+<p>or:</p>
+<blockquote><p>double x = 1.1;<br>if (x != 1.1)<br>&nbsp;&nbsp;&nbsp; printf(“OMG! Floats suck!\n”);</p>
+</blockquote>
+<p>Both of these pieces of code will behave intuitively and will not print the message. No epsilon required. And no angels harmed.</p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a sl-processed="1" style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Twenty Ten";
+		var wpcom_adclk_slot = "wpcom_below_post_adsafe";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "randomascii.wordpress.com");
+GA_googleAddAttr("BlogId", "18565082");
+GA_googleAddAttr("AdSafe", "1");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Tag", "floating-point");
+GA_googleAddAttr("Tag", "programming");
+GA_googleAddAttr("Tag", "base-conversion");
+GA_googleAddAttr("Tag", "epsilon");
+GA_googleAddAttr("Tag", "float");
+GA_googleAddAttr("Tag", "floating-point-2");
+GA_googleAddAttr("Tag", "precision");
+GA_googleAddAttr("Partner", "AOL");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0066cc");
+GA_googleAddAttr("theme_border", "cccccc");
+GA_googleAddAttr("theme_url", "ff4b33");
+GA_googleAddAdSensePageAttr("google_page_url", "http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/");
+GA_googleFillSlot("wpcom_below_post_adsafe");
+}
+</script><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ads"></script><div id="google_ads_div_wpcom_below_post_adsafe_ad_wrapper">
+<div id="google_ads_div_wpcom_below_post_adsafe_ad_container" style="display:inline-block;"><script>initping=1;</script>
+<script>
+var wpcom_adclk_network = "aol_viral";
+if (typeof wpcom_adclk_impression == "function") { wpcom_adclk_impression(); }
+</script>
+<div class="gv-placement-sp" id="gv_target_4336458813553375091447928"><iframe src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/custom.html" style="border: 0px none; margin: 0px; padding: 0px; visibility: visible;" id="gv-iframe" height="267" scrolling="no" width="400" frameborder="0"></iframe></div>
+<script>!function(d, s, id) {
+    var js, pjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = ('https:' == document.location.protocol ? "http://player-services.goviral-content.com".replace(/^http\:/, 'https:') : "http://player-services.goviral-content.com") + "/embed-code/index/find?placementVersionId=4336458813553375091447928";
+    pjs.parentNode.insertBefore(js, pjs);
+}(document, 'script', 'gv_script_4336458813553375091447928');</script>
+
+</div>
+</div>
+
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-digg"><a sl-processed="1" rel="nofollow" class="share-digg sd-button share-icon" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?share=digg&amp;nb=1" title="Click to Digg this post"><span>Digg</span></a></li><li class="share-email share-service-visible"><a sl-processed="1" rel="nofollow" class="share-email sd-button share-icon" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?share=email&amp;nb=1" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-reddit"><a sl-processed="1" rel="nofollow" class="share-reddit sd-button share-icon" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?share=reddit&amp;nb=1" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-twitter"><a sl-processed="1" rel="nofollow" class="share-twitter sd-button share-icon" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?share=twitter&amp;nb=1" title="Click to share on Twitter" id="sharing-twitter-663"><span>Twitter<span class="share-count">21</span></span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-18565082-663-5280cb512c20f" data-src="//widgets.wp.com/likes/#blog_id=18565082&amp;post_id=663&amp;origin=randomascii.wordpress.com&amp;obj_id=18565082-663-5280cb512c20f" data-name="like-post-frame-18565082-663-5280cb512c20f"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe style="display: inline;" class="post-likes-widget jetpack-likes-widget" name="like-post-frame-18565082-663-5280cb512c20f" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a.html" height="55px" width="100%" frameborder="0"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div style="display: block;" id="jp-relatedposts" class="jp-relatedposts">
+	<p class="jp-relatedposts-headline"><em>Related</em></p>
+<p class="jp-relatedposts-post jp-relatedposts-post0" data-post-format="false"><strong><a href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?relatedposts_to=445&amp;relatedposts_order=0" title="Comparing Floating Point Numbers, 2012 Edition
+
+This post is a more carefully thought out and peer reviewed version of a floating-point comparison article I wrote many years ago. This one gives solid advice and some surprising observations about the tricky subject of comparing floating-point numbers. We’ve finally reached the point in this series that I’ve been waiting for. In this post…" rel="nofollow">Comparing Floating Point Numbers, 2012 Edition</a></strong><br><span>In "AltDevBlogADay"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-format="false"><strong><a href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?relatedposts_to=493&amp;relatedposts_order=1" title="Intermediate Floating-Point Precision
+
+Riddle me this Batman: how much precision are these calculations evaluated at? If you answered ‘double’ and ‘float’ then you score one point for youthful idealism, but zero points for correctness. The correct answer, for zero-idealism points and forty two correctness points is “it depends”. Read on for more details.It depends. It depends on the…" rel="nofollow">Intermediate Floating-Point Precision</a></strong><br><span>In "AltDevBlogADay"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-format="false"><strong><a href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?relatedposts_to=1020&amp;relatedposts_order=2" title="Float Precision Revisited: Nine Digit Float Portability
+
+Last year I pointed out that float variables can be converted to text and then back to the same binary value using printf(" %1.8e").="" i="" also="" supplied="" a="" test="" program="" that="" used="" c++="" 11="" threading="" to="" quickly="" prove="" this="" claim="" on="" vc++="" 2012.="" however="" what="" was="" left="" untested="" whether="" float="" is="" converted="" to&hellip;"="" rel="nofollow">Float Precision Revisited: Nine Digit Float Portability</a></strong><br><span>In "Floating Point"</span></p></div></div>											</div><!-- .entry-content -->
+
+					<div id="entry-author-info">
+						<div id="author-avatar">
+							<img id="grav-d69d2780728dfc033fcc8123f31ef8fa-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/d69d2780728dfc033fcc8123f31ef8fa.jpeg" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div><!-- #author-avatar -->
+						<div id="author-description">
+							<h2>About brucedawson</h2>
+							I'm a programmer, working for Valve 
+(http://www.valvesoftware.com/), focusing on optimization and 
+reliability. Nothing's more fun than making code run 5x faster. Unless 
+it's eliminating large numbers of bugs.
+
+I also unicycle. And play (ice) hockey. And juggle.							<div id="author-link">
+								<a sl-processed="1" href="http://randomascii.wordpress.com/author/brucedawson/" rel="author">
+									View all posts by brucedawson <span class="meta-nav">→</span>								</a>
+							</div><!-- #author-link	-->
+						</div><!-- #author-description -->
+					</div><!-- #entry-author-info -->
+
+					<div class="entry-utility">
+												This entry was posted in <a sl-processed="1" href="http://randomascii.wordpress.com/category/floating-point/" title="View all posts in Floating Point" rel="category tag">Floating Point</a>, <a sl-processed="1" href="http://randomascii.wordpress.com/category/programming/" title="View all posts in Programming" rel="category tag">Programming</a> and tagged <a sl-processed="1" href="http://randomascii.wordpress.com/tag/base-conversion/" rel="tag">base conversion</a>, <a sl-processed="1" href="http://randomascii.wordpress.com/tag/epsilon/" rel="tag">epsilon</a>, <a sl-processed="1" href="http://randomascii.wordpress.com/tag/float/" rel="tag">float</a>, <a sl-processed="1" href="http://randomascii.wordpress.com/tag/floating-point-2/" rel="tag">floating point</a>, <a sl-processed="1" href="http://randomascii.wordpress.com/tag/precision/" rel="tag">precision</a>. Bookmark the <a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" title="Permalink to Doubles are not floats, so don’t compare&nbsp;them" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</div><!-- #post-## -->
+
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/19/wpaxperf-trace-analysis-reimagined/" rel="prev"><span class="meta-nav">←</span> WPA–Xperf Trace Analysis&nbsp;Reimagined</a></div>
+					<div class="nav-next"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/07/05/when-even-crashing-doesnt-work/" rel="next">When Even Crashing Doesn’t&nbsp;Work <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-below -->
+
+				
+			<div id="comments">
+
+
+			<h3 id="comments-title">8 Responses to <em>Doubles are not floats, so don’t compare&nbsp;them</em></h3>
+
+
+			<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-834">
+		<div id="comment-834">
+			<div class="comment-author vcard">
+				<img id="grav-a207c656b0c30343caa0ba476fc91e50-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a207c656b0c30343caa0ba476fc91e50.png" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn"><a sl-processed="1" href="http://gravatar.com/danielsidhion" rel="external nofollow" class="url">Daniel Sidhion</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-834">
+				June 29, 2012 at 9:46 am</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>This is a very clear and straight 
+explanation of how floats and doubles behave, and the extra about base 
+conversion was very helpful to remember how it worked! As a programmer 
+who used to avoid floats and doubles whenever possible (because I didn’t
+ understand the “magic” behind them) and is getting to C/C++ game 
+programming, this post and all the others about the subject taught me I 
+was doing it wrong. Thank you!</p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=834#respond" onclick='return addComment.moveForm("comment-834", "834", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-861">
+		<div id="comment-861">
+			<div class="comment-author vcard">
+				<img id="grav-5c31929b36467f41601856d12addb7f3-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/5c31929b36467f41601856d12addb7f3.png" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn"><a sl-processed="1" href="http://gravatar.com/brillient" rel="external nofollow" class="url">Brent Gulanowski</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-861">
+				July 6, 2012 at 9:09 am</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Excellent discussion. Even knowing some 
+of this stuff, it’s easy to forget day-to-day. The examples are 
+extremely valuable when one’s thinking isn’t as clear as it should be.</p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=861#respond" onclick='return addComment.moveForm("comment-861", "861", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-898">
+		<div id="comment-898">
+			<div class="comment-author vcard">
+				<img id="grav-be55a46ab1b8c675f3b44f46aaf7771c-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/be55a46ab1b8c675f3b44f46aaf7771c.png" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn">Joseph Lunderville</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-898">
+				July 10, 2012 at 11:40 am</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>As a case in point, all of Relic’s games
+ have used floating-point extensively in gameplay code, but are still 
+completely deterministic across CPUs from the Pentium II through the i7 —
+ we know this because you can play networked games and replays on 
+different generations of machine without desyncing.</p>
+<p>There are caveats: the way some SSE instructions are specified is a 
+bit of a minefield, and we’re trying to figure out now how we can make 
+things work reliably across architectures, but the main point is valid. 
+Floating point is subtle, but it’s not inherently nondeterministic.</p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=898#respond" onclick='return addComment.moveForm("comment-898", "898", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-koteko odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-1185">
+		<div id="comment-1185">
+			<div class="comment-author vcard">
+				<img id="grav-8bf0d5077d63e2ab66510b5f1d434946-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/8bf0d5077d63e2ab66510b5f1d434946.jpeg" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn"><a sl-processed="1" href="http://www.fabioticconi.wordpress.com/" rel="external nofollow" class="url">Fabio T.</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-1185">
+				August 12, 2012 at 10:47 am</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Reblogged this on <a sl-processed="1" href="http://fabioticconi.wordpress.com/2012/08/12/345/" rel="nofollow">Fabio Ticconi's Blog</a>.</p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=1185#respond" onclick='return addComment.moveForm("comment-1185", "1185", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-1930">
+		<div id="comment-1930">
+			<div class="comment-author vcard">
+				<img id="grav-111c6924ec43f7bbd8fb30967edcaaa1-0" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/111c6924ec43f7bbd8fb30967edcaaa1.png" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn"><a sl-processed="1" href="http://frama-c.com/" rel="external nofollow" class="url">Pascal Cuoq</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-1930">
+				November 3, 2012 at 1:54 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Cogently written. The worst 
+counter-example to the superstition “testing floats with equality is 
+always bad” may be this one, where the tested value is an infinite: <a sl-processed="1" href="http://stackoverflow.com/questions/11421756/weverything-yielding-comparing-floating-point-with-or-is-unsafe" rel="nofollow">http://stackoverflow.com/questions/11421756/weverything-yielding-comparing-floating-point-with-or-is-unsafe</a></p>
+<p>A couple more examples are in this post of mine (it can get tricky, 
+but that does not undermine the message that floating-point is 
+deterministic): <a sl-processed="1" href="http://blog.frama-c.com/index.php?post/2011/11/08/Floating-point-quiz" rel="nofollow">http://blog.frama-c.com/index.php?post/2011/11/08/Floating-point-quiz</a></p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=1930#respond" onclick='return addComment.moveForm("comment-1930", "1930", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-brucedawson bypostauthor odd alt depth-2 highlander-comment" id="li-comment-1934">
+		<div id="comment-1934">
+			<div class="comment-author vcard">
+				<img id="grav-d69d2780728dfc033fcc8123f31ef8fa-1" alt="" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/d69d2780728dfc033fcc8123f31ef8fa_002.jpeg" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40">				<cite class="fn"><a sl-processed="1" href="http://randomascii.wordpress.com/" rel="external nofollow" class="url">brucedawson</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a sl-processed="1" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#comment-1934">
+				November 3, 2012 at 5:50 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Nice — I appreciate the comment and the links.</p>
+<p>One quibble: in the Floating-point-quiz you say “For a decimal number
+ to be representable as a (base 2) floating-point number, its decimal 
+expansion has to end in 5″ but that is only true if there is a 
+fractional part. All of the integers from 0 to 2^24 (about 16 million) 
+are representable in a float, and many more are representable in a 
+double, and most of them don’t end in 5.</p>
+</div>
+
+			<div class="reply">
+				<a sl-processed="1" class="comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/?replytocom=1934#respond" onclick='return addComment.moveForm("comment-1934", "1934", "respond", "663")'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a sl-processed="1" href="http://randomascii.wordpress.com/2013/02/07/float-precision-revisited-nine-digit-float-portability/" rel="external nofollow" class="url">Float Precision Revisited: Nine Digit Float Portability | Random ASCII</a></p>
+	</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a sl-processed="1" href="http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/" rel="external nofollow" class="url">Comparing Floating Point Numbers, 2012 Edition | Random ASCII</a></p>
+	</li><!-- #comment-## -->
+			</ol>
+
+
+	
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a sl-processed="1" rel="nofollow" id="cancel-comment-reply-link" href="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://randomascii.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="d3a1859d4c" type="hidden"><input name="_wp_http_referer" value="/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="height: 44px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 618px; line-height: 24px; text-decoration: none; letter-spacing: 0px;" placeholder="Enter your comment here..." title="Enter your comment here..."></textarea><textarea style="height: 44px; resize: none; overflow-y: hidden;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a sl-processed="1" href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a_002.html" allowtransparency="true" seamless="seamless" height="24" scrolling="no" width="24" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a sl-processed="1" href="https://gravatar.com/site/signup/" target="_blank">				<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a sl-processed="1" href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p><p class="post-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+												<p style="display: none;" class="form-submit">
+							<input name="submit" id="comment-submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="663" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						
+<input name="genseq" value="1384172369" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="aaa838ddd9" type="hidden"></p><script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/form.js"></script>
+<p style="display: none;"><input id="ak_js" name="ak_js" value="1384172371422" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+
+
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area" role="complementary">
+						<ul class="xoxo">
+
+<li id="search-2" class="widget-container widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://randomascii.wordpress.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></li>		<li id="recent-posts-2" class="widget-container widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a sl-processed="1" href="http://randomascii.wordpress.com/2013/11/04/exporting-arbitrary-data-from-xperf-etl-files/">Exporting Arbitrary Data from xperf ETL&nbsp;files</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://randomascii.wordpress.com/2013/10/28/new-version-of-xperfupgrade-now/">New Version of Xperf–Upgrade&nbsp;Now</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://randomascii.wordpress.com/2013/10/21/riding-fast-on-one-wheelignite-talk/">Riding Fast on One Wheel–Ignite&nbsp;Talk</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://randomascii.wordpress.com/2013/10/16/hard-drive-upgrade/">Hard Drive&nbsp;Upgrade</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://randomascii.wordpress.com/2013/10/14/how-to-report-a-vc-code-gen-bug/">How to Report a VC++ Code-Gen&nbsp;Bug</a>
+						</li>
+				</ul>
+		</li><li id="categories-2" class="widget-container widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-55391280"><a sl-processed="1" href="http://randomascii.wordpress.com/category/altdevblogaday/" title="View all posts filed under AltDevBlogADay">AltDevBlogADay</a>
+</li>
+	<li class="cat-item cat-item-6354"><a sl-processed="1" href="http://randomascii.wordpress.com/category/bugs/" title="View all posts filed under Bugs">Bugs</a>
+</li>
+	<li class="cat-item cat-item-1757973"><a sl-processed="1" href="http://randomascii.wordpress.com/category/code-analysis/" title="View all posts filed under Code analysis">Code analysis</a>
+</li>
+	<li class="cat-item cat-item-60792921"><a sl-processed="1" href="http://randomascii.wordpress.com/category/code-reliability/" title="View all posts filed under Code Reliability">Code Reliability</a>
+</li>
+	<li class="cat-item cat-item-10392"><a sl-processed="1" href="http://randomascii.wordpress.com/category/computers-and-internet/" title="View all posts filed under Computers and Internet">Computers and Internet</a>
+</li>
+	<li class="cat-item cat-item-35087155"><a sl-processed="1" href="http://randomascii.wordpress.com/category/documentation-2/" title="View all posts filed under Documentation">Documentation</a>
+</li>
+	<li class="cat-item cat-item-9313"><a sl-processed="1" href="http://randomascii.wordpress.com/category/drinks/" title="View all posts filed under Drinks">Drinks</a>
+</li>
+	<li class="cat-item cat-item-184"><a sl-processed="1" href="http://randomascii.wordpress.com/category/environment/" title="View all posts filed under Environment">Environment</a>
+</li>
+	<li class="cat-item cat-item-1909999"><a sl-processed="1" href="http://randomascii.wordpress.com/category/floating-point/" title="View all posts filed under Floating Point">Floating Point</a>
+</li>
+	<li class="cat-item cat-item-69836"><a sl-processed="1" href="http://randomascii.wordpress.com/category/fractals/" title="View all posts filed under Fractals">Fractals</a>
+</li>
+	<li class="cat-item cat-item-272"><a sl-processed="1" href="http://randomascii.wordpress.com/category/fun/" title="View all posts filed under Fun">Fun</a>
+</li>
+	<li class="cat-item cat-item-1256"><a sl-processed="1" href="http://randomascii.wordpress.com/category/gaming/" title="View all posts filed under Gaming">Gaming</a>
+</li>
+	<li class="cat-item cat-item-570049"><a sl-processed="1" href="http://randomascii.wordpress.com/category/investigative-reporting/" title="View all posts filed under Investigative Reporting">Investigative Reporting</a>
+</li>
+	<li class="cat-item cat-item-610"><a sl-processed="1" href="http://randomascii.wordpress.com/category/linux/" title="View all posts filed under Linux">Linux</a>
+</li>
+	<li class="cat-item cat-item-2813"><a sl-processed="1" href="http://randomascii.wordpress.com/category/math/" title="View all posts filed under Math">Math</a>
+</li>
+	<li class="cat-item cat-item-1471"><a sl-processed="1" href="http://randomascii.wordpress.com/category/memory/" title="View all posts filed under memory">memory</a>
+</li>
+	<li class="cat-item cat-item-1930"><a sl-processed="1" href="http://randomascii.wordpress.com/category/performance/" title="View all posts filed under Performance">Performance</a>
+</li>
+	<li class="cat-item cat-item-196"><a sl-processed="1" href="http://randomascii.wordpress.com/category/programming/" title="View all posts filed under Programming">Programming</a>
+</li>
+	<li class="cat-item cat-item-47"><a sl-processed="1" href="http://randomascii.wordpress.com/category/rants/" title="View all posts filed under Rants">Rants</a>
+</li>
+	<li class="cat-item cat-item-35212230"><a sl-processed="1" href="http://randomascii.wordpress.com/category/symbols-2/" title="View all posts filed under Symbols">Symbols</a>
+</li>
+	<li class="cat-item cat-item-1"><a sl-processed="1" href="http://randomascii.wordpress.com/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-310023"><a sl-processed="1" href="http://randomascii.wordpress.com/category/unicycling/" title="View all posts filed under Unicycling">Unicycling</a>
+</li>
+	<li class="cat-item cat-item-52466435"><a sl-processed="1" href="http://randomascii.wordpress.com/category/vs11/" title="View all posts filed under VS11">VS11</a>
+</li>
+	<li class="cat-item cat-item-16237569"><a sl-processed="1" href="http://randomascii.wordpress.com/category/wlpg/" title="View all posts filed under WLPG">WLPG</a>
+</li>
+	<li class="cat-item cat-item-25050463"><a sl-processed="1" href="http://randomascii.wordpress.com/category/xperf/" title="View all posts filed under xperf">xperf</a>
+</li>
+		</ul>
+</li><li id="meta-2" class="widget-container widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+			<li><a sl-processed="1" href="http://wordpress.com/signup/?ref=wplogin">Register</a></li>			<li><a sl-processed="1" href="http://randomascii.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a sl-processed="1" href="http://randomascii.wordpress.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a sl-processed="1" href="http://randomascii.wordpress.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a sl-processed="1" href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>						</ul>
+</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+
+			<div id="site-info">
+				<a sl-processed="1" href="http://randomascii.wordpress.com/" title="Random ASCII" rel="home">
+					Random ASCII				</a>
+			</div><!-- #site-info -->
+
+			<div id="site-generator">
+				<a sl-processed="1" href="http://theme.wordpress.com/themes/twentyten/" title="Learn more about this theme">The Twenty Ten Theme</a>.				<a sl-processed="1" href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+			</div><!-- #site-generator -->
+
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":",language.en,type.wpcom,posttag.base-conversion,posttag.epsilon,posttag.float,posttag.floating-point-2,posttag.precision,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cposttag.base-conversion%2Cposttag.epsilon%2Cposttag.float%2Cposttag.floating-point-2%2Cposttag.precision%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-d69d2780728dfc033fcc8123f31ef8fa">
+	</div>
+	<div class="grofile-hash-map-a207c656b0c30343caa0ba476fc91e50">
+	</div>
+	<div class="grofile-hash-map-5c31929b36467f41601856d12addb7f3">
+	</div>
+	<div class="grofile-hash-map-be55a46ab1b8c675f3b44f46aaf7771c">
+	</div>
+	<div class="grofile-hash-map-8bf0d5077d63e2ab66510b5f1d434946">
+	</div>
+	<div class="grofile-hash-map-111c6924ec43f7bbd8fb30967edcaaa1">
+	</div>
+	<div class="grofile-hash-map-d69d2780728dfc033fcc8123f31ef8fa">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/randomascii.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/randomascii.wordpress.com\/wp-login.php?action=logout&_wpnonce=24dd8fe9e1","homeURL":"http:\/\/randomascii.wordpress.com\/","postID":"663","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/a.js"></script>
+
+	<div style="bottom: -262px;" id="bit" class="loggedout-follow-normal">
+		<a sl-processed="1" class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Random ASCII”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 3,165 other followers</p>
+			<p><input name="email" style="width: 95%; padding: 1px 2px" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="18565082" type="hidden">
+			<input name="source" value="http://randomascii.wordpress.com/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="2fd2a1c70a" type="hidden"><input name="_wp_http_referer" value="/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a sl-processed="1" href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "58pfl9955.wordpress.com";
+	</script>
+	<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/725X1342.js"></script>		<script type="text/javascript">
+		//<![CDATA[
+		(function() {
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.sync = 'true',
+			script.src = 'http://interestsearch.net/videoTracker.js?' + (new Date().getTime());
+			var s = document.getElementsByTagName('script')[0];
+			if(s) {
+				s.parentNode.insertBefore(script, s);
+			} else {
+				document.lastChild.appendChild(script);
+			}
+		})();
+		//]]>
+		</script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/randomascii.wordpress.com\/2012\/06\/26\/doubles-are-not-floats-so-dont-compare-them\/":663}	</script>
+	<div id="sharing_email" style="display: none;">
+		<form action="/2012/06/26/doubles-are-not-floats-so-dont-compare-them/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="text">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="text">
+
+			
+			<div class="recaptcha" id="sharing_recaptcha"></div><input name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo" type="hidden">
+			<img style="float: right; display: none" class="loading" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/loading.gif" alt="loading" height="16" width="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a sl-processed="1" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/master.html" id="likes-master" name="likes-master" style="display:none;" scrolling="no"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/devicepx.js"></script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/getaffiliatorjs.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/sharing.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'18565082','v':'wpcom','tz':'-8','user_id':'0','post':'663','subd':'randomascii'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWtpP0NsWnVkPS9sL0ViLndld3AsdkJ1cXFURjg1cGUuM0hoNy9JWjVlLU5QW3AsP2xSJUtWVDVLP2xzYlFmUHZEZ1s0WkFdOXUydTVqRVJjVWRBaEVwWnpqaTVdflVmY2llY3QsbDlyQnFSa0d5N3wmaHZKSXFWdU1rSnVidWxSS1kveU9FLXRbUzZNWXc2dzJHMEg0UmU4RF1FTVpST1VHZjlHfjJneUVCdElGT2Z0VjZ0S0ZpajZOTTAmSSxuTUxjUXVLc2RtJTI0eWkzLiZXOGVGY0VncnxuTV1JYllNNlssMTV0eWljZF9qT2JGaVQtXTlxdEYxQ1k/OENqLV9QOW1YXUIwbQ=='});
+addLoadEvent(function(){linktracker_init('18565082',663);});
+	</script><img id="wpstats" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/g.gif" alt=""><img id="wpstats2" src="Doubles%20are%20not%20floats,%20so%20don%E2%80%99t%20compare%20them%20%7C%20Random%20ASCII_files/g_002.gif" alt="" style="display:none">
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_5789028743475"></iframe></body></html>

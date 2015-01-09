@@ -1,0 +1,69 @@
+
+For any data structures:
+
+	* 1st take a pen and paper.
+	* You have to analyse your code while writing.. analise like this
+
+		Think from end user side.. what if he invoked your function several times immediately, sequentially..
+		
+	To make a particular function generic(work for all possible casess) 1st u've to think all circumstances and possibilities.
+	So consider these very frequent techniques to make a generic data structure functionality:
+
+		  case1:
+			- Consider an empty list(queue/stack).
+			- Now you are inserting the element into an empty list..
+			- So write code for this..
+
+		  case2:
+			- Now think above case has successfully accompleshed.
+			- Now your are inserting one more element(2nd ele) into the list.
+	
+			- So 1st think, Is above case1 is sufficent for this case also or not?? (take a paper and analise by 				   example) 
+		  
+			- if not, do ur functionality or change logical instructions.
+			  if no possiblity of changing previous case1, so make some logic for this case also. 
+			- Now you have two logics in a same function, each of logic for different case, what if end user has 				     invoked our function, so it will sequetially execute all statements.
+			- So we shud make sure when(for which case) a particular logic executes we shud decide it and make it as a 			    condition.
+		 		DECIDE WHICH CASE SHUD BE EXECUTED FOR A PERTICULAL, we can achive this by using control structures				 (if/else).
+
+		  case3:
+			- for 3rd element user want to insert then:
+				check previous cases are suffiecient or not..
+
+
+* For each below case consider above cases(1,2,3) with an example(emptyQ, 1st ele, 2nd ele, 3rd ele)
+
+* Inserting an element into a list: 
+
+cases:
+	- Inserting in last
+	- Inserting in first
+	- Insert any where user want
+
+	
+* Printing a list:
+
+cases:	
+	- List empty
+	- only one element
+	- 2 elements
+	- 3 elements
+
+* Deleting an element in the list:
+	
+cases:
+	- Delete first ele
+	- Delete last ele
+	- Delete user requested ele
+   After deleting an element make sure that u has provided an link of existing elements..
+
+
+
+===> After done all the critical code(functionality part of code) check them by writing a test code:
+
+	In the test code also we hav to consider all possibities of end user.
+	
+	* Invoke each function with no elements(for empty list(Q/stack)). (segmentation fault may occur, thats y check)
+	* Invoke each function with only one element in list
+	* Invoke each function with 2 elements in the list
+	* invoke for last element if the case available

@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":11,"url":"http:\/\/www.thegeekstuff.com\/2013\/04\/c-macros-inline-functions\/"});

@@ -1,0 +1,3 @@
+./lib_gif.so
+./lib_tif.so
+./lib_jpg.so

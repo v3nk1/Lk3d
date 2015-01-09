@@ -1,0 +1,47 @@
+body {
+	font-family: Arial, sans-serif; 
+	font-style: normal; 
+	font-size: 0.8em; 
+	background-color: #ffffff;
+	margin: 10px;
+}
+
+.vccHolderStyle {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #dddddd;
+	border-spacing: 0;
+	width: 100%;
+	font-family: Arial;
+	font-size: 12px;
+	font-style: normal;
+	display: none;
+}
+
+.ratingStyle{
+	width: 60%;
+}
+
+.notify_rssStyle{
+	width: 40%;
+	text-align: right;
+}
+
+.versioningStyle{
+	font-family: Arial;
+	font-size: 12px;
+	border-width: 1px;
+	border-color: #dddddd;
+	border-style: solid;
+	background-color: #f0f0f0;
+	text-align: right;
+	width: 100%;
+	padding: 5px;
+	position: relative;
+	top: -1px;
+}
+
+/*revise to fix defeat for IE close dialog icon over flow*/
+.tundra .dijitDialogCloseIcon{
+	right: 20px;
+}

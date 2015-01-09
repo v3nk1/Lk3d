@@ -1,0 +1,12 @@
+TO SEE HOW MANY TIME READ/WRITE FUNCTION CALLS INVOKED:
+
+				strace ./a.out <command-line-arg if any>
+						=======================	
+							^
+							^
+							^
+							^
+							^
+							^
+							^
+						  if u used commandline arguments..	

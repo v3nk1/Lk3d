@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/companyjs" async=""></script>
+    
+    <title>c - Defined behavior, passing character to printf("%02X" - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="Defined behavior, passing character to printf(&quot;%02X&quot;">
+    <meta name="og:description" content="I recently came across this question, where the OP was having issues printing the hexadecimal value of a variable.  I believe the problem can be summed by the following code:
+
+#include &amp;lt;stdio.h&amp;...">
+    <meta name="og:url" content="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x">
+    <link rel="canonical" href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x">
+
+    
+    
+    <script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/ga.js" async="" type="text/javascript"></script><script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/quant.js" async="" type="text/javascript"></script><script type="text/javascript" src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/jquery.js"></script>
+    <script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/stub.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Defined behavior, passing character to printf(&quot;%02X&quot;'" href="http://stackoverflow.com/feeds/question/6069203">
+    <script type="text/javascript">
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:6,shownCommentCount:5,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:6069203});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '6069203');
+            
+                    });
+    </script>
+
+
+    <script type="text/javascript">
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1383378577,"styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","enableSocialMediaInSharePopup":true},"user":{"fkey":"364a41a280dcb339a12ecb730f3729e8","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"e0bbd4760e83","js/moderator.en.js":"1a411fd265fe","js/full-anon.en.js":"2798fd6b8046","js/full.en.js":"e2c1e0692678","js/wmd.en.js":"080b03871ae9","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"40ac412781cb","js/help.en.js":"d3cc74d8a93a","js/tageditor.en.js":"ecd9cbf86481","js/tageditornew.en.js":"1e8db6b7af9d","js/inline-tag-editing.en.js":"f951bd09dc69","js/revisions.en.js":"1dead817b481","js/review.en.js":"428132870f9d","js/tagsuggestions.en.js":"a7d0f3ff530a","js/post-validation.en.js":"0927fa1bae70","js/explore-qlist.en.js":"73825bd006fc","js/events.en.js":"130d4e07b47b"});
+    </script>
+    <script type="text/javascript">
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script type="text/javascript">
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/full-anon.js" type="text/javascript" async=""></script><script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/post-validation.js" type="text/javascript" async=""></script><script src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/prettify-full.js" type="text/javascript" async=""></script><link rel="stylesheet" type="text/css" href="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/company.css"></head>
+<body class="question-page">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <div id="portalLink">
+                <a class="genu" onclick="StackExchange.ready(function(){genuwine.click();});return false;">Stack Exchange</a>
+            </div>
+            <div id="topbar">
+                <div id="hlinks">
+                    
+<span id="hlinks-user"></span>
+<span id="hlinks-nav">                        <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f6069203%2fdefined-behavior-passing-character-to-printf02x">sign up</a>
+
+ <span class="lsep">|</span>
+                    <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f6069203%2fdefined-behavior-passing-character-to-printf02x">log in</a>
+
+ <span class="lsep">|</span>
+                    <a href="http://careers.stackoverflow.com/">careers 2.0</a>
+
+ <span class="lsep">|</span>
+</span>
+<span id="hlinks-custom"></span>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get" autocomplete="off">
+                        <div>
+                            <input autocomplete="off" name="q" class="textbox" placeholder="search" tabindex="1" maxlength="240" size="28" type="text">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://stackoverflow.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://stackoverflow.com/about" id="tell-me-more" class="button">Tell me more</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for 
+professional and enthusiast programmers. It's 100% free, no registration
+ required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            }
+            if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x" class="question-hyperlink">Defined behavior, passing character to printf(“%02X”</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="6069203" id="question">
+    
+            <div class="everyonelovesstackoverflow" id="careers1">
+        </div>
+
+
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="6069203" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">1</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>1</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I recently came across <a href="http://stackoverflow.com/questions/6063039/mac-address-printing">this question</a>, where the OP was having issues printing the hexadecimal value of a variable.  I believe the problem can be summed by the <a href="http://www.ideone.com/MOega" rel="nofollow">following code</a>:</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stdio.h&gt;</span><span class="pln">
+
+</span><span class="typ">int</span><span class="pln"> main</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">char</span><span class="pln"> signedChar </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0xf0</span><span class="pun">;</span><span class="pln">
+
+    printf</span><span class="pun">(</span><span class="str">"</span><span class="typ">Signed</span><span class="pln">\n</span><span class="pun">”);</span><span class="pln">
+    printf</span><span class="pun">(“</span><span class="typ">Raw</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="pun">”,</span><span class="pln"> signedChar</span><span class="pun">);</span><span class="pln">
+    printf</span><span class="pun">(“</span><span class="typ">Masked</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="pun">”,</span><span class="pln"> signedChar </span><span class="pun">&amp;</span><span class="lit">0xff</span><span class="pun">);</span><span class="pln">
+    printf</span><span class="pun">(“</span><span class="typ">Cast</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="str">",</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">unsigned</span><span class="pln"> </span><span class="kwd">char</span><span class="pun">)</span><span class="pln">signedChar</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>This gives the following output:</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="typ">Signed</span><span class="pln">
+</span><span class="typ">Raw</span><span class="pun">:</span><span class="pln"> FFFFFFF0
+</span><span class="typ">Masked</span><span class="pun">:</span><span class="pln"> F0
+</span><span class="typ">Cast</span><span class="pun">:</span><span class="pln"> F0</span></code></pre>
+
+<p>The format string used for each of the prints is <code>%02X</code>, which I’ve always interpreted as ‘print the supplied <code>int</code> as a hexadecimal value with at least two digits’.</p>
+
+<p>The first case passes the signedCharacter as a parameter and prints out the wrong value (because the other three bytes of the <code>int</code> have all of their bits set).</p>
+
+<p>The second case gets around this problem, by applying a bit mask (<code>0xFF</code>) against the value to remove all but the least significant byte, where the <code>char</code> is stored.  Should this work?  Surely: <code>signedChar == signedChar &amp; 0xFF</code>?</p>
+
+<p>The third case gets around the problem by casting the character to an <code>unsigned char</code> (which seems to clear the top three bytes?).</p>
+
+<p>For each of the three cases above, can anybody tell me if the behavior defined? How/Where?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/printf" class="post-tag" title="show questions tagged 'printf'" rel="tag">printf</a> <a href="http://stackoverflow.com/questions/tagged/undefined" class="post-tag" title="show questions tagged 'undefined'" rel="tag">undefined</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="http://stackoverflow.com/q/6069203" title="short permalink to this question" class="short-link" id="link-post-6069203">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/6069203/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        
+
+    <div class="user-info user-hover">
+        <div class="user-action-time">
+            
+
+                    asked <span title="2011-05-20 08:14:43Z" class="relativetime">May 20 '11 at 8:14</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="http://stackoverflow.com/users/592182/forsvarir"><div class=""><img src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/3cfa434f4bbf0460208ac8cf911e5fee.png" alt="" height="32" width="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="http://stackoverflow.com/users/592182/forsvarir">forsvarir</a><br>
+            <span class="reputation-score" title="reputation score" dir="ltr">3,885</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="32 bronze badges"><span class="badge3"></span><span class="badgecount">32</span></span>
+        </div>
+    </div>
+
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-6069203" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="1" data-addlink-html="" data-addlink-disabled="true">
+
+    <tr id="comment-7028086" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy">Integer types smaller than <code>int</code> get promoted to <code>int</code> when passed to printf.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/253056/paul-r" title="88214 reputation" class="comment-user">Paul R</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment7028086_6069203"><span title="2011-05-20 08:17:36Z" class="relativetime-clean">May 20 '11 at 8:17</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-7028111" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy">Since the underlaying bit representation of numbers is not defined in the C standard, the exact output is unspecified.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/44952/codymanix" title="11196 reputation" class="comment-user">codymanix</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment7028111_6069203"><span title="2011-05-20 08:19:27Z" class="relativetime-clean">May 20 '11 at 8:19</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-7028133" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy">@Paul R: So in the second case, will the 
+promotion always take place before the bitmask is applied?  Or can it 
+occur after in which the mask would have no effect?</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/592182/forsvarir" title="3885 reputation" class="comment-user owner">forsvarir</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment7028133_6069203"><span title="2011-05-20 08:21:06Z" class="relativetime-clean">May 20 '11 at 8:21</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-7028203" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy">The signedness of <code>char</code> is implementation-defined, by the way. If you want a signed character, use <code>signed char</code>.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/28169/unwind" title="146244 reputation" class="comment-user">unwind</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment7028203_6069203"><span title="2011-05-20 08:25:49Z" class="relativetime-clean">May 20 '11 at 8:25</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-7028259" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy">@unwind: really?  I've always assumed that 
+variables were signed by default unless you specified otherwise.  Is it 
+the same for integers?</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/592182/forsvarir" title="3885 reputation" class="comment-user owner">forsvarir</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment7028259_6069203"><span title="2011-05-20 08:30:28Z" class="relativetime-clean">May 20 '11 at 8:30</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-6069203" class="comments-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">show <b>1</b> more comments</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								1 Answer
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="6069523"></a>
+<div id="answer-6069523" class="answer accepted-answer" data-answerid="6069523">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="6069523" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">7</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="The question owner accepted this as the best answer May 20 '11 at 10:17">accepted</span>
+</div>
+
+            </td>
+
+
+
+<td class="answercell">
+    <div class="post-text"><p>I don't think this behavior is completely 
+defined by c standard. After all it depends on binary representation of 
+signed values. I will just describe how it's likely to work.</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="pln">printf</span><span class="pun">(“</span><span class="typ">Raw</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="pun">”,</span><span class="pln"> signedChar</span><span class="pun">);</span></code></pre>
+
+<p><code>(char)0xf0</code> which can be written as <code>(char)-16</code> is converted to <code>(int)-16</code> its hex representation is <code>0xfffffff0</code>.</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="pln">printf</span><span class="pun">(“</span><span class="typ">Masked</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="pun">”,</span><span class="pln"> signedChar </span><span class="pun">&amp;</span><span class="lit">0xff</span><span class="pun">);</span></code></pre>
+
+<p><code>0xff</code> is of type <code>int</code> so before calculating <code>&amp;</code>, <code>signedChar</code> is converted to <code>(int)-16</code>.
+<code>((int)-16) &amp; ((int)0xff)</code> == <code>(int)0x000000f0</code>.</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="pln">printf</span><span class="pun">(“</span><span class="typ">Cast</span><span class="pun">:</span><span class="pln"> </span><span class="pun">%</span><span class="lit">02X</span><span class="pln">\n</span><span class="str">", (unsigned char)signedChar);</span></code></pre>
+
+<p><code>(unsigned char)0xf0</code> which can be written as <code>(unsigned char)240</code> is converted to <code>(unsigned int)240</code> as hex it's <code>0x000000f0</code></p>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+
+
+
+
+
+
+
+
+
+
+
+<div class="post-menu"><a href="http://stackoverflow.com/a/6069523" title="short permalink to this answer" class="short-link" id="link-post-6069523">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/6069523/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+
+
+    <div class="user-info user-hover">
+        <div class="user-action-time">
+            
+
+            <a href="http://stackoverflow.com/posts/6069523/revisions" title="show all edits to this post">edited <span title="2013-07-26 09:10:00Z" class="relativetime">Jul 26 at 9:10</span></a>
+        </div>
+        <div class="user-gravatar32">
+            <a href="http://stackoverflow.com/users/139746/pascal-cuoq"><div class=""><img src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/b2b086ea14dca6e71c28d64d441a583e.png" alt="" height="32" width="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="http://stackoverflow.com/users/139746/pascal-cuoq">Pascal Cuoq</a><br>
+            <span class="reputation-score" title="reputation score 29771" dir="ltr">29.8k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="41 silver badges"><span class="badge2"></span><span class="badgecount">41</span></span><span title="99 bronze badges"><span class="badge3"></span><span class="badgecount">99</span></span>
+        </div>
+    </div>
+    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    
+
+    <div class="user-info ">
+        <div class="user-action-time">
+            
+
+                        answered <span title="2011-05-20 08:50:20Z" class="relativetime">May 20 '11 at 8:50</span>
+        </div>
+        <div class="user-gravatar32">
+            <a href="http://stackoverflow.com/users/745924/banthar"><div class=""><img src="c%20-%20Defined%20behavior,%20passing%20character%20to%20printf%28%22%02X%22%20-%20Stack%20Overflow_files/498bda6029acf1a46c7610277e5f3b44.png" alt="" height="32" width="32"></div></a>
+        </div>
+        <div class="user-details">
+            <a href="http://stackoverflow.com/users/745924/banthar">Banthar</a><br>
+            <span class="reputation-score" title="reputation score" dir="ltr">7,253</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="14 silver badges"><span class="badge2"></span><span class="badgecount">14</span></span><span title="25 bronze badges"><span class="badge3"></span><span class="badgecount">25</span></span>
+        </div>
+    </div>
+
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-6069523" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="" data-addlink-disabled="true">
+
+    <tr id="comment-26104624" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            
+<div style="display: block;" class="comment-body">
+	<span class="comment-copy"><code>(unsigned char)240</code> gets converted to <code>(int)240</code>
+ as per 6.3.1.1:2 in the C99 standard: “If an int can represent all 
+values of the original type, the value is converted to an int”</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/139746/pascal-cuoq" title="29771 reputation" class="comment-user">Pascal Cuoq</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment26104624_6069523"><span title="2013-07-26 09:09:24Z" class="relativetime-clean">Jul 26 at 9:09</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-6069523" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/6069203/answer/submit" method="post" class="post-form">
+							<input id="post-id" value="6069203" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script type="text/javascript">
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="a1155a89d0cea4cb48fab0bcca19c09f" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f6069203%2fdefined-behavior-passing-character-to-printf02x%23new-answer">login</a></h3>
+                        <script type="text/javascript">
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script type="text/javascript">
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f6069203%2fdefined-behavior-passing-character-to-printf02x%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script type="text/javascript">
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/printf" class="post-tag" title="show questions tagged 'printf'" rel="tag">printf</a> <a href="http://stackoverflow.com/questions/tagged/undefined" class="post-tag" title="show questions tagged 'undefined'" rel="tag">undefined</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+							<div class="module question-stats">
+					<p class="label-key">tagged</p>
+					<div class="tagged"><a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">113734</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/printf" class="post-tag" title="show questions tagged 'printf'" rel="tag">printf</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">1894</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/undefined" class="post-tag" title="show questions tagged 'undefined'" rel="tag">undefined</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">1740</span></span><br>
+</div>
+					<table id="qinfo">
+						<tbody><tr>
+							<td>
+								<p class="label-key">asked</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key" title="2011-05-20 08:14:43Z"><b>2 years ago</b></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">viewed</p>
+							</td>
+
+							<td style="padding-left: 10px">
+								<p class="label-key">
+									<b>7260 times</b>
+								</p>
+							</td>
+						</tr>
+							<tr>
+								<td>
+									<p class="label-key">active</p>
+								</td>
+								<td style="padding-left: 10px">
+									<p class="label-key"><b><a href="http://stackoverflow.com/questions/6069203/defined-behavior-passing-character-to-printf02x?lastactivity" class="lastactivity-link" title="2013-07-26 09:10:00Z">3 months ago</a></b></p>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+						
+			        <div class="everyonelovesstackoverflow" id="careers2">
+        </div>
+    <div id="hireme">
+        <script type="text/javascript">
+window.careers_adurl="http://careers.stackoverflow.com/ad/companyjs",window.careers_cssurl="//cdn-careers.sstatic.net/careers/gethired/company.min.css?v=4b9585b934df",window.careers_cssurl2="//cdn-careers.sstatic.net/careers/gethired/sidebar.min.css?v=7ae83073b37e",window.careers_adselector="#hireme",StackExchange.ready(function(){$.ajax({url:"//cdn-careers.sstatic.net/careers/gethired/company-loader.min.js?v=e1da9303f450",dataType:"script",cache:!1})})        </script>
+    </div>
+
+
+
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/17874846?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">-2</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/17874846/printing-hex-values-not-working-as-expected?lq=1" class="question-hyperlink">Printing hex values not working as expected</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/6063039?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/6063039/mac-address-printing?lq=1" class="question-hyperlink">MAC Address printing</a>
+</div>			</div>
+</div>
+
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+					<div class="related" data-tracker="rq=1">
+						<div class="spacer">
+<a href="http://stackoverflow.com/q/2844?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">83
+    </div>
+</a><a href="http://stackoverflow.com/questions/2844/how-do-you-printf-an-unsigned-long-long-int?rq=1" class="question-hyperlink">How do you printf an unsigned long long int?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/4586962?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">9
+    </div>
+</a><a href="http://stackoverflow.com/questions/4586962/what-is-the-purpose-of-the-h-and-hh-modifiers-for-printf?rq=1" class="question-hyperlink">What is the purpose of the h and hh modifiers for printf?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/7466297?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/7466297/printf-limited-to-three-characters?rq=1" class="question-hyperlink">printf limited to three characters?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/8365062?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/8365062/printf-raw-data-get-printf-or-print-to-not-send-characters?rq=1" class="question-hyperlink">printf raw data — get printf or print to NOT send characters</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/9715984?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://stackoverflow.com/questions/9715984/printf-type-promotion-and-sign-extension?rq=1" class="question-hyperlink">printf type promotion and sign extension</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/12096384?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/12096384/how-to-pass-a-character-to-printf-that-was-input-by-user-in-c?rq=1" class="question-hyperlink">How to pass a character to printf that was input by user in C?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/14838474?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/14838474/behavior-of-printf-on-passing-less-arguments-in-it?rq=1" class="question-hyperlink">Behavior of printf on passing less arguments in it</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/15823597?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/15823597/use-printf-to-print-character-string-in-hex-format-distorted-results?rq=1" class="question-hyperlink">use printf to print character string in hex format, distorted results</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/18277831?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/18277831/formatter-size-in-printf?rq=1" class="question-hyperlink">formatter size in printf()</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/q/18295091?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/18295091/weird-behavior-in-c-printf?rq=1" class="question-hyperlink">Weird behavior in C printf</a>
+</div>
+
+					</div>
+				</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text"><a href="http://stackoverflow.com/feeds/question/6069203" title="feed of this question and its answers"><span class="feed-icon"></span>question feed</a></div>
+</div>
+	<script type="text/javascript">
+StackExchange.ready(function(){$.get('/posts/6069203/ivc/1fba');});
+</script>
+<noscript>
+    <div><img src="/posts/6069203/ivc/1fba" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                        <a href="http://stackoverflow.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&amp;s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on", "/questions/6069203/defined-behavior-passing-character-to-printf02x")'>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Answers</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="statisticians, data analysts, data miners and data visualization experts">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackoverflow.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Overflow</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2013 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc-wiki</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="footer-flair">
+                <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="cc-wiki-link"></a>
+            </div>
+            <div id="svnrev">
+                rev 2013.11.1.1112
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+
+    <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);
+        _gaq.push(['_setCustomVar', 1, 'tags', '|c|printf|undefined|']); 
+_gaq.push(['_trackPageview']);
+    var _qevents = _qevents || [];
+    (function () {
+        var ssl='https:'==document.location.protocol,
+            s=document.getElementsByTagName('script')[0],
+            ga=document.createElement('script');
+        ga.type='text/javascript';
+        ga.async=true;
+        ga.src=(ssl?'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(ga,s);
+        var sc=document.createElement('script');
+        sc.type='text/javascript';
+        sc.async=true;
+        sc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+        s.parentNode.insertBefore(sc,s);
+    })();
+    _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+
+</body></html>

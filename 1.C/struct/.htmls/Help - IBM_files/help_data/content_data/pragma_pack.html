@@ -1,0 +1,311 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="dj_gecko dj_contentbox" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" id="vcc_sp_html_1" lang="en-us"><head id="vcc_sp_head_2"><meta http-equiv="Content-Type" id="vcc_sp_meta_3" content="text/html; charset=UTF-8">
+
+<meta name="security" id="vcc_sp_meta_4" content="public">
+<meta name="Robots" id="vcc_sp_meta_5" content="index,follow">
+<meta http-equiv="PICS-Label" id="vcc_sp_meta_6" content="(PICS-1.1 &quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l gen true r (SS~~000 1))">
+<meta name="DC.Type" id="vcc_sp_meta_7" content="reference">
+<meta name="DC.Title" id="vcc_sp_meta_8" content="#pragma pack">
+<meta name="DC.Relation" scheme="URI" id="vcc_sp_meta_9" content="pragma_descriptions.html">
+<meta name="copyright" id="vcc_sp_meta_10" content="© Copyright IBM Corporation 1996, 2010">
+<meta name="DC.Rights.Owner" id="vcc_sp_meta_11" content="© Copyright IBM Corporation 1996, 2010">
+<meta name="DC.Format" id="vcc_sp_meta_12" content="XHTML">
+<meta name="DC.Identifier" id="vcc_sp_meta_13" content="pragma_pack">
+<meta name="DC.Language" id="vcc_sp_meta_14" content="en-us">
+<!-- Licensed Materials Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link href="pragma_pack_data/ibmdita.css" type="text/css" rel="stylesheet" id="vcc_sp_link_15">
+<link href="pragma_pack_data/swg_info_common.css" type="text/css" rel="stylesheet" id="vcc_sp_link_16">
+<link href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/pragma_descriptions.html" rel="Start" id="vcc_sp_link_17">
+<title id="vcc_sp_title_18">#pragma pack</title>
+<script>var pageID=6465; var contentLocale ='en_US'; var latestVersion='11.1.0.v20101014_1730'; var pluginVersion='11.1.0.v20101014_1730'; var prefixValue='http://9.162.144.27:9517';</script>
+<script language="javascript">if(name=="ContentViewFrame"){document.write(" <script language='JavaScript' src='../../../vcc/js/vccajax.js'> <\/script> <script language='JavaScript' src='../../../vcc/dojoroot/dojo/dojo.js'> <\/script> <script language='JavaScript' src='../../../vccComment/js/freeselect.js'> <\/script> <script language='JavaScript' src='../../../vccComment/js/content.js'> <\/script> <script language='JavaScript' src='../../../vccComment/js/comment.js'> <\/script> <link rel='stylesheet' href='../../../vcc/css/ContentFrameStyle.css' charset='ISO-8859-1' type='text/css' />");}</script> <script language="JavaScript" src="searchView_data/vccajax.js"> </script> <script language="JavaScript" src="search_data/dojo.js"> </script> <script language="JavaScript" src="searchView_data/freeselect.js"> </script> <script language="JavaScript" src="pragma_pack_data/content.js"> </script> <script language="JavaScript" src="pragma_pack_data/comment.js"> </script> <link rel="stylesheet" href="pragma_pack_data/ContentFrameStyle.css" charset="ISO-8859-1" type="text/css">
+
+<script language="JavaScript" src="banner_data/icscript.js"> </script><script type="text/javascript" src="banner_data/stats.js"></script>
+
+<script language="JavaScript" src="banner_data/icscript.js"> </script><script type="text/javascript" src="banner_data/stats.js"></script>
+
+
+<script type="text/javascript" src="banner_data/synchWithToc.js"> </script>
+
+<link rel="stylesheet" href="pragma_pack_data/breadcrumbs.css" charset="ISO-8859-1" type="text/css">
+<script type="text/javascript" src="pragma_pack_data/livehelp.js"></script>
+<script type="text/javascript">if( self == top ){ window.location.replace( "../../../index.jsp?topic=%2Fcom.ibm.xlcpp111.aix.doc%2Fcompiler_ref%2Fpragma_pack.html");}</script>
+<script type="text/javascript">
+<!--
+if (parent.ContentToolbarFrame && parent.ContentToolbarFrame.setButtonState) parent.ContentToolbarFrame.setButtonState("toggle_highlight","hidden");
+-->
+</script>
+
+</head>
+<body vcc_parsed="true" id="pragma_pack">
+<div name="vcc_noparse" class="help_breadcrumbs"><a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/nav/26">Reference</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/nav/26_2">Language Reference Documents</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/nav/26_2_0">AIX programming information</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/nav/26_2_0_1">XL C/C++ for AIX, V11.1</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/nav/26_2_0_1_3">Compiler Reference</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/rupgma.html">Compiler pragmas reference</a> &gt; <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/pragma_descriptions.html">Individual pragma descriptions</a></div><table id="vccHolder" class="vccHolderStyle" dir="ltr"><tbody><tr><td class="ratingStyle"><div style="padding:5px;" id="rate"><!-- // leave this comment here --></div></td><td class="notify_rssStyle"><div style="float:right;margin:3px;" id="rss"> </div><div style="float:right;margin:3px;" id="notification"> </div></td></tr><tr><td colspan="2"><div id="ets" style="padding:5px;"></div></td></tr></tbody></table>
+<span id="_vcc_freeselect_top_" style="visibility:hidden; display:none;">_vcc_freeselect_top_</span><a tabindex="1" name="pragma_pack" id="vcc_sp_a_19"><!-- --></a>
+<h1 class="title topictitle1" tabindex="2" id="vcc_sp_h1_20">#pragma pack</h1>
+<div class="body refbody" tabindex="3" id="vcc_sp_div_21"><div class="section" tabindex="4" id="vcc_sp_div_22"><h2 class="title sectiontitle" tabindex="5" id="vcc_sp_h2_23">Category</h2> <p class="p" tabindex="6" id="vcc_sp_p_24"><a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/pragmas_obj_code.html#pragmas_obj_code" class="xref" tabindex="7" id="vcc_sp_a_25">Object
+code control</a></p>
+ </div>
+<div class="section" tabindex="8" id="vcc_sp_div_26"><h2 class="title sectiontitle" tabindex="9" id="vcc_sp_h2_27">Purpose</h2> <p class="p" tabindex="10" id="vcc_sp_p_28">Sets the alignment of all aggregate members
+to a specified byte boundary. </p>
+ <p class="p" tabindex="11" id="vcc_sp_p_29">If
+the byte boundary number is smaller than the natural alignment of
+a member, padding bytes are removed, thereby reducing the overall
+structure or union size. </p>
+  </div>
+<div class="section refsyn" tabindex="12" id="vcc_sp_div_30"><h2 class="title sectiontitle" tabindex="13" id="vcc_sp_h2_31">Syntax</h2> <pre class="fig syntaxdiagram" tabindex="14" id="vcc_sp_pre_32"><span tabindex="15" id="vcc_sp_span_33"><img longdesc="pragma_packsyn1.html" src="pragma_pack_data/c.gif" tabindex="16" alt="Read syntax diagram" id="vcc_sp_img_34" border="0"></span><a href="#d684533e40" tabindex="17" id="vcc_sp_a_35"><img src="pragma_pack_data/c.gif" tabindex="18" alt="Skip visual syntax diagram" id="vcc_sp_img_36" border="0"></a>
+Default #pragma pack syntax
+
+&gt;&gt;-#--pragma--pack--(--+--------+--)---------------------------&gt;&lt;
+&nbsp;&nbsp;&nbsp;                    +-nopack-+   &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;                    +-<i id="vcc_sp_i_37">number</i>-+   &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;                    '-pop----'   &nbsp;&nbsp;&nbsp;
+
+</pre><a tabindex="19" name="d684533e40" id="vcc_sp_a_38"></a>  </div>
+<div class="section" tabindex="20" id="vcc_sp_div_39"><h2 class="title sectiontitle" tabindex="21" id="vcc_sp_h2_40">Defaults</h2> <p class="p" tabindex="22" id="vcc_sp_p_41">Members of aggregates (structures,
+unions, and classes) are aligned on their natural boundaries and a
+structure ends on its natural boundary. The alignment of an aggregate
+is that of its strictest member (the member with the largest alignment
+requirement).</p>
+ </div>
+<div class="section" tabindex="23" id="vcc_sp_div_42"><h2 class="title sectiontitle" tabindex="24" id="vcc_sp_h2_43">Parameters</h2> <dl class="dl parml" tabindex="25" id="vcc_sp_dl_44"><dt class="dt pt" tabindex="26" id="vcc_sp_dt_45">nopack</dt>
+<dd class="dd pd" tabindex="27" id="vcc_sp_dd_46">Disables packing. <span class="ph" tabindex="28" id="vcc_sp_span_47">A warning message is issued and the pragma is ignored.</span></dd>
+<dt class="dt pt" tabindex="29" id="vcc_sp_dt_48"><em class="ph i" tabindex="30" id="vcc_sp_em_49">number</em></dt>
+<dd class="dd pd" tabindex="31" id="vcc_sp_dd_50">is one of the following: <dl class="dl parml" tabindex="32" id="vcc_sp_dl_51"><dt class="dt pt" tabindex="33" id="vcc_sp_dt_52">1</dt>
+<dd class="dd pd" tabindex="34" id="vcc_sp_dd_53">Aligns structure members on 1-byte boundaries, or on their natural
+alignment boundary, whichever is less.</dd>
+<dt class="dt pt" tabindex="35" id="vcc_sp_dt_54">2</dt>
+<dd class="dd pd" tabindex="36" id="vcc_sp_dd_55">Aligns structure members on 2-byte boundaries, or on their natural
+alignment boundary, whichever is less.</dd>
+<dt class="dt pt" tabindex="37" id="vcc_sp_dt_56">4</dt>
+<dd class="dd pd" tabindex="38" id="vcc_sp_dd_57">Aligns structure members on 4-byte boundaries, or on their natural
+alignment boundary, whichever is less.</dd>
+<dt class="dt pt" tabindex="39" id="vcc_sp_dt_58">8</dt>
+<dd class="dd pd" tabindex="40" id="vcc_sp_dd_59"><span class="ph" tabindex="41" id="vcc_sp_span_60">Aligns structure members on 8-byte boundaries,
+or on their natural alignment boundary, whichever is less.</span></dd>
+<dt class="dt pt" tabindex="42" id="vcc_sp_dt_61">16</dt>
+<dd class="dd pd" tabindex="43" id="vcc_sp_dd_62"><span class="ph" tabindex="44" id="vcc_sp_span_63">Aligns structure members on 16-byte boundaries,
+or on their natural alignment boundary, whichever is less.</span></dd>
+</dl>
+</dd>
+<dt class="dt pt" tabindex="45" id="vcc_sp_dt_64">pop</dt>
+<dd class="dd pd" tabindex="46" id="vcc_sp_dd_65"><span class="ph" tabindex="47" id="vcc_sp_span_66">Removes
+the previous value added with <strong class="ph b" tabindex="48" id="vcc_sp_strong_67">#pragma pack</strong>. Specifying <strong class="ph b" tabindex="49" id="vcc_sp_strong_68">#pragma
+pack()</strong> with no parameters is equivalent to <strong class="ph b" tabindex="50" id="vcc_sp_strong_69">pop</strong>.</span> </dd>
+</dl>
+  </div>
+<div class="section" tabindex="51" id="vcc_sp_div_70"><h2 class="title sectiontitle" tabindex="52" id="vcc_sp_h2_71">Usage</h2> <p class="p" tabindex="53" id="vcc_sp_p_72">The <strong class="ph b" tabindex="54" id="vcc_sp_strong_73">#pragma pack</strong> directive
+applies to the definition of an aggregate type, rather than to the
+declaration of an instance of that type; it therefore automatically
+applies to all variables declared of the specified type. </p>
+ <p class="p" tabindex="55" id="vcc_sp_p_74">The <strong class="ph b" tabindex="56" id="vcc_sp_strong_75">#pragma
+pack</strong> directive modifies the current alignment rule for only the
+members of structures whose declarations follow the directive. It
+does not affect the alignment of the structure directly, but by affecting
+the alignment of the members of the structure, it may affect the alignment
+of the overall structure.</p>
+ <p class="p" tabindex="57" id="vcc_sp_p_76">The <strong class="ph b" tabindex="58" id="vcc_sp_strong_77">#pragma pack</strong> directive
+cannot increase the alignment of a member, but rather can decrease
+the alignment.  For example, for a member with data type of <samp class="ph codeph" id="vcc_sp_samp_78">short</samp>,
+a <strong class="ph b" tabindex="59" id="vcc_sp_strong_79">#pragma pack(1)</strong> directive would cause that member to be packed
+in the structure on a 1-byte boundary, while a <strong class="ph b" tabindex="60" id="vcc_sp_strong_80">#pragma pack(4)</strong> directive
+would have no effect.</p>
+ <div class="p" tabindex="61" id="vcc_sp_div_81">The <strong class="ph b" tabindex="62" id="vcc_sp_strong_82">#pragma pack</strong> directive <span class="ph" tabindex="63" id="vcc_sp_span_83">aligns all bit fields in a structure/union on
+1-bit boundaries</span>. <span class="ph" tabindex="64" id="vcc_sp_span_84">Example:</span> <pre class="pre codeblock" tabindex="65" id="vcc_sp_pre_85">#pragma pack(2)
+struct A{
+int a:31;
+int b:2;
+}x;
+
+int main(){
+printf("size of S = %d\n", sizeof(s));
+}
+
+When compiled and run, the output is:
+size of S = 6
+
+But if you remove the #pragma pack directive, you get this output:
+size of S = 8</pre>
+</div>
+ <div class="p" tabindex="66" id="vcc_sp_div_86">The <strong class="ph b" tabindex="67" id="vcc_sp_strong_87">#pragma pack</strong> directive applies only
+to complete declarations of structures or unions; this excludes forward
+declarations, in which member lists are not specified. For example,
+in the following code fragment, the alignment for <samp class="ph codeph" id="vcc_sp_samp_88">struct S</samp> is
+4, since this is the rule in effect when the member list is declared:
+ <pre class="pre codeblock" tabindex="68" id="vcc_sp_pre_89">#pragma pack(1)
+struct S;
+#pragma pack(4)
+struct S { int i, j, k; };</pre>
+</div>
+ <div class="p" tabindex="69" id="vcc_sp_div_90">A nested structure has
+the alignment that precedes its declaration, not the alignment of
+the structure in which it is contained, as shown in the following
+example: <pre class="pre codeblock" tabindex="70" id="vcc_sp_pre_91">#pragma pack (4)                // 4-byte alignment
+         struct nested {
+           int  x;
+           char y;
+           int  z;
+         };
+
+         #pragma pack(1)           // 1-byte alignment
+         struct packedcxx{            char   a;
+            short  b;
+            struct nested  s1;     // 4-byte alignment
+         };</pre>
+</div>
+ <p class="p" tabindex="71" id="vcc_sp_p_92">If more than one <strong class="ph b" tabindex="72" id="vcc_sp_strong_93">#pragma pack</strong> directive
+appears in a structure defined in an inlined function, the <strong class="ph b" tabindex="73" id="vcc_sp_strong_94">#pragma
+pack</strong> directive in effect at the beginning of the structure takes
+precedence.</p>
+ </div>
+<div class="example" tabindex="74" id="vcc_sp_div_95"><h2 class="title" tabindex="75" id="vcc_sp_h2_96">Examples</h2> <div class="p" tabindex="76" id="vcc_sp_div_97">The following example shows how
+the <strong class="ph b" tabindex="77" id="vcc_sp_strong_98">#pragma pack</strong> directive can be used to set the alignment
+of a structure definition: <pre class="pre codeblock" tabindex="78" id="vcc_sp_pre_99">//  header file file.h
+
+   #pragma pack(1)
+
+   struct jeff{           //    this structure is packed 
+     short bill;          //    along 1-byte boundaries    
+     int *chris;
+   };
+   #pragma pack(<span class="ph" tabindex="79" id="vcc_sp_span_100">pop</span>)       //   reset to previous alignment rule  </pre>
+ <pre class="pre codeblock" tabindex="80" id="vcc_sp_pre_101">// source file anyfile.c
+
+   #include "file.h"         
+   
+   struct jeff j;           //   uses the alignment specified
+                            //   by the pragma pack directive
+                            //   in the header file and is 
+                            //   packed along 1-byte boundaries</pre>
+</div>
+ <div class="p" tabindex="81" id="vcc_sp_div_102">This
+example shows how a <strong class="ph b" tabindex="82" id="vcc_sp_strong_103">#pragma pack</strong> directive can affect the size
+and mapping of a structure: <pre class="pre codeblock" tabindex="83" id="vcc_sp_pre_104">struct s_t {
+	char a;
+	int b;
+	short c;
+	int d;
+}S;</pre>
+ <div class="tablenoborder" tabindex="84" id="vcc_sp_div_105"><table rules="all" class="table" tabindex="85" frame="void" id="vcc_sp_table_106" summary="" border="0" cellpadding="4" cellspacing="0"><thead class="thead" id="vcc_sp_thead_107" align="left"><tr class="row" id="vcc_sp_tr_108"><th class="entry nocellborder" tabindex="86" id="d684533e236" valign="top" width="49.48979591836735%">Default mapping:</th>
+<th class="entry" tabindex="87" id="d684533e238" valign="top" width="50.51020408163265%">With #pragma
+pack(1):</th>
+</tr>
+</thead>
+<tbody class="tbody" id="vcc_sp_tbody_109"><tr class="row" id="vcc_sp_tr_110"><td class="entry nocellnorowborder" tabindex="88" id="vcc_sp_td_111" headers="d684533e236 " valign="top" width="49.48979591836735%">size of <samp class="ph codeph" id="vcc_sp_samp_112">s_t</samp> =
+16</td>
+<td class="entry norowborder" tabindex="89" id="vcc_sp_td_113" headers="d684533e238 " valign="top" width="50.51020408163265%">size of <samp class="ph codeph" id="vcc_sp_samp_114">s_t</samp> =
+11</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_115"><td class="entry nocellnorowborder" tabindex="90" id="vcc_sp_td_116" headers="d684533e236 " valign="top" width="49.48979591836735%">offset of <samp class="ph codeph" id="vcc_sp_samp_117">a</samp> =
+0</td>
+<td class="entry norowborder" tabindex="91" id="vcc_sp_td_118" headers="d684533e238 " valign="top" width="50.51020408163265%">offset of <samp class="ph codeph" id="vcc_sp_samp_119">a</samp> =
+0</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_120"><td class="entry nocellnorowborder" tabindex="92" id="vcc_sp_td_121" headers="d684533e236 " valign="top" width="49.48979591836735%">offset of <samp class="ph codeph" id="vcc_sp_samp_122">b</samp> =
+4</td>
+<td class="entry norowborder" tabindex="93" id="vcc_sp_td_123" headers="d684533e238 " valign="top" width="50.51020408163265%">offset of <samp class="ph codeph" id="vcc_sp_samp_124">b</samp> =
+1</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_125"><td class="entry nocellnorowborder" tabindex="94" id="vcc_sp_td_126" headers="d684533e236 " valign="top" width="49.48979591836735%">offset of <samp class="ph codeph" id="vcc_sp_samp_127">c</samp> =
+8</td>
+<td class="entry norowborder" tabindex="95" id="vcc_sp_td_128" headers="d684533e238 " valign="top" width="50.51020408163265%">offset of <samp class="ph codeph" id="vcc_sp_samp_129">c</samp> =
+5</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_130"><td class="entry nocellnorowborder" tabindex="96" id="vcc_sp_td_131" headers="d684533e236 " valign="top" width="49.48979591836735%">offset of <samp class="ph codeph" id="vcc_sp_samp_132">d</samp> =
+12</td>
+<td class="entry norowborder" tabindex="97" id="vcc_sp_td_133" headers="d684533e238 " valign="top" width="50.51020408163265%">offset of <samp class="ph codeph" id="vcc_sp_samp_134">d</samp> =
+7</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_135"><td class="entry nocellnorowborder" tabindex="98" id="vcc_sp_td_136" headers="d684533e236 " valign="top" width="49.48979591836735%">alignment of <samp class="ph codeph" id="vcc_sp_samp_137">a</samp> =
+1</td>
+<td class="entry norowborder" tabindex="99" id="vcc_sp_td_138" headers="d684533e238 " valign="top" width="50.51020408163265%">alignment of <samp class="ph codeph" id="vcc_sp_samp_139">a</samp> =
+1</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_140"><td class="entry nocellnorowborder" tabindex="100" id="vcc_sp_td_141" headers="d684533e236 " valign="top" width="49.48979591836735%">alignment of <samp class="ph codeph" id="vcc_sp_samp_142">b</samp> =
+4</td>
+<td class="entry norowborder" tabindex="101" id="vcc_sp_td_143" headers="d684533e238 " valign="top" width="50.51020408163265%">alignment of <samp class="ph codeph" id="vcc_sp_samp_144">b</samp> =
+1</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_145"><td class="entry nocellnorowborder" tabindex="102" id="vcc_sp_td_146" headers="d684533e236 " valign="top" width="49.48979591836735%">alignment of <samp class="ph codeph" id="vcc_sp_samp_147">c</samp> =
+2</td>
+<td class="entry norowborder" tabindex="103" id="vcc_sp_td_148" headers="d684533e238 " valign="top" width="50.51020408163265%">alignment of <samp class="ph codeph" id="vcc_sp_samp_149">c</samp> =
+1</td>
+</tr>
+<tr class="row" id="vcc_sp_tr_150"><td class="entry nocellborder" tabindex="104" id="vcc_sp_td_151" headers="d684533e236 " valign="top" width="49.48979591836735%">alignment of <samp class="ph codeph" id="vcc_sp_samp_152">d</samp> =
+4</td>
+<td class="entry" tabindex="105" id="vcc_sp_td_153" headers="d684533e238 " valign="top" width="50.51020408163265%">alignment of <samp class="ph codeph" id="vcc_sp_samp_154">d</samp> =
+1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+ <div class="p" tabindex="106" id="vcc_sp_div_155">The following example defines a union <samp class="ph codeph" id="vcc_sp_samp_156">uu</samp> containing
+a structure as one of its members, and declares an array of 2 unions
+of type <samp class="ph codeph" id="vcc_sp_samp_157">uu</samp>: <pre class="pre codeblock" tabindex="107" id="vcc_sp_pre_158">          union uu {
+            short    a;
+            struct {
+              char x;
+              char y;
+              char z;
+            } b;
+          };
+
+          union uu nonpacked[2];</pre>
+Since the largest alignment
+requirement among the union members is that of <samp class="ph codeph" id="vcc_sp_samp_159">short a</samp>,
+namely, 2 bytes, one byte of padding is added at the end of each union
+in the array to enforce this requirement: <pre class="pre" tabindex="108" id="vcc_sp_pre_160">         ┌───── nonpacked[0] ─────────── nonpacked[1] ───┐
+         │                       │                       │
+         │     a     │           │     a     │           │
+         │  x  │  y  │  z  │     │  x  │  y  │  z  │     │
+         └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+
+         0     1     2     3     4     5     6     7     8</pre>
+The
+next example uses <strong class="ph b" tabindex="109" id="vcc_sp_strong_161">#pragma pack(1)</strong> to set the alignment of unions
+of type <samp class="ph codeph" id="vcc_sp_samp_162">uu</samp> to 1 byte: </div>
+ <pre class="pre codeblock" tabindex="110" id="vcc_sp_pre_163">         #pragma pack(1)
+
+          union uu {
+            short    a;
+            struct {
+              char x;
+              char y;
+              char z;
+            } b;
+          };
+
+          union uu pack_array[2];</pre>
+ <div class="p" tabindex="111" id="vcc_sp_div_164">Now, each union in
+the array <samp class="ph codeph" id="vcc_sp_samp_165">packed</samp> has a length of only 3 bytes, as
+opposed to the 4 bytes of the previous case:  <pre class="pre" tabindex="112" id="vcc_sp_pre_166">         ┌─── packed[0] ───┬─── packed[1] ───┐
+         │                 │                 │
+         │     a     │     │     a     │     │
+         │  x  │  y  │  z  │  x  │  y  │  z  │
+         └─────┴─────┴─────┴─────┴─────┴─────┘
+         0     1     2     3     4     5     6</pre>
+</div>
+ </div>
+<div class="section" tabindex="113" id="vcc_sp_div_167"><h2 class="title sectiontitle" tabindex="114" id="vcc_sp_h2_168">Related information</h2> <ul class="ul" tabindex="115" id="vcc_sp_ul_169"><li class="li" tabindex="116" id="vcc_sp_li_170"><a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/opt_align.html#opt_align" class="xref" tabindex="117" id="vcc_sp_a_171">-qalign</a></li>
+<li class="li" tabindex="118" id="vcc_sp_li_172"><a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/proguide/modifiers.html#modifiers" class="xref" tabindex="119" id="vcc_sp_a_173">Using alignment modifiers</a></li>
+</ul>
+ </div>
+</div>
+<div class="related-links" tabindex="120" id="vcc_sp_div_174">
+<div class="familylinks" tabindex="121" id="vcc_sp_div_175">
+<div class="parentlink" tabindex="122" id="vcc_sp_div_176"><strong tabindex="123" id="vcc_sp_strong_177">Parent topic:</strong> <a href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/topic/com.ibm.xlcpp111.aix.doc/compiler_ref/pragma_descriptions.html" class="link" tabindex="124" id="vcc_sp_a_178">Individual pragma descriptions</a></div>
+</div>
+</div>
+<script type="text/javascript" src="pragma_pack_data/feedbackwindow.js" id="vcc_sp_script_179"></script>
+<noscript id="vcc_sp_noscript_180">
+<br id="vcc_sp_br_181" />
+[ <a href="mailto:compinfo@ca.ibm.com?subject=Feedback on '#pragma pack' @ [com.ibm.xlcpp111.aix.doc/compiler_ref/pragma_pack.html]" tabindex="125" id="vcc_sp_a_182">Provide feedback</a> ]
+<br id="vcc_sp_br_183" />
+<br id="vcc_sp_br_184" />
+</noscript>
+ 
+<span id="_vcc_freeselect_bottom_" style="visibility:hidden; display:none;">_vcc_freeselect_bottom_</span>
+</body></html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><title>pahole and other DWARF2 utilities [LWN.net]</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" href="http://lwn.net/images/favicon.png" type="image/png">
+        <link rel="alternate" type="application/rss+xml" title="LWN.net headlines" href="http://lwn.net/headlines/newrss">
+        <link rel="stylesheet" href="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/lwn.css">
+<link rel="stylesheet" href="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/nosub.css">
+
+        
+<script src="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/ados.js" async="" type="text/javascript"></script><script type="text/javascript">var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script>
+<script type="text/javascript">
+var ados_keywords = ados_keywords || [];
+if( location.protocol=='https:' ) {
+        ados_keywords.push('T:SSL');
+} else {
+        ados_keywords.push('T:HTTP');
+}
+
+var ados = ados || {};
+ados.run = ados.run || [];
+ados.run.push(function() {
+
+ados_add_placement(4669, 20979, "azk13321_leaderboard", 4).setZone(16026);
+
+ados_add_placement(4669, 20979, "azk93271_right_zone", [5,10,6]).setZone(16027);
+
+ados_add_placement(4669, 20979, "azk31017_tracking", 20).setZone(20995);
+
+
+
+ados_setKeywords(ados_keywords.join(', ')); 
+ados_load();
+});</script>
+
+        </head>
+        <body vlink="Green" alink="Green" bgcolor="#ffffff" link="Blue">
+        <table class="Page">
+<tbody><tr>
+<td class="LeftColumn">
+
+        <center>
+        <a href="http://lwn.net/"><img src="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/lcorner.png" alt="LWN.net Logo" width="153" border="0" height="120"></a>
+        </center>
+        <p>
+        <script type="text/javascript"><!--
+google_ad_client = "pub-4358676377058562";
+google_ad_width = 120;
+google_ad_height = 240;
+google_ad_format = "120x240_as";
+google_ad_type = "text_image";
+//2007-10-07: side ads
+google_ad_channel = "0946045135";
+google_color_border = "ffcc99";
+google_color_bg = "ffcc99";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript" src="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/show_ads.js">
+</script>
+</p><p>
+</p><div class="SideBox">
+<p class="Header">Not logged in</p>
+<p><a href="http://lwn.net/login">Log in now</a></p><p>
+                                 </p><p><a href="http://lwn.net/newaccount">Create an account</a></p><p>
+                                 </p><p><a href="http://lwn.net/subscribe/Info">Subscribe to LWN</a></p></div>
+
+<div class="SideBox">
+<p class="Header">Weekly Edition</p>
+Return to the <a href="http://lwn.net/Articles/206352/">Kernel page</a></div>
+
+<div class="SideBox">
+<p class="Header">Recent Features</p>
+<p><a href="http://lwn.net/Articles/594224/">LWN.net Weekly Edition for April 17, 2014</a></p>
+            	<p><a href="http://lwn.net/Articles/594725/">Avoiding memory-allocation deadlocks</a></p>
+            	<p><a href="http://lwn.net/Articles/592954/">LWN.net Weekly Edition for April 10, 2014</a></p>
+            	<p><a href="http://lwn.net/Articles/594085/">Project updates from Libre Graphics Meeting 2014</a></p>
+            	<p><a href="http://lwn.net/Articles/593676/">Much ado about debugging</a></p>
+            	</div>
+
+<div class="SideBox">
+<a href="http://lwn.net/Articles/206805/?format=printable" rel="nofollow">Printable page</a>
+</div>
+
+</td><!-- LC -->
+
+<td><table><tbody><tr>
+<td class="MidColumn">
+           <table class="TopNavigation">
+
+<!-- First row - content links -->
+<tbody><tr>
+  <td class="NavLink"><a href="http://lwn.net/current/">Weekly edition</a></td>
+  <td class="NavLink">
+	<a href="http://lwn.net/Kernel/">Kernel</a></td>
+  <td class="NavLink"><a href="http://lwn.net/Security/">Security</a></td>
+  <td class="NavLink">
+	<a href="http://lwn.net/Distributions/">Distributions</a></td>
+  <td class="NavLink"><a href="http://lwn.net/op/FAQ.lwn#contact">Contact Us</a> </td>
+  <td class="NavLink"><a href="http://lwn.net/Search/">Search</a> </td>
+</tr>
+<!-- Second row: navigation links -->
+<tr>
+  <td class="NavLink"><a href="http://lwn.net/Archives/">Archives</a></td>
+  <td class="NavLink"><a href="http://lwn.net/Calendar/">Calendar</a></td>
+  <td class="NavLink"><a href="http://lwn.net/subscribe/Info">Subscribe</a></td>
+  <td class="NavLink"><a href="http://lwn.net/op/AuthorGuide.lwn">Write for LWN</a></td>
+  <td class="NavLink"><a href="http://lwn.net/op/FAQ.lwn">LWN.net FAQ</a></td>
+  <td class="NavLink"><a href="http://lwn.net/op/Sponsors.lwn">Sponsors</a></td>
+</tr>
+
+</tbody></table>
+</td><td></td></tr>
+<tr><td colspan="2" class="MCTopBanner">
+<div id="azk13321_leaderboard"></div></td></tr><tr><td class="MidColumn">
+<div class="PageHeadline">
+<h1>pahole and other DWARF2 utilities</h1>
+</div>
+<div class="ArticleText">
+<table>
+<tbody><tr><td valign="top"><b>From</b>:</td>
+    	     <td>&nbsp;</td><td valign="top">Arnaldo Carvalho de Melo &lt;acme@mandriva.com&gt;</td></tr>
+<tr><td valign="top"><b>To</b>:</td>
+    	     <td>&nbsp;</td><td valign="top">linux-kernel@vger.kernel.org</td></tr>
+<tr><td valign="top"><b>Subject</b>:</td>
+    	     <td>&nbsp;</td><td valign="top">[ANNOUNCE] pahole and other DWARF2 utilities</td></tr>
+<tr><td valign="top"><b>Date</b>:</td>
+    	     <td>&nbsp;</td><td valign="top">Mon, 30 Oct 2006 18:33:19 -0300</td></tr>
+<tr><td valign="top"><b>Cc</b>:</td>
+    	     <td>&nbsp;</td><td valign="top">lwn@lwn.net</td></tr>
+<tr><td valign="top"><b>Archive-link</b>:</td>
+    	     <td>&nbsp;</td><td valign="top"><a href="http://article.gmane.org/gmane.linux.kernel/461885">Article</a>,
+        <a href="http://thread.gmane.org/gmane.linux.kernel/461885">Thread</a>
+        </td></tr>
+</tbody></table><p>
+</p><pre>Hi,
+
+	I've been working on some DWARF2 utilities and thought that it
+is about time I announce it to the community, so that what is already
+available can be used by people interested in reducing structure sizes
+and otherwise taking advantage of the information available in the elf
+sections of files compiled with 'gcc -g' or in the case of the kernel
+with CONFIG_DEBUG_INFO enabled, so here it goes the description of said
+tools:
+
+pahole: Poke-a-Hole is a tool to find out holes in structures, holes
+being defined as the space between members of functions due to alignemnt
+rules that could be used for new struct entries or to reorganize
+existing structures to reduce its size, without more ado lets see what
+that means:
+
+[acme@newtoy net-2.6]$ pahole kernel/sched.o task_struct
+/* include2/asm/system.h:11 */
+struct task_struct {
+        volatile long int       state;          /*     0     4 */
+        struct thread_info *    thread_info;    /*     4     4 */
+        atomic_t                usage;          /*     8     4 */
+        long unsigned int       flags;          /*    12     4 */
+
+	&lt;SNIP&gt;
+
+        short unsigned int         ioprio;      /*    52     2 */
+
+        /* XXX 2 bytes hole, try to pack */
+
+        long unsigned int          sleep_avg;   /*    56     4 */ */
+        unsigned char              fpu_counter; /*   388     1 */
+
+        /* XXX 3 bytes hole, try to pack */
+
+        int                        oomkilladj;  /*   392     4 */
+
+	&lt;SNIP&gt;
+
+}; /* size: 1312, sum members: 1287, holes: 3, sum holes: 13, padding: 12 */
+
+	It doesn't uses any source code files, just the DWARF2
+information in ELF sections, inserted by 'gcc -g', to print out the
+above information, current goodies being just to show where are holes
+that can be used to reduce the struct size, which is even more useful as
+we transition to 64bit architectures, where such holes are more
+frequent, as we can see in this example:
+
+[acme@newtoy ~]$ file kdump.debug
+kdump.debug: ELF 64-bit LSB executable, AMD x86-64, version 1 (SYSV),
+dynamically linked (uses shared libs), not stripped
+[acme@newtoy ~]$ pahole kdump.debug _IO_FILE | head -7
+/* /usr/include/stdio.h:46 */
+struct _IO_FILE {
+        int   _flags;               /*     0     4 */
+
+        /* XXX 4 bytes hole, try to pack */
+
+        char *_IO_read_ptr;         /*     8     8 */
+[acme@newtoy ~]$
+
+
+	The columns in the comments are (offset, sizeof(member).
+
+	Tons more information is available in the DWARF2 ELF sections,
+making it possible to use it for other purposes, and thats where the
+next dwarf comes in, pfunct:
+
+[acme@newtoy net-2.6]$ pfunct net/ipv4/tcp_ipv4.o tcp_v4_rcv
+/* /pub/scm/linux/kernel/git/acme/net-2.6/net/ipv4/tcp_ipv4.c:1054 */
+int tcp_v4_rcv(struct sk_buff * skb);
+/* size: 2175 */
+
+	pfunct uses the DWARF2 information to get function details, such
+as its full prototype and function size, that allows us to do some more
+interesting queries, such as:
+
+[acme@newtoy net-2.6]$ pfunct --size net/ipv4/netfilter/ip_conntrack.ko
+| sort -k 2 -nr | head -10
+tcp_packet: 3349
+ip_conntrack_in: 1146
+icmp_error: 874
+ip_conntrack_expect_related: 804
+__ip_conntrack_confirm: 586
+tcp_new: 527
+ip_conntrack_init: 525
+tcp_error: 508
+ip_conntrack_helper_unregister: 482
+ip_conntrack_alloc: 469
+[acme@newtoy net-2.6]$
+
+	The top ten functions by size (in bytes) in any ELF file with
+debugging information!
+
+	The code is available in a git repository at:
+
+git://git.kernel.org/pub/scm/linux/kernel/git/acme/pahole.git
+
+	Just for browsing the cset comments that may well provide hints
+on how this thingy can be useful:
+
+<a href="http://www.kernel.org/git/?p=linux/kernel/git/acme/pahole.git;a=summary">http://www.kernel.org/git/?p=linux/kernel/git/acme/pahole...</a>
+
+	Further ideas on how to use the DWARF2 information include tools
+that will show where inlines are being used, how much code is added by
+inline functions, possibly rewriting asm-offsets.c, converting ostra
+(callgraph tool) to use this information, correlate valgrind's
+cachegrind information to suggest struct member reorganization to
+exploit cacheline locality and more.
+
+	Documentation is very much a disaster, but I guess the current
+state of things is useful for interested hackers, so that I thought it
+was time got announce this.
+
+	Ideas for additional tools are more than welcome!
+
+- Arnaldo
+Mandriva Labs
+<a href="http://www.mandriva.com/">http://www.mandriva.com</a>
+
+</pre>
+
+</div> <!-- ArticleText -->
+</td> <!-- MC -->
+<td class="RightColumn">
+<div id="azk93271_right_zone"></div>
+</td>
+</tr></tbody></table></td>
+</tr></tbody></table><!-- endpage -->
+
+        <center>
+        <p>
+        <font size="-2">
+        Copyright © 2006, Eklektix, Inc.<br>
+        
+        Comments and public postings are copyrighted by their creators.<br>
+        Linux  is a registered trademark of Linus Torvalds<br>
+        </font>
+        </p></center>
+        
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            </script><script src="pahole%20and%20other%20DWARF2%20utilities%20%5BLWN.net%5D_files/ga.js" type="text/javascript"></script>
+            <script type="text/javascript">
+            try {
+            var pageTracker = _gat._getTracker("UA-2039382-1");
+            pageTracker._trackPageview();
+            } catch(err) {}</script>
+            
+        
+        </body></html>

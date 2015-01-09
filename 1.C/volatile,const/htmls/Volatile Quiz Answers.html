@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Volatile Quiz Answers</title>
+<link href="Volatile%20Quiz%20Answers_files/doxygen.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  <!--
+    span.code {color:blue;font-family: courier}
+    td.english {font-size:14pt}
+    td.head {font-size:18pt;font-size:18pt;text-align:center;font-family:arial}
+    td.ccode {font-size:14pt;font-family:courier}
+  -->
+</style>
+</head><body>
+<h1>Volatile Quiz Answers</h1><div class="fragment">
+<table rules="" border="" cellpadding="10" cellspacing="0">
+<tbody><tr>
+<td class="head">Declaration</td>
+<td class="head">Means</td>
+</tr>
+
+<tr><td class="ccode">volatile int *s1;</td>
+<td class="english"> declare s1 as pointer to volatile int </td>
+</tr><tr>
+<td class="ccode"> int* volatile s2; </td>
+<td class="english">  declare s2 as volatile pointer to int</td>
+</tr><tr>
+<td class="ccode">volatile int* volatile s3; </td>
+<td class="english">declare s3 as volatile pointer to volatile int </td>
+</tr><tr>
+<td class="ccode">const volatile int * volatile s4; </td>
+<td class="english">declare s4 as volatile pointer to const volatile int</td>
+</tr><tr>
+<td class="ccode">volatile int * (*f)(volatile int *);</td>
+<td class="english">declare f as pointer to function (pointer to volatile int) returning pointer to volatile int</td>
+</tr>
+</tbody></table>
+
+
+</div></body></html>

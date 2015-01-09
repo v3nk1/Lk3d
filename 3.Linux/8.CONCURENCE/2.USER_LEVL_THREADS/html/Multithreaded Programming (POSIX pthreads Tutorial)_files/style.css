@@ -1,0 +1,116 @@
+body, p, ol, ul, li, div, span, table, tr, th, td, address { 
+  font-family: Verdana, Arial, Helvetica, sans-serif; 
+  font-size: 10pt;
+	color: #333333;
+}
+.box { 
+  font-size: 8pt;
+  border: solid 1px #FFE4AA;
+  padding: 2px;
+  background: #FFF6E3;
+  width: 350px;
+}
+.copynotice {
+  font-size: 8pt;
+  font-style: italic;
+  padding: 2px;
+  width: 200px;
+}
+.program {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  border: dashed 1px #0071BC;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+}
+.include {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #A020F0;
+} 
+.comment {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #B22222;
+}
+.prototype {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #4169E1;
+}
+.define {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #228B22;
+}
+.string {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #666666;
+}
+.function {
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+  background: #F2FBFF;
+  color: #FF7826;
+}
+code, pre { 
+  font-family: "Courier New", monospace;
+  font-size: 10pt;
+}
+code {
+  background: #EAEAEA;
+}
+pre {
+  background: #F2FBFF;
+  border: dashed 1px #0071BC;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+a:link { 
+  color: blue; 
+  text-decoration: none;
+}
+a:visited { 
+  color: blue; 
+  text-decoration: none;
+}
+a:hover { 
+  color: red;
+  text-decoration: underline;
+}
+h1, h2, h3, h4, h5 {
+  font-family: verdana, arial, helvetica, sans-serif; 
+  padding: 5px;
+}
+h1 { 
+  font-size: 18pt; 
+  background: #737CA1;
+  color: #FFFFFF;
+  border: solid 1px #333333;
+}
+h2 { 
+  font-size: 12pt; 
+  background: #B7CEEC;
+  color: #333333; 
+}
+h3 { 
+  font-size: 10pt; 
+  background: #E3E4FA;
+  color: #333333; 
+}
+img { border: 0px; }
+address { font-size: 8pt; }
+.center { text-align: center }
+.left { text-align: left }
+.right { text-align: right }
+.red { color: red; background-color: white }
+.green { color: green; background-color: white }
+.blue { color: blue; background-color: white }

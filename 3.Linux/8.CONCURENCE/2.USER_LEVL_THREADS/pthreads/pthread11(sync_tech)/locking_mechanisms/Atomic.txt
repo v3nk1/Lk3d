@@ -1,0 +1,42 @@
+GCC atomic memory access built-in functions
+-------------------------------------------
+
+	Atomic fetch and operation functions
+	------------------------------------
+	1. type __sync_fetch_and_add (type *ptr, type v, ...)
+		- This function atomically adds the value of "v" to the variable that "ptr" points to. 
+		- The result is stored in the address that is specified by "ptr".
+
+	2. type __sync_fetch_and_sub (type *ptr, type v, ...)
+		- This function atomically subtracts the value of "v" to the variable that "ptr" points to.
+                - The result is stored in the address that is specified by "ptr".
+
+	3. type __sync_fetch_and_or (type *ptr, type v, ...)
+		- This function performs an atomic bitwise OR operation on the variable "v" with the variable that "ptr" points to.
+                - The result is stored in the address that is specified by "ptr".
+
+	4. type __sync_fetch_and_and (type *ptr, type value, ...)
+		- This function performs an atomic bitwise AND operation on the variable "v" with the variable that "ptr" points to.
+                - The result is stored in the address that is specified by "ptr".
+		
+	5. type __sync_fetch_and_xor (type *ptr, type value, ...)
+		- This function performs an atomic bitwise exclusive OR operation on the variable "v" with the variable that "ptr" points to.
+                - The result is stored in the address that is specified by "ptr".
+
+	All above functions returns the value that had previously been in memory before performing the suggested operations. 
+
+	Atomic operation and fetch functions
+	------------------------------------
+	1. type __sync_add_and_fetch (type *ptr, type value, ...)
+	2. type __sync_sub_and_fetch (type *ptr, type value, ...)
+	3. type __sync_or_and_fetch (type *ptr, type value, ...)
+	4. type __sync_and_and_fetch (type *ptr, type value, ...)
+	5. type __sync_xor_and_fetch (type *ptr, type value, ...)
+	6. type __sync_nand_and_fetch (type *ptr, type value, ...) 
+	
+	All above functions returns the new value in memory after performing the suggested operations.
+
+
+NOTE:
+=====
+	USING THESE AUTOMIC OPERATION WE CAN PERFORM MINIMAL OPERATIONS LIKE INCREMENT (or) DECREMENT KIND OF SMALL OPERATION ONLY.

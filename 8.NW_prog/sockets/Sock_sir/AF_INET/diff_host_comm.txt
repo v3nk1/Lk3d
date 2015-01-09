@@ -1,0 +1,19 @@
+2 PROCESS'S ON 2 DIFFERENT HOSTS:
+---------------------------------
+
+	Lets assume host 1 here acts like server and host 2 acts like client.
+
+	Host 1(server):
+	```````````````
+		first see the server id.
+		# ifconfig
+			lo addr: for 2 process in the same host
+		Now here we want eth0 inet addr: 10.0.0.123	(say)
+	
+	Host 2(client):
+	```````````````
+		In client set inet address to 10.0.0.73		(according to sever last byte shud be different)
+
+		# sudo ifconfig eth0 10.0.0.73
+		
+		and change server ip in client code as "10.0.0.123"

@@ -1,0 +1,59 @@
+======================================================================================================================
+|                                          ************ ARRAYS **************					     |
+======================================================================================================================
+
+    If you pass a 2D array as an actual argument then the formal argument must be a ptr to array of coloumn size.
+    since if u pass 2D array symbol it actually passes address of the column size of that array ie., ptr to array of 3 intgrs. but incase of 1D array it just a ptr to integer.
+    
+Examples:
+
+void func(int *ptr){
+/////////////////Here we can access ptr as array notation,ie., ptr[i] means *(ptr+i) only na. so we can access ptr as an array.
+		 or if u hav that much STRENGTH u can access it as ptr with like *(ptr+i).
+}
+
+main(){
+
+	int arr[3];
+	func(arr);      Here arr is a symbol which is ptr to intgr.
+}
+	So to access in formal argument we use just a ptr to intgr.
+	The equalent that the compiler used to manipulate an array arr[3] is *(arr+3).
+
+======================================================================================================================
+void func(int (*ptr)[5]){
+	ptr[i][j];  
+/////////////////Here we can access ptr as array notation,ie., ptr[i][j] means *(*(ptr+i)+j) only na. so we can access ptr as an array.   
+}
+
+main(){
+
+int arr1[4][5];      
+func(arr1);    Here arr1 symbol in actual argument is a ptr to array of column size ie.,5 intgrs here. so the one 		     catches it in formal argument must be ptr to array of 5 intgrs. 
+	         arr1 = returns ptr to array of colum size; (represents bunch of elements addresses)
+		*arr1 = returns ptr to intgr;  (represent particular element address)
+		**arr1= returns integr
+
+}
+           To access ptr to array of intgrs we can use array notation like ptr[i][j].
+	     if ptr[1][2] then *(*(ptr+1)+2) ie.,*(ptr+1) here ptr is a ptr to array of column size so it first increments by                column size b'coz of ptr+1 ie., points to next column. and *(it ) is a ptr to integr and hence obtained +2 increments             by sizeof(int *) ie., 8 bytes means jump 2 elements and poinst to there.. so by derefering whole we can manipulate it.
+
+	  Thats why in 2D array we can neglect row size to catch in formal arguments..
+======================================================================================================================
+
+RETURNIG FROM FUNCTION..
+
+	In function if u want to return a 1D array then return just array symbol. and in function definition/prototype the return type must be (int *)function_name(-------);
+	In function if u want to return a 2D array return *array_symbol_name. and in function definition/prototype the return type must be (int *)function_name(------------); since here array symbol name itself indicates ptr to array of col size intgrs.
+so *array_symbol_name indicates ptr to integer only so we can catch it in (int*).
+
+
+	THIS IS NOT COMPATIBLE TYPE:
+		See if u just return array symbol name in 2D case and in function prototype the return type u wrote as (int **)   		its also incompatible since we are not retuning ptr to pointer variable, we are returnig ptr to array of intgrs.
+
+======================================================================================================================
+
+You can pass ptr to integer as an array in function.. ie., see in PRINT_MAT(); in array.h.
+see the program mat_sum_func.c in home/venat/venky/2D_arrays/
+
+                                              !!!!!!!!!!!!!!!!!!!!!!!!!!!!!

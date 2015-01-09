@@ -1,0 +1,3 @@
+Extern is a keyword not needed when u link a bunch of files in compile time(compile time linking)..
+		Ex: cc test.c test1.c test2.c .....
+			This command will endup in creating only one executable which is name as a.out

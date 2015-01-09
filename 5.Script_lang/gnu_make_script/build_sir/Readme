@@ -1,0 +1,14 @@
+make tool
+---------
+
+	1. make is a Unix tool to simplify building executables 
+	   from many modules (multiple source files).
+	
+	2. Make is a utility that automatically builds executable programs 
+	   from source code by reading files called Makefiles (user defined 	       script files) which specify how to derive the target.
+	
+	3. make will generate executables by compiling source files
+	   depending on condition (time stamp)
+
+	4. compiles only those source files whose last accessed time is
+	   greater that the created time of executable file.    

@@ -1,0 +1,1 @@
+function expandAllTopic(_1){ parent.vccViewFrame.expandAll(); }; function showHotTopic(_2){ parent.vccViewFrame.showHotTopic(); }; function refreshAllTopic(_3){ parent.vccViewFrame.refreshAll(); }; function showMyComments(_4){ parent.vccViewFrame.showMyComments(); }; 

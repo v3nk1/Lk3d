@@ -1,0 +1,28 @@
+
+SOCK_UGRAM:
+===========
+
+	The client shud know the server address inorder to connect with a particular server..
+	Server neednot to know to which client its serving.
+	Here bind() API has called in SERVER as well as in CLIENT, so 2 sockets will be created..
+
+	,-----------------------------------------------,-----------------------------------------------,
+	|		SERVER				|		CLIENT				|
+	|-----------------------------------------------|-----------------------------------------------|
+	|->	include<sys/un.h>			|	-> Same					|
+	|->	Create an instance of sockaddr_un for   |	-> Same					|
+	|	server and client			|						|
+	|	struct sockaddr_un svaddr,claddr;	|						|
+	|->	socket()				|	-> Same					|
+	|->	remove()				|	-> Same					|
+	|->	memset()				|	-> Same					|
+	|->	populate svaddr members			|	-> populate claddr members		|
+	|->	bind(svaddr)				|	-> bind(claddr)				|
+	|->	recvfrom() {specify source addrs}	|	-> construct serveraddress and populate |
+	|	recvfrom returns the num of bytes recvd	|	   to svaddr respective fields		|
+	|	& if u pass 5th agr it'll come populatd	|	-> sendto() {specify destination addr}	|
+	|	with client addrs to knw to whome we are|						|
+	|	serving					|						|
+	|->     sendto() {specify destination addr}	|	-> recvfrom() {specify source addrs}	|
+	|						|						|
+	!===============================================!===============================================!

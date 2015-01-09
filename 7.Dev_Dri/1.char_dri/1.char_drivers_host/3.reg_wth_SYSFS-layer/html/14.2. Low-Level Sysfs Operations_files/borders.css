@@ -1,0 +1,17 @@
+
+
+/*table.page { align: center}*/
+td.page-top { height: 20px;  background-image: url(top.gif)}
+td.page-topRight { width: 28px; height: 20px; background-image: url(topRight.gif)}			 
+td.page-right { width: 28px; background-image: url(right.gif)}
+td.page-bottomRight { width: 28px; height: 22px; background-image: url(bottomRight.png)}	
+td.page-bottom { height: 22px; background-image: url(bottom.png)}
+td.page-bottomLeft { width: 28px; height: 22px; background-image: url(bottomLeft.png)}	
+td.page-left { width: 28px; background-image: url(left.gif)}
+td.page-topLeft { width: 28px; height: 20px; background-image: url(topLeft.gif)}			 
+td.page-center { background-color: white  }
+
+td.page-topRightRound { width: 28px; height: 20px; background-image: url(topRightRound.gif)}			 
+td.page-topLeftRound { width: 28px; height: 20px; background-image: url(topLeftRound.gif)}			 
+
+

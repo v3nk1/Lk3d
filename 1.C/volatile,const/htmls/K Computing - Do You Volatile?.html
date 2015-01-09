@@ -1,0 +1,159 @@
+<html><head> 
+  <link rel="SHORTCUT ICON" href="http://www.kcomputing.com/favicon.ico">
+  <title> K Computing - Do You Volatile? </title>
+  <meta name="Author" content="Kevin">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <link rel="stylesheet" href="K%20Computing%20-%20Do%20You%20Volatile%3F_files/kcomp.html">
+
+  <style type="text/css">
+  <!-- a.underit{text-decoration:underline;} 
+       a:visited.underit {color:#225}
+       a:hover.underit {color:#e00}
+  -->
+  </style>
+</head>
+<body>
+
+<div style="font-family:times; width:615px;margin-left:160px;">
+     <script src="K%20Computing%20-%20Do%20You%20Volatile%3F_files/heading.html"></script>
+
+     <h2>Do You Volatile? Should You?</h2>
+     <p>
+     </p><div style="font-style:italic; font-size:10pt;">By Kevin P. Dankwardt, Ph.D.</div>
+     <p>
+     <em>Volatile</em> is an ANSI C type modifier that is frequently 
+needed in C code that is part of signal/interrupt handlers, threaded 
+code, and other kernel code, including device drivers. In general, any 
+data that may be undated asynchronously should be declared to be 
+volatile. Incidentally, this issue is not related to CPU caches except 
+that re-loading of variables into registers may involve cache hits or 
+misses.
+    </p>
+    <h3>Why Use Volatile?</h3> 
+    <p>
+    The reason to use volatile is to insure that the compiler generates 
+code to re-load a data item each time it is referenced in your program. 
+Without volatile, the compiler may generate code that merely re-uses the
+ value it already loaded into a register.
+    </p><p>
+Volatile advises the compiler that the data may be modified in a manner 
+that may not be determinable by the compiler. This could be, for 
+example, when a pointer is mapped to a device's hardware registers. The 
+device may independently change the values unbeknownst to the compiler.
+    </p><p></p>With <em>gcc</em> the <em>-O2</em> option is normally required to see the effect of not using volatile. Without <em>-O2</em> or greater optimization, the compiler is likely to re-load registers each time a variable is referenced, anyway. 
+    Don't blame the optimizer if a program gets incorrect results because the program does not use volatile where required.
+    <p></p><p>
+    For example, if two threads share a variable, <em>sum</em>, and one 
+or both threads modify it, then the other thread may use a stale value 
+in a register instead of going back to memory to get the new value. 
+Instead, each time the thread references sum, it must be re-loaded. The 
+way to insure this occurs in ANSI C is to declare sum to be volatile.
+    </p>
+    <h3>Example 1.</h3> 
+    <p> The use of volatile can be required to get correct answers. For example the program <a class="underit" href="http://www.kcomputing.com/wrong.html">wrong</a> will give incorrect results when it is compiled <em>-O2</em> and without <em>volatile</em>.
+ 
+    This slightly obtuse program is designed to stop after 100 ticks of 
+an interval timer that ticks at 100Hz  and print the value of the 
+variable <em>total</em>. The tick count is incremented in the signal 
+handler. When the count gets to 100, the program should terminate. If 
+the tick count does not get to 100 within 10 seconds then an alarm goes 
+off and the program terminates.
+    </p><p>By compiling the program as: 
+<span style="text-style:courier">gcc -O2 -DVOLATILE=volatile wrong.c -o wrong_v</span>
+ 
+you will see, (unless your program is preempted for quite a while), that
+ the count gets to 100 and the program terminates as designed. 
+With the program compiled as 
+<span style="text-style:courier">gcc -O2 wrong.c -o wrong_nv</span> 
+you will see, that the count becomes greater than 100  as shown when the
+ handler prints it, but, the while loop does not terminate.
+   </p><p>Incidentally, attempts to determine what is happening may 
+thwart your efforts. For example, a function call, such as to printf(), 
+or the use of a breakpoint, in the loop, will likely spill and re-load 
+the registers.  </p>
+    <h3>Syntax</h3> 
+    <p>
+    The keyword volatile is  similar to the <em>const</em> keyword. 
+Volatile is used to modify a type. Thus an int, const int, pointer, etc.
+ may be declared to be volatile. In addition, a point may be declared to
+ be a <em>pointer to volatile</em>. A pointer to volatile means that the
+ data to which the pointer refers is volatile as opposed to the pointer 
+itself. Of course, both the pointer and to which it refers, may be 
+declared to be volatile. 
+    </p><p> To declare a volatile int do: 
+    </p><p><span style="font-family:courier">volatile int v; </span></p><p> and to declare vp to be a pointer to a volatile int do:
+    </p><p><span style="font-family:courier">volatile int *vp; </span></p>
+    <p> Since deciphering C declarations can be difficult you may want to consult the <a href="http://www.sun.com/971124/cover-linden/cchap.html">C declaration chapter</a> in the Sun manual. This manual references the <a class="underit" href="http://www.sun.com/971124/cover-linden/decoder.gif">Decoder Flowchart</a> that can be used to help decipher declarations. 
+</p><p>In addition, Linux may have the <em>cdecl(1)</em> program that can be used to translate C declarations to English, as for example, in 
+    </p><p><span style="font-family:courier">echo 'explain volatile int *v' | cdecl</span></p>
+    <p>
+ which will answer with 
+    </p><p><span style="font-family:courier">
+declare v as a pointer to volatile int
+</span></p>
+    <p>
+    Reading C declarations is made simpler when you realize that they are written 
+    <a class="underit" href="http://developer.syndetic.org/query_jargon.pl?term=boustrophedonically">boustrophedonically</a>. Of course, even knowing the definition of <em>boustrophedonically</em>
+ doesn't really help. The idea is that C declarations are interpreted 
+based on the tricky precedence of operators such as "*", "[]", and "()".
+ 
+    </p><p>
+    </p><h3>Performance Issues</h3> 
+    In some sense, <em>volatile</em> is the opposite of <em>register</em>. Thus, one can expect to lose performance. This means don't use volatile when it is not needed. 
+    <h3>Example 2.</h3> 
+    <p>
+    In our <a class="underit" href="http://www.kcomputing.com/perf.html">performance</a> example we can see the difference that <em>volatile</em> may make. If we compile this program with and without <em>VOLATILE</em> defined as <em>volatile</em>
+    we see an average number of iterations of almost 5,000 for the <em>volatile</em> case and almost 20,000 for the <em>non-volatile</em> case. Yikes! Remember that we must compile both of them with the <em>-O2</em> option. (These iteration counts were made on a 400Mhz AMD-K6.)
+    </p><p>
+    </p><h3>Linux Examples</h3>
+    The use of the <em>volatile</em> keyword is common in the Linux kernel source. For example, of the 10,607 <em>.c</em> and <em>.h</em> files in the Fedora Core 1, Linux kernel source directory, 1,694 have the string "volatile" in them somewhere. As an example, 
+the file 
+<span style-"font-family:courier"="">drivers/net/eepro.c</span> uses <em>volatile</em> in three places.
+<p>
+</p><div style="font-family:courier">
+385:	volatile s32 cmd_status;	/* All command and status fields. */<br>
+392:	volatile s32 status;<br>
+764:		volatile s32 *self_test_results;<br>
+</div><p></p><p>
+
+    </p><h3>Generated Code</h3>
+    By examining the code generated by the compiler one can see the difference <em>volatile</em> makes. 
+    In this 
+<a class="underit" href="http://www.kcomputing.com/simple.html">simple</a> 
+example we can see the x86 assembly language when volatile 
+<a class="underit" href="http://www.kcomputing.com/simple-s-vol.html">is</a> used and when volatile is 
+<a class="underit" href="http://www.kcomputing.com/simple-s-not.html">not</a> used.
+    <h3>Quiz Yourself</h3> 
+     What is <em>volatile</em> in each of the following examples? Are they all legal declarations?
+    <p></p>
+    <p>
+    </p><div style="font-family:courier">
+1) volatile int *s1;<br>
+2) int* volatile s2;<br>
+3) volatile int* volatile s3;<br>
+4) const volatile int * volatile s4;<br>
+5) volatile int * (*f)(volatile int *);<br>
+    </div>
+    <p>
+    Check your <a class="underit" href="http://www.kcomputing.com/answers.html">answers</a>.
+     </p>
+    <h3>Summary</h3> 
+    <p>
+    The <em>volatile</em> keyword is relatively unknown. There are times
+ when its use is required for correct operation of C/C++ programs. In 
+general, whenever a variable may be altered asynchronously, such as by a
+ signal handler or mapped hardware, the variable must be declared to be 
+volatile. 
+    </p><p> 
+    Since volatile prevents re-using values in registers, volatile comes with a performance penalty that can be substantial. 
+</p><p>Also, since declarations involving <em>volatile</em> can be difficult to decipher you may want to use cdecl(1).
+     </p>
+     <hr>
+     <script src="K%20Computing%20-%20Do%20You%20Volatile%3F_files/footing.html"></script>
+</div>
+
+
+
+
+
+</body></html>

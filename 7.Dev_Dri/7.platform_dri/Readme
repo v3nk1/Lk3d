@@ -1,0 +1,6 @@
+
+- Make sure you deselect below:
+
+	Device Drivers  --->
+		-*- LED Support  --->
+			< >   LED Support for Samsung S3C24XX GPIO LEDs

@@ -1,0 +1,784 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<!--
+	Search group
+ -->
+<!--
+	Search group ends
+ -->
+<html class="dj_gecko dj_contentbox" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+<title>Search Results</title>
+
+<style type="text/css">
+/*******************************************************************************
+ * Copyright (c) 2000, 2007 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
+body {
+    
+	color: WindowText;
+	font: icon;
+	padding: 0px;
+	border: 0px;
+	margin-top: 5px;
+	margin-bottom: 8px;
+	margin-left: 5px;
+	margin-right: 5px;
+	cursor: default;
+}
+
+table {
+	font: icon;
+	width: 100%;
+	table-layout: fixed;
+}
+
+a {
+	text-decoration:none; 
+	padding:0px;
+}
+
+a:hover {
+	text-decoration:underline; 
+}
+
+.category {
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.sectiontitle {
+	background-color: ButtonFace;
+	font-weight:bold;
+	margin-top:7px;
+}
+
+.active { 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+	height:100%;
+}
+
+#menu {
+	position:absolute;
+	display:none;
+	background:ButtonFace;
+	border:2px outset;
+	padding:2px 0px;
+}
+
+.selectedMenuItem {
+	background:Highlight;
+	color:HighlightText;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.unselectedMenuItem {
+	background:ButtonFace;
+	color:WindowText;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.icon {
+	width: 23px;
+	padding-left: 0px;
+}
+
+.description {
+	display: block;
+}
+
+</style>
+
+
+
+
+<!-- base href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/advanced/searchView.jsp?view=search&topic=%2Fcom.ibm.xlcpp111.aix.doc%2Fcompiler_ref%2Fpragma_pack.html&topic=%2Fcom.ibm.xlcpp111.aix.doc%2Fcompiler_ref%2Fpragma_pack.html" -->
+<script language="JavaScript" src="search_data/utils.js"></script>
+<script language="JavaScript" src="searchView_data/list.js"></script>
+<script language="JavaScript">	
+
+var cookiesRequired = "This\u0020feature\u0020requires\u0020cookies\u0020to\u0020be\u0020enabled\u0020in\u0020your\u0020browser\u002E";
+
+function refresh() { 
+	window.location.replace("searchView.jsp?view\u003Dsearch\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml");
+}
+
+function isShowCategories() {
+	var value = getCookie("showCategories");
+	return value ? value == "true" : false;
+}
+
+function isShowDescriptions() {
+	var value = getCookie("showDescriptions");
+	return value ? value == "true" : true;
+}
+
+function setShowCategories(value) {
+	setCookie("showCategories", value);
+	setCookie("groupBy", "None");
+	var newValue = isShowCategories();   	    
+	parent.searchToolbarFrame.setButtonState("show_categories", newValue);
+	if (value != newValue) {
+	    alert(cookiesRequired);
+	} else { 	    
+	var query = "view\u003Dsearch\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml"; 
+	var index = query.indexOf("group"); 
+	var url;
+	if(index==-1){
+		url = "searchView.jsp?" + query + "&group=None";
+	}else {
+		url = "searchView.jsp?" + query.substr(0, index - 1) + "&group=None"; 
+	}   
+		window.location.replace(url);
+	  //  window.location.reload();
+	}
+}
+
+function setShowDescriptions(value) {
+	setCookie("showDescriptions", value);
+	var newValue = isShowDescriptions();   	
+	parent.searchToolbarFrame.setButtonState("show_descriptions", newValue);
+	if (value != newValue) {
+	    alert(cookiesRequired);
+	} else { 
+	    setCSSRule(".description", "display", value ? "block" : "none");
+	    window.location.reload();
+	}
+}
+
+function toggleShowCategories() {
+	setShowCategories(!isShowCategories());
+}
+
+function toggleShowDescriptions() {
+	setShowDescriptions(!isShowDescriptions());
+}
+
+//group search
+function showWindowStatus(arg) {
+  	try {
+		var statusText = "";
+		if (isIE)
+			statusText = arg.innerText;
+		else if (isMozilla)
+			statusText = arg.lastChild.nodeValue;
+		if (statusText != arg.title) {
+			statusText += " - " + arg.title;
+		}
+		window.status = statusText;
+	} catch (e) {
+	}
+}
+
+function isSearchRequest() {
+	return false
+} 
+
+function changeGroup(arg)
+{
+	var selectedGroup = arg;
+	var query = "view\u003Dsearch\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml\u0026topic\u003D\u0025\u0032Fcom\u002Eibm\u002Exlcpp\u0031\u0031\u0031\u002Eaix\u002Edoc\u0025\u0032Fcompiler\u005Fref\u0025\u0032Fpragma\u005Fpack\u002Ehtml"; 
+	
+	var index = query.indexOf("group"); 
+	var url;
+	if(index==-1){
+		url = "searchView.jsp?" + query + "&group=" + selectedGroup;
+	}else {
+		url = "searchView.jsp?" + query.substr(0, index - 1) + "&group=" + selectedGroup; 
+	}   
+	window.location.replace(url);
+}
+ 
+
+function clearWindowStatus() {
+	window.status="";
+}
+
+function isGroupBy() {
+	var value = getCookie("groupBy"); 
+	if(value == null)
+		value="None";
+	return value;
+}
+
+function setGroupBy(arg) {
+	setCookie("groupBy", arg);
+	setCookie("showCategories", false);
+	var newValue = isGroupBy();   
+	var pressed = false;
+	
+	if(newValue != "None")  
+		pressed = true;	    
+	parent.searchToolbarFrame.setButtonState("show_categories", pressed); 
+	if (arg != newValue) {
+	    alert(cookiesRequired);
+	} else {
+		if(isSearchRequest())
+	    	changeGroup(arg);  
+	} 
+}
+
+function toggleGroupBy(arg) { 
+	setGroupBy(arg); 
+}
+//group search ends
+
+/**
+ * Defect 762 - right click for tree expanding in search results view
+ * @author huqiongk
+ */
+function mouseUpHandler(e, node) {
+	var theEvent = window.event||e;
+	if (theEvent.button != 2) {
+		return true;
+	} 
+	cancelEventBubble(theEvent);
+	
+	document.oncontextmenu=function(event) {   	// context menu forbidden
+	    if (document.all) 
+	    	window.event.returnValue = false;
+	    else
+	    	event.preventDefault();
+	};
+			
+	expand(node);
+	return false;
+}
+
+/**
+ * Defect 762 - Alt+o and left/right arrows support  for tree navigating in search results view
+ * @author huqiongk
+ */
+function pKeyDownHandler(e, node) {
+	var theEvent = window.event||e; 
+	var keycode = getKeycode(e);
+	
+	// Always cancel the event bubble for navigation keys
+  	cancelEventBubble(theEvent);
+	
+  	if (keycode == 79 || keycode == 39) {	  	
+		expand(node); 
+		return false; 	
+  	} 
+  	else if (keycode == 66 || keycode == 37) {	  	
+		collapse(node); 
+		return false; 	
+  	} 
+  	
+  	return true;
+} 
+</script>
+
+
+</head>
+
+<body dir="ltr">
+
+To search the documentation, type a query in the Search field. The search results will be shown in this view.
+<script language="JavaScript">
+var contentResultAmount = 0;
+</script>
+
+
+
+
+<script type="text/javascript" src="searchView_data/vccajax.js"> </script>
+<script language="JavaScript" src="searchView_data/freeselect.js"> </script>
+
+<script type="text/javascript">
+	var djConfig = { modulePaths: {dojoMessages: "../../../vccCommentSearch/dojomessages/search"},
+                       parseOnLoad: true,
+                       locale:'en'};
+</script>
+<script type="text/javascript" src="search_data/dojo.js"></script>
+<script type="text/javascript">
+	dojo.require("dojo.string");
+	dojo.i18n._preloadLocalizations("dojo.nls.dojo", ["iw","iw-il","bg","hr","ro"]);
+	dojo.requireLocalization("dojoMessages", "messages");
+	var nlsStrings_search = dojo.i18n.getLocalization("dojoMessages","messages");
+</script>
+<script language="JavaScript">
+/** 
+  *	Do comment search. 
+  *	Add for VCC2 by Xiangjun CHEN on 22.10.2008
+  */
+  
+var searchWord = '';
+var workingSet = encodeURIComponent(window.top.SearchFrame.document.getElementById("scope").firstChild.nodeValue);
+var maxHits = encodeURIComponent(window.top.SearchFrame.document.forms["searchForm"].maxHits.value);
+var req=AJAX.newRequest();
+
+// VCC scope search 1/2
+function setWSet() {
+	var value = getCookie("wset1");
+	if(value != null)
+		setCookie("wset1",value);
+}
+// ends scope search 1/2
+function doCommentSearch(query){
+	
+	//alert(query);
+	setWSet(); // scope search 2/2
+	if (query != null && query.length>0) {
+		var selectedGroup = getCookie("groupBy"); // VCC search criteria
+		var reqString = "../CommentSearchServlet?commentSearchWord=" + query + 
+						"&uniquerequestid=" + new Date().getTime() + 
+						"&scope=" + workingSet +
+						"&group=" + selectedGroup +
+						"&maxHits=" + maxHits; 
+						
+		req.open("GET", reqString, true);
+		req.setRequestHeader('Content-Type', 'text/xml; charset=UTF-8'); 
+		req.onreadystatechange = mergeSearchResult;	
+		if (window.XMLHttpRequest) {
+			req.send(null);
+		} 
+		else if (window.ActiveXObject) {
+			req.send();
+		}
+	}
+}
+	
+function mergeSearchResult() {
+	try {
+		if (req.readyState == 4) {
+			if (req.status == 200) {
+				var response = req.responseXML;
+				if (response != null) {
+				    commentHits = new Array();
+					commentHits = response.getElementsByTagName("comment");
+					
+					// show total search result, it include the search result in content and comment
+					var resultTotalSpan = document.getElementById("resultTotal");
+					var total = parseInt(contentResultAmount) + commentHits.length;
+					if(resultTotalSpan){
+						resultTotalSpan.innerHTML = dojo.string.substitute(nlsStrings_search.SEARCH_TOTAL_RESULTS, {amount: total, word:searchWord});
+					}
+					if(total == 0){
+						document.getElementById("contentTable").style.display = 'none';
+						resultTotalSpan.innerHTML = nlsStrings_search.SEARCH_NORESULTS;
+						return;
+					}
+
+					if (commentHits.length>0) {
+						// VCC maxHits
+					 	var resultAmount;
+						if(commentHits.length<500) {
+							var template = nlsStrings_search.SEARCH_RESULTS;
+							resultAmount = dojo.string.substitute(template,{amount: commentHits.length});
+						}
+						else {
+							var template = nlsStrings_search.SEARCH_RESULTS_FIRST500;
+							resultAmount = dojo.string.substitute(template);
+						}
+						// ends maxHits
+						var rootTable = document.getElementById("searchResultsTable");
+						var rootTBody; 
+						if (rootTable==null) {
+							var nothingDIV=document.getElementById("nothingFound");
+							if (nothingDIV!=null) { nothingDIV.style.display="none"; }
+							var searchResultTable=document.createElement("table");
+							searchResultTable.id="searchResultsTable";
+							searchResultTable.className="results";
+							searchResultTable.cellSpacing="0";
+							var searchResultTbody=document.createElement("tbody");
+							searchResultTable.appendChild(searchResultTbody);
+							document.body.appendChild(searchResultTable);
+							rootTBody=searchResultTbody;
+						} else {
+							rootTBody = rootTable.getElementsByTagName("tbody")[0];
+						}
+						// VCC search criteria 1/8
+						if(rootTBody != null) {
+							var tempTRUp = document.getElementById("tr_up");
+							if(tempTRUp == null) {
+								tempTRUp = document.createElement("tr");
+								tempTRUp.id = "tr_up";
+								var tempTDUp = document.createElement("td");
+								tempTDUp.width = "23";
+								tempTDUp.height = "30";
+								tempTRUp.appendChild(tempTDUp);
+							}
+							
+							var tempTRFont = document.getElementById("tr_font");
+							if(tempTRFont == null) {
+								tempTRFont = document.createElement("tr");
+								tempTRFont.id = "tr_font";
+								var tempTDFont = document.createElement("td");
+								tempTDFont.colSpan = "2";
+								var tempFont = document.createElement("font");
+								tempFont.size = "-1";
+								tempFont.innerHTML = resultAmount;
+								tempTDFont.appendChild(tempFont);
+								tempTRFont.appendChild(tempTDFont);
+							}
+							
+							var tempTRLine = document.getElementById("tr_line");
+							if(tempTRLine == null) {
+								tempTRLine = document.createElement("tr");
+								tempTRLine.id = "tr_line";
+								var tempTDLine = document.createElement("td");
+								tempTDLine.height = "15";
+								tempTDLine.colSpan = "2";
+								tempTDLine.style.borderBottom = "2px solid rgb(0, 0, 255)";
+								tempTRLine.appendChild(tempTDLine);
+							}
+							
+							var tempTRDown = document.getElementById("tr_down");
+							if(tempTRDown == null) {
+								tempTRDown = document.createElement("tr");
+								tempTRDown.id = "tr_down";
+								var tempTDDown = document.createElement("td");
+								tempTDDown.height = "15";
+								tempTRDown.appendChild(tempTDDown);
+							}
+							rootTBody.appendChild(tempTRUp);
+							rootTBody.appendChild(tempTRFont);
+							rootTBody.appendChild(tempTRLine);
+							rootTBody.appendChild(tempTRDown);
+						}
+						// ends search criteria 1/8
+						
+						for (var i=0; i<commentHits.length; i++){
+							var cid = getElementText(commentHits[i], "cid");
+							//var pid = getElementText(commentHits[i], "pid");
+							var htmlID = getElementText(commentHits[i], "htmlID");
+							var subject = getElementText(commentHits[i], "subject");
+							var text = getElementText(commentHits[i], "text");
+							//var intranetID = getElementText(commentHits[i], "intranetID");
+							//var nickName = getElementText(commentHits[i], "nickName");
+							//var time = getElementText(commentHits[i], "timestamp");
+							//var type = getElementText(commentHits[i], "typeID");
+							//var disposition = getElementText(commentHits[i], "dispositionID");
+							var pageID = getElementText(commentHits[i], "pageID");
+							var pageURL = getElementText(commentHits[i], "pageURL");
+							if (pageURL.charAt(0)!='/') {pageURL = "/"+pageURL;}
+							var tocLabel = getElementText(commentHits[i], "tocLabel");
+							//var tocHref = getElementText(commentHits[i], "tocHref");
+							var score = getElementText(commentHits[i], "score");
+							var criteria = getElementText(commentHits[i], "criteria"); // VCC search criteria 2/8
+							var commentLang = getElementText(commentHits[i], "locale");
+							if (isShowCategories()){
+								rootTBody = getRootTBodyByCategories(tocLabel, "../topic"+pageURL+ "?locale=" + commentLang);
+							}
+							else if (isGroupBy() != "None") { // VCC search criteria 3/8
+								rootTBody = getRootTBodyByCriteria(criteria);
+							}
+							if (rootTBody!=null) {
+								rootTBody.appendChild(createCommentTR_title(cid, htmlID, subject, score, pageID, pageURL, tocLabel, commentLang));
+								rootTBody.appendChild(createCommentTR_content(cid, text));
+							}
+						}
+					}
+					// VCC search criteria 4/8
+					else {// nothing found
+						var nothingTable = document.getElementById("nothingFoundTable");
+						var nothingTBody;						
+						if (nothingTable == null) {
+							var nothingFoundTable = document.createElement("table");
+							nothingFoundTable.id = "nothingFoundTable";
+							nothingFoundTable.className = "results";
+							nothingFoundTable.cellSpacing = "0";
+							var nothingFoundTBody = document.createElement("tbody");
+							nothingFoundTable.appendChild(nothingFoundTBody);
+							document.body.appendChild(nothingFoundTable);
+							nothingTBody = nothingFoundTBody;
+						}
+						else {
+							nothingTBody = nothingTable.getElementsByTagName("tbody")[0];
+						}
+						
+						if(nothingTBody != null) {
+							var tempTRUp = document.getElementById("tr_up");
+							if(tempTRUp == null) {
+								tempTRUp = document.createElement("tr");
+								tempTRUp.id = "tr_up";
+								var tempTDUp = document.createElement("td");
+								tempTDUp.width = "23";
+								tempTDUp.height = "30";
+								tempTRUp.appendChild(tempTDUp);
+							}
+
+							var tempTRFont = document.getElementById("tr_font");
+							if(tempTRFont == null) {
+								tempTRFont = document.createElement("tr");
+								tempTRFont.id = "tr_font";
+								var tempTDFont = document.createElement("td");
+								tempTDFont.colSpan = "2";
+								var tempFont = document.createElement("font");
+								tempFont.size = "-1";
+								if(total>0){
+									var template = nlsStrings_search.SEARCH_RESULTS;
+									tempFont.innerHTML = dojo.string.substitute(template,{amount:commentHits.length,word:searchWord});
+								}
+								tempTDFont.appendChild(tempFont);
+								tempTRFont.appendChild(tempTDFont);
+							}
+							
+							nothingTBody.appendChild(tempTRUp);
+							nothingTBody.appendChild(tempTRFont);
+						}
+					}
+					// ends search criteria 4/8
+				}
+			} else {
+				alert(req.status);
+			}
+		}
+	} catch (e) {
+		alert(e);
+	}
+		
+}
+
+function getRootTBodyByCategories(tocLabel, tocHref){
+	var resultTabelIdName="result"+getIdLabelString(tocLabel);
+	var rootCatTable = document.getElementById(resultTabelIdName);
+	if (rootCatTable==null) {
+		rootCatTable = generateCatTable(tocLabel, tocHref);
+	}
+	return rootCatTable.getElementsByTagName("tbody")[0];
+}
+
+function generateCatTable(title, tocHref) {
+	var cTable = document.createElement("table");
+	cTable.id = "cat"+getIdLabelString(title);
+	
+	if(tocHref != null) 
+		cTable.className="category";
+	
+	cTable.cellSpacing="2";
+	
+	var categoriesTbody = document.createElement("tbody");
+
+    var tempTR = document.createElement("tr");
+    tempTR.id = "tr_cat"+getIdLabelString(title);
+    tempTR.className = "list";
+    
+    var tempTD = document.createElement("td");
+	
+	// VCC search criteria 5/8
+	if(tocHref == null) {
+		var tempImg = document.createElement("img");
+		tempImg.id = "img_"+title;
+		tempImg.alt="";
+		tempImg.src = "../vcc/images/c_plus.gif";
+		tempImg.className = "collapsed";
+		tempImg.onclick = commentClickHandler;
+		tempTD.appendChild(tempImg);
+	}
+	// ends search criteria 5/8
+	
+	var tempAnchor = document.createElement("a");
+	tempAnchor.id = "a"+getIdLabelString(title);
+	//tempAnchor.onMouseOut="clearStatus();return true;";
+	//tempAnchor.onMouseOver="showStatus(event);return true;";
+	// VCC search criteria 6/8
+	if(tocHref != null) {
+		tempAnchor.className = "link";
+		tempAnchor.href=tocHref;
+		tempAnchor.innerHTML = title;
+		tempTD.appendChild(tempAnchor);
+	}
+	else {
+		tempAnchor.className = "grouptype";
+		tempAnchor.onclick = commentClickHandler;
+		tempAnchor.href = "javascript://needModal";
+		tempAnchor.innerHTML = "&nbsp;"+title;
+		var tempStrong = document.createElement("strong");
+		tempStrong.appendChild(tempAnchor);
+		tempTD.appendChild(tempStrong);
+	}
+	// ends search criteria 6/8
+	
+	tempTR.appendChild(tempTD);
+	categoriesTbody.appendChild(tempTR);
+	cTable.appendChild(categoriesTbody);
+	document.body.appendChild(cTable);
+	
+	var categoriesResultTable=document.createElement("table");
+	categoriesResultTable.id="result"+getIdLabelString(title);
+	categoriesResultTable.className="results";
+	categoriesResultTable.cellSpacing="0";
+	
+	if(tocHref == null) // VCC search criteria 7/8
+		categoriesResultTable.style.display = "none";
+		
+	var categoriesResultTbody=document.createElement("tbody");
+	
+	categoriesResultTable.appendChild(categoriesResultTbody);
+	document.body.appendChild(categoriesResultTable);
+	
+	return categoriesResultTable;
+
+}
+
+function getIdLabelString(input){
+	var labelTemp=input.split(' ');
+	var tableIdName="";
+	for (i=0; i<labelTemp.length; i++){
+		tableIdName+="_"+labelTemp[i];
+	}
+	return tableIdName;
+}
+
+function createCommentTR_title(cid, htmlID, subject, score, pageID, pageURL, tocLabel, commentLang){
+//(cid, pid, htmlID, subject, intranetID, nickName, time, type, disposition, score, pageID, pageURL, tocLabel){
+    var tempTR = document.createElement("tr");
+    tempTR.id = "r_comment"+cid;
+    tempTR.className = "list";
+	
+	var tempTD = document.createElement("td");
+	tempTD.className="icon";
+	
+	var tempImg = document.createElement("img");
+	tempImg.alt="";
+	if (htmlID) { 
+		var selection = FreeSelect.create(decodeURIComponent(htmlID));
+		if(selection.type=="page"){
+		    tempImg.src="../vcc/images/pagecomments.gif";
+		}else if (selection.type=="element"){
+		    tempImg.src="../vcc/images/elementcomments.gif";
+		}else if (selection.type=="free"){
+		    tempImg.src="../vcc/images/elementcomments.gif";
+		}
+	}
+	
+	tempTD.appendChild(tempImg);
+	tempTR.appendChild(tempTD);
+	
+	tempTD = document.createElement("td");
+	tempTD.align="left";
+		
+	var tempAnchor = document.createElement("a");
+	
+	tempAnchor.id = "a_comment"+cid;
+	//tempAnchor.class = "link";
+	tempAnchor.title = tocLabel;
+	tempAnchor.href = "../topic" + pageURL + "?pageid=" + pageID + "&locale=" + commentLang+ "&htmlid=" + decodeURIComponent(htmlID) + "&cid=" + cid;
+	tempAnchor.innerHTML =  subject;	
+	
+	tempTD.appendChild(tempAnchor);
+	tempTR.appendChild(tempTD);
+	
+	return tempTR;
+}
+
+function createCommentTR_content(cid,text){
+//(cid, pid, htmlID, text, intranetID, nickName, time, type, disposition, score){
+    var tempTR = document.createElement("tr");
+    tempTR.id = "d_comment"+cid;
+	
+	var tempTD = document.createElement("td");
+	tempTD.className="icon";
+	
+	tempTR.appendChild(tempTD);
+	
+	tempTD = document.createElement("td");
+	tempTD.align="left";
+		
+	var tempDiv = document.createElement("div");
+	
+	tempDiv.className = "description";
+	tempDiv.innerHTML =  text;
+	
+	tempTD.appendChild(tempDiv);
+	tempTR.appendChild(tempTD);
+	
+	return tempTR;
+}
+
+// VCC search criteria 8/8
+function getRootTBodyByCriteria(criteria) {
+	var resultTabelIdName="result_"+criteria;
+	var rootCatTable = document.getElementById(resultTabelIdName);
+	if (rootCatTable==null) {
+		rootCatTable = generateCatTable(criteria, null);
+	}
+	return rootCatTable.getElementsByTagName("tbody")[0];
+}
+
+function commentClickHandler(e) {
+	var target;
+	if(window.event){
+		target = window.event.srcElement;
+	}
+	else 
+		target = e.target;
+		
+	if(isExpanded(target)) {
+		commentCollapse(target);
+	}
+	else {
+		commentExpand(target);
+	}
+}
+
+function commentCollapse(node) {
+	var target;
+	node.className = "collapsed";
+	
+	if(node.id.indexOf("img_")!=-1) {
+		node.src = "../vcc/images/c_plus.gif";;
+  		node.alt = "";
+  		target = node.id.substring(4);
+	}
+	else if(node.id.indexOf("a_")!=-1) {
+		return;
+	}
+	
+  	var tds = document.getElementById("result_" + target);
+  	tds.style.display="none";
+}
+
+function commentExpand(node) {
+	var target;
+	node.className = "expanded";
+	if(node.id.indexOf("img_")!=-1) {
+		node.src = "../vcc/images/c_minus.gif";
+  		node.alt = "";
+  		target = node.id.substring(4);
+	}
+	else if(node.id.indexOf("a_")!=-1) {
+		target = node.id.substring(2);
+		document.getElementById("img_"+target).src = "../vcc/images/c_minus.gif";
+	}
+  	
+  	var tds = document.getElementById("result_" + target);
+  	tds.style.display="block";
+}
+// ends search criteria 8/8
+
+doCommentSearch(encodeURIComponent(searchWord));
+
+</script>
+
+ 
+
+
+</body></html>

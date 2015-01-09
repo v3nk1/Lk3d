@@ -1,0 +1,1 @@
+//if u initiate the mutex with PTHREAD_MUTEX_RECURSIVE type then it will allows you to lock more than one time(so there is no deadlock state), So now its act like a countable semaphore see the manpage of "pthread_mutex_lock"

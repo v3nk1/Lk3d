@@ -1,0 +1,5 @@
+In this file we only have the names of registered handlers., 
+this is only for loading those shared objects dynamically..
+
+If you extend it to some other formate like .png
+	u have to create its pngHandler.c and register it. add it shared object name u created with path ./  ie., ./<so_name>

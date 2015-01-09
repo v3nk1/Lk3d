@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Help</title>
+
+<script language="JavaScript">
+
+var maximizeListeners=new Object();
+function registerMaximizeListener(name, listener){
+	maximizeListeners[name]=listener;
+}
+function notifyMaximizeListeners(maximizedNotRestored){
+	for(i in maximizeListeners){
+		try{
+			maximizeListeners[i](maximizedNotRestored);
+		}catch(exc){}
+	}
+}
+
+var leftCols = "29.5%";
+var rightCols = "70.5%";
+
+var contentFramesetRowSet;
+function toggleFrame(title)
+{
+	var frameset = document.getElementById("helpFrameset"); 
+	var navFrameSize = frameset.getAttribute("cols");
+	var comma = navFrameSize.indexOf(',');
+	var left = navFrameSize.substring(0,comma);
+	var right = navFrameSize.substring(comma+1);
+
+	if (left == "*" || right == "*" || left == "100%" || right == "100%") {
+		// restore frames
+		frameset.frameSpacing="3";
+		frameset.setAttribute("border", "6");
+		frameset.setAttribute("cols", leftCols+","+rightCols);
+		
+		if(!contentFramesetRowSet){
+			contentFramesetRowSet = "24,*,22";
+		}
+		var contentFrameset = ContentFrame.document.getElementById("contentFrameset");
+		contentFrameset.setAttribute("rows", contentFramesetRowSet);
+		notifyMaximizeListeners(false);
+	} else {
+		// the "cols" attribute is not always accurate, especially after resizing.
+		// offsetWidth is also not accurate, so we do a combination of both and 
+		// should get a reasonable behavior
+
+		var leftSize = NavFrame.document.body.offsetWidth;
+		var rightSize = ContentFrame.document.body.offsetWidth;
+
+		
+		leftCols = leftSize * 100 / (leftSize + rightSize);
+		rightCols = 100 - leftCols;
+
+		// maximize the frame.
+		//leftCols = left;
+		//rightCols = right;
+		// Assumption: the content toolbar does not have a default title.
+		var contentFrameset = ContentFrame.document.getElementById("contentFrameset");
+		contentFramesetRowSet = contentFrameset.getAttribute("rows");
+		
+
+		if (title != ""){ 
+			// this is the left side for left-to-right rendering
+			frameset.setAttribute("cols", "100%,*");
+		}else {
+			// this is the content toolbar
+			frameset.setAttribute("cols", "*,100%");
+			contentFrameset.setAttribute("rows", "22, *");
+		}
+	
+		frameset.frameSpacing="0";
+		frameset.setAttribute("border", "1");
+		notifyMaximizeListeners(true);
+	}
+}
+</script>
+</head>
+
+<frameset id="helpFrameset" cols="29.5%,70.5%" framespacing="3" border="6" frameborder="1" scrolling="no">
+
+   	<frame class="nav" name="NavFrame" title="Layout frame: NavFrame" src="help_data/nav.html" marginwidth="0" marginheight="0" frameborder="1" resize="yes" scrolling="no">
+   	<frame name="ContentFrame" title="Layout frame: ContentFrame" class="content" src="help_data/content.html" marginwidth="0" marginheight="0" frameborder="0" resize="yes" scrolling="no">
+
+</frameset>
+
+
+
+</html>

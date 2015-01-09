@@ -1,0 +1,47 @@
+	
+	The mean role of viml.c is the operation requested by ui.c is taken care by viml layer. ie., it takes the request from the ui.c and process that request by calling appropriate functions.
+
+findHandler:
+````````````
+	The lead role play in viml.c is "findHandler".
+	To use findHandler we must assign all plugin's to a "array of struct pointers", with a NULL. By this NULL only the findHandler knows that howmany plugins are registerd with that particular application.
+
+	Here we globally declared one int variable j becoz.., we will see this senario down..
+
+w/o global j: ('i' is declared as global integer and all viml fuctions index is 'i' then)
+`````````````````````````````````````````````````````````````````````````````````````````  
+	vloadMedia():
+	`````````````
+	=> this application statrs by loading a file with extension.
+	
+	=> file is loaded then the application checks which handler is appropriate one for user asked process by invoking         	     findHandler function(ofcourse it internallly invokers mediaHandler func)., by checking the registered plugin's.,                  and returns the index no.. for usage of following functions for invoking respective mp3 fuctions.
+
+	=> with the returned value by findHandler the viml layer fuctions invoking the appropriate plugin functions.
+	
+	=> each member in structure is an fucntion pointer it is invoked by "handler[index]->func_symbol-name(arguments)".
+
+     *  => the problem occures in convMedia function becoz once u converted file already loaded to a registered plugin format		     then there convMedia also we used findHandler to go for appropriate formate in which user want to convert the loaded	       format.
+		becoz of invoking again the index value may be  changed.
+
+	EXAMPLE:
+	````````
+		let us say we loaded one dabang.mp4 file, and we conv it to xyz.mp3 then it successfully conv .mp4 to .mp3 formate
+		
+		if u conv again it conv from xyz.mp3 to something say .flv. ie., loaded file is changed.
+
+		bcoz the loaded plugin changes to mp3 becoz the returned index by findHandler is changed by second invoking of    		  find handler. actually we are invoking findHandler second time becoz of to go particular plugin in which user     		    requseted.
+		
+
+
+to overcome this..
+
+
+
+j is declared global integer:
+`````````````````````````````
+	instead of i, j is declared globally, so i declared local to findHandler function such that we can overcome above problem.
+and we are preserving previous index value in j.
+
+		let us say we loaded one dabang.mp4 file, and we conv it to xyz.mp3 then it successfully conv .mp4 to .mp3 formate
+		
+		if u conv again it conv from dabang.mp4 to something say .flv. ie., loaded file is not changed.

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//ietf//dtd html 4//en">
+<html><head><script>if( self == top ){ window.location.replace( "../../../../?topic=%2Fcom.ibm.vacpp6m.doc%2Flanguage%2Fref%2Fclrc03defbitf.htm");}</script>
+<title>Declaring and Using Bit Fields in Structures</title>
+<!--   Begin Header Records  ========================================== -->
+<!--   C:\IDWBWIN\Temp\idwt1194\macpplref.scr converted by idb2h R4.4   -->
+<!--   (367) ID Workbench Version (WINNT-WIN95) on 1 Dec 2003 at        -->
+<!--   18:13:46                                                         -->
+<!--   (C) Copyright IBM Corporation, 1999                              -->
+<!--   All rights reserved. Licensed Materials Property of IBM          -->
+<!--   US Government Users Restricted Rights -                          -->
+<!--   Use, duplication or disclosure restricted by                     -->
+<!--   GSA ADP Schedule Contract with IBM Corp.                         -->
+<meta name="KEYWORDS" content="bit fields, packed, members, structures, structure member, alignment">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="updated" content="Mon, 01 Dec 2003 18:13:45">
+<meta http-equiv="review" content="Wed, 01 Dec 2004 18:13:45">
+<meta http-equiv="expires" content="Thu, 01 Dec 2005 18:13:45">
+</head><body bgcolor="#FFFFFF" text="#000000">
+<!--   End Header Records  ============================================ -->
+<a name="Top_Of_Page"></a>
+<p></p><h5><a name="HDRDEFBITF">Declaring and Using Bit Fields in Structures</a></h5>
+<a name="IDX3046"></a>
+<a name="IDX3047"></a>
+<a name="IDX3048"></a>
+<p>Both C and C++ allow integer members to be stored into memory spaces
+smaller than the compiler would ordinarily allow. These space-saving
+structure members are called <i>bit fields</i>, and their width in bits
+can be explicitly declared. Bit fields are used in programs that must
+force a data structure to correspond to a fixed hardware representation and
+are unlikely to be portable.
+</p><p>The syntax for declaring a bit field is as follows: 
+</p><pre>&gt;&gt;-<i>type_specifier</i>--+------------+--:--<i>constant_expression</i>--;---&gt;&lt;
+                   '-<i>declarator</i>-'
+ 
+ 
+</pre>
+<p>A bit field declaration contains a type specifier followed by an optional
+declarator, a colon, a constant integer expression that indicates the field
+width in bits, and a semicolon. A bit field declaration may not use
+either of the type qualifiers, <strong>const</strong> or <strong>volatile</strong>.
+</p><p>
+<img src="clrc03defbitf_data/ngclang.gif" alt="C">  The C99 standard requires the allowable data types for a bit field to
+include qualified and unqualified <strong>_Bool</strong>, <strong>signed int</strong>, and
+<strong>unsigned int</strong>. In addition, this implementation supports the
+following types. 
+</p><ul>
+<li><strong>int</strong>
+</li><li><strong>short</strong>, <strong>signed short</strong>, <strong>unsigned short</strong>
+</li><li><strong>char</strong>, <strong>signed char</strong>, <strong>unsigned char</strong>
+</li><li><strong>long</strong>, <strong>signed long</strong>, <strong>unsigned long</strong>
+</li><li><strong>long long</strong>, <strong>signed long long</strong>, <strong>unsigned long long</strong>
+</li></ul>
+<p>In all implementations, the default integer type for a bit field is
+<strong>unsigned</strong>.
+</p><p>
+<img src="clrc03defbitf_data/ngcpp.gif" alt="C++">  C++ extends the list of allowable types for bit fields to include any
+integral type or enumeration type.
+</p><p>In either language, when you assign a value that is out of range to a bit
+field, the low-order bit pattern is preserved and the appropriate bits are
+assigned.
+</p><p>
+<a name="IDX3049"></a>
+Bit fields with a length of <tt>0</tt> must be unnamed. Unnamed bit
+fields cannot be referenced or initialized. A zero-width bit field can 
+cause the next field to be aligned on the next container boundary where
+the container is the same size as the underlying type of the bit field.
+</p><p>
+<img src="clrc03defbitf_data/ngmacosx.gif" alt="Mac OS X"> Bit fields are also subject to the <tt>align</tt> compiler option.
+Each of the align suboptions gives a different set of alignment properties to
+the bit fields. For a full discussion of the <tt>align</tt> compiler
+option and the <tt>#pragma</tt>s affecting alignment, see <i>XL
+C/C++ Compiler Reference</i>.
+</p><p>The following restrictions apply to bit fields. You cannot: 
+</p><ul compact="compact">
+<li>Define an array of bit fields
+</li><li>Take the address of a bit field
+</li><li>Have a pointer to a bit field
+</li><li>Have a reference to a bit field
+</li></ul>
+<p>The following structure has three bit-field members <tt>kingdom,
+phylum</tt>, and <tt>genus</tt>, occupying 12, 6, and 2 bits
+respectively: 
+</p><pre>struct taxonomy&nbsp;{
+     int kingdom : 12;
+     int phylum : 6;
+     int genus : 2;
+     };
+</pre>
+<p><b>Alignment of Bit Fields</b>
+</p><p>
+<a name="IDX3050"></a>
+If a series of bit fields does not add up to the size of an <strong>int</strong>,
+padding can take place. The amount of padding is determined by the
+alignment characteristics of the members of the structure.
+</p><p>The following example demonstrates padding, and is valid for all
+implementations. Suppose that an <strong>int</strong> occupies 4 bytes.
+The example declares the identifier <tt>kitchen</tt> to be of type
+<tt>struct on_off</tt>: 
+</p><pre>struct on_off&nbsp;{
+                  unsigned light : 1;
+                  unsigned toaster : 1;
+                  int count;            /* 4 bytes */
+                  unsigned ac : 4;
+                  unsigned : 4;
+                  unsigned clock : 1;
+                  unsigned : 0;
+                  unsigned flag : 1;
+                 } kitchen&nbsp;;
+</pre>
+<p>The structure <tt>kitchen</tt> contains eight members totalling 16
+bytes. The following table describes the storage that each member
+occupies:
+<br>
+</p><table border="">
+<tbody><tr>
+<th id="COL2" align="LEFT" valign="TOP" width="50%">Member Name
+</th><th id="COLSPEC1" align="LEFT" valign="TOP" width="50%">Storage Occupied
+</th></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>light</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">1 bit
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>toaster</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">1 bit
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%">(padding -- 30 bits)
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">To the next <strong>int</strong> boundary
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>count</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">The size of an <strong>int</strong> (4 bytes)
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>ac</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">4 bits
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%">(unnamed field)
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">4 bits
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>clock</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">1 bit
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%">(padding -- 23 bits)
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">To the next <strong>int</strong> boundary (unnamed field)
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%"><tt>flag</tt>
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">1 bit
+</td></tr><tr>
+<td headers="COL2" align="LEFT" valign="TOP" width="50%">(padding -- 31 bits)
+</td><td headers="COLSPEC1" align="LEFT" valign="TOP" width="50%">To the next <strong>int</strong> boundary
+</td></tr></tbody></table>
+<p>All references to structure fields must be fully qualified. For
+instance, you cannot reference the second field by <tt>toaster</tt>.
+You must reference this field by <tt>kitchen.toaster</tt>.
+</p><p>The following expression sets the <tt>light</tt> field to
+<tt>1</tt>: 
+</p><pre>  kitchen.light = 1;
+</pre>
+<p>When you assign to a bit field a value that is out of its range, the bit
+pattern is preserved and the appropriate bits are assigned. The
+following expression sets the <tt>toaster</tt> field of the
+<tt>kitchen</tt> structure to <tt>0</tt> because only the least
+significant bit is assigned to the <tt>toaster</tt> field: 
+</p><pre>  kitchen.toaster = 2;
+</pre>
+<p><b>Related References</b> 
+</p><ul compact="compact">
+<li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/proguide/ref/rvimap.htm">Alignment of Bit Fields</a>
+</li><li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/compiler/ref/ruoptaln.htm">Bit Fields under the <tt>align</tt> Compiler
+Option</a>
+</li><li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ary.htm#HDRARY">Arrays</a>
+</li><li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc05addre.htm#HDRADDRE">Address  &amp;</a>
+</li><li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03ptrdec.htm#HDRPTRDEC">Pointers</a>
+</li><li><a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/language/ref/clrc03cplr110.htm#HDRCPLR110">References</a>
+</li></ul>
+<a name="Bot_Of_Page"></a>
+
+
+<a href="http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/topic/com.ibm.vacpp6m.doc/hglegal.htm"><img src="clrc03defbitf_data/ngibmcpy.gif" alt="IBM Copyright 2003" border="0"></a>
+</body></html>

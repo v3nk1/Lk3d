@@ -1,0 +1,12 @@
+	In this project 1MB of memory will be managed by me., and serve to the user as much he request.
+And more over it's like buddy algorithm., ie.,
+
+	Our library will maitain 'available' memory like as follows:(2^n formate)
+
+	suppose 1MB of memory available:
+
+	1024*1024 B = 1024 KB = 1MB
+
+	2^0 = 1, Devide total 1MB each fragment having 1B each. So
+		1B 2B 3B 4B .... 1024B(1K) 1025B .... 1024*1024B(1M)
+	Its quite hard., So make an assumption that our functions will allocate mininimum of 1K and max of 1MB

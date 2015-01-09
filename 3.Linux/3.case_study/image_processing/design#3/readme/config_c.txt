@@ -1,0 +1,5 @@
+	Declare an array of pointers to struct to store handlers at runtime.. say 10. so sh *handlers[10];
+this 10 is the limitation in design#3;
+
+	create a function reg_handler() it catches a pointer to structure as of now gifHandler.c sends its registration address in d function _init();
+	then we assigned catched object address to handlers[0],and next is assigned to handlers[1] and so-on with d help of integer variable declared globally. and increments it for every assignment.

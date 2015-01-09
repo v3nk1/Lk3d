@@ -1,0 +1,38 @@
+Process Address sapce 
+---------------------
+	When a request is given to execute the program, executable image part of disk will be copied to promary memory
+	by loader.to a process when starts executions is called process address space.
+	- Memory used by a program at runtime is called address space.
+
+Automatic Memory Allocation
+---------------------------
+    	Automatic memory allocation happens when you declare an automatic variable, such as a function argument or a local variable. 
+	The space for an automatic variable is allocated when the compound statement containing the declaration is entered, 
+	and is freed when that compound statement is exited. 
+
+
+Static Memory Allocation
+------------------------
+	The allocation of memory for the specific fixed purposes of a program in a predetermined fashion controlled by the compiler 
+	is said to be static memory allocation.
+	
+	Variables whose size is known to compiler at compile time and lifetime of variable is defined by compiler, and
+	program cannot have control over the lifetime. (all variables declared in program)
+
+	Static allocation is what happens when you declare a static or global variable. Each static or global variable 
+	defines one block of space, of a fixed size. The space is allocated once, when your program is started and remains through out
+	program lifetime.
+
+Dynamic Memory Allocation
+-------------------------
+	
+	The allocation of memory during the running of a program and under the control of the program is said to be 
+	dynamic memory allocation.
+	
+	Compiler at compile-time does not have any information about such memory. Its allocated by program as and when
+	need, and can be deallocated as and when needed.
+
+	Dynamic variables are those that can have the space allocated to them as needed at some point during the execution 
+	of a program or procedure and that can also be disposed of and have their space given back to the system by the program.
+
+

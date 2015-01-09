@@ -1,0 +1,51 @@
+To understand ipc machanism of message ques implemented by SYS V:
+
+	1) create 3 message queues by running the executable created by "create.c"
+		dont worry it will create 3 message ques successively since you've used getpid() function as key in that program..
+		So key will be always changed when u run the executable..
+
+=======>   if u use a unsigned intgr constant key like 12345 then its possible to open a msgQ dynamically by using a same "msgget" 	     pass unique key(what u hav give for creation of msgQ) as 1st arg, but dont pass IPC_EXCL flag, only pass IPC_CREAT flag 	       as second argument ie., So u can open a msgQ in the middle of a execution of the process by passing unique key, so it 		 is adviceble to do this in real time scenarios..
+		you can see the key given by u in shell prompt by command "sudo ipcs". In that the key column shows the key thats 	     what key u've given but it displays in Hexadecimal format..
+		
+=======>   it is also possibe to do manipulation(send/receive) msgs without open the q. but u shud know the "msqid"(u got it as a 	     returned value when u successfully create a msgQ). But every time u need to pass msqid, it will be fuckin shit. Bcoz in 	       realtime scenarios we wont hav such scope to see the msqid every time, so its better to follow the key approach..
+
+
+	2) Now send the 2 messages(here i used stings) to each of the created 3 message Ques by running the executable created by 	    "send2creatdQ.c". Give the command line arguments as appropriate..
+		Give the "msqid" by seeing from "sudo ipcs"
+		In this "mtype" is one entity through which msg in the msg que are identified.. give an unsigned num..
+		
+		as like below:
+		
+				cc send2creatdQ.c
+		
+			msg1:	sudo ./a.out <msqId1> 10 venkatesh  	//now see "sudo ipcs"
+			msg2:	sudo ./a.out <msqId1> 10 i\ am\ legend 	//now see "sudo ipcs"
+
+			msg3:	sudo ./a.out <msqId2> 10 omkar		//now see "sudo ipcs"
+			msg4:	sudo ./a.out <msqId2> 10 Naresh		//now see "sudo ipcs"
+
+			msg5:	sudo ./a.out <msqId3> 10 omkar		//now see "sudo ipcs"
+			msg6:	sudo ./a.out <msqId3> 11 i\'m\ legend	//now see "sudo ipcs"
+
+	
+	3) Now see how the system identified the messages in the msg que:
+
+				cc receive_frm_Q.c
+	
+				sudo ./a.out <msqId2> 1000 10          //now see "sudo ipcs"
+			output:	omkar    (there are we've given mtype as 10 for 2 messages, so if equal mtype's then FIFO policy)
+					Here we request 1000 bytes na.. In the prog i used "MSG_NOERROR" flag such that it -					  	  -automatically roundoff to the particular data size..
+
+				sudo ./a.out <msqId2> 1000 10          //now see "sudo ipcs"
+			output: Naresh
+
+				sudo ./a.out <msqId1> 1000 10          //now see "sudo ipcs"
+                        output: i am legend (equal mtypes So FIFO CONCEPT)	
+				
+				 sudo ./a.out <msqId1> 1000 10          //now see "sudo ipcs"
+                        output: venkatesh (Now only one 10(mtype) in this que)
+
+				sudo ./a.out <msqId3> 1000 11          //now see "sudo ipcs"
+                        output: omkar
+			
+				NOW SEE "sudo ipcs" it will tell how many msgs are there in every msg que..

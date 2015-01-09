@@ -1,0 +1,4 @@
+Here the scenario is:
+	The client sends a file name <path> to server
+	The server search that file in that path if found then the server send the data in the file to client.
+	Other wise file not found.. 

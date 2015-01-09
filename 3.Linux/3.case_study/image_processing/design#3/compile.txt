@@ -1,0 +1,2 @@
+cc -rdynamic -fno-stack-protector ui.c viml.c config.c -ldl
+./a.out

@@ -1,0 +1,3 @@
+	See the "sigaction.png" pic in this directory and make sure that its a "union" so we can use only one of the member in this union first member is a fuction ptr which is behaves like as signal api..
+	
+	The 2nd member is sigacion member using this we can get more information of signal..(in this ptr to function the 2nd arg is siginfo_t)..

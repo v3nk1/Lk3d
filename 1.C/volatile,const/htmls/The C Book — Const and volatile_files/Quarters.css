@@ -1,0 +1,885 @@
+/* Set page-wide defaults, attempting to pre-empt inherited/cascading surprises
+**/
+body, td, th
+{
+  font-family: sans-serif;
+  background: white none;
+  color: #000;
+  padding: 0;
+  margin: 0 0 3em 0;
+}
+
+
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Defaults for left hand column.  Container for Nav and Contact details */
+.Left
+{
+  margin: 0;
+  padding-top: 2.5ex;
+  padding-bottom: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  font-size: smaller;
+}
+
+
+/* Defaults for central column.  Core page content. */
+.Centre
+{
+  margin: 0;
+  padding-top: 2.3ex;
+  padding-bottom: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-left: dotted #CCC 1px;
+  border-right: dotted #CCC 1px;
+}
+
+
+/* Defaults for right hand column.  Largely a container for boxed notices */
+
+.Right
+{
+  margin: 0;
+  padding-top: 2ex;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  font-size: smaller;
+}
+
+
+/* When the first thing in a <div> is a <p>, we don't want any space above the
+** <p> -- it isn't a para break, just the start of this bit of content: */
+div > p:first-child
+{
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Similarly, don't put space after the last <p> in a <div>.  Fortunately,
+** simply not putting space after all <p>s works (cos they (except the first)
+** will have space above them instead: */
+div > p
+{
+  margin-bottom: 0;
+}
+.box p
+{
+  margin-bottom: 0;
+}
+
+/* Very small print notices at the bottom of pages */
+.footnotice
+{
+  font-size: 70%;
+}
+
+/* extra text at the bottom of a column: */
+.ColBtm
+{
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* paragraphs within such text: */
+.ColBtm p
+{
+  /* Squash such paras a bit closer together: */
+  margin-top: 0.7ex;
+}
+
+/* <pre> blocks should be indented a little bit. */
+pre {
+  margin-left: 3ex;
+}
+
+
+/* Styles for the C Book. */
+.bigger {
+   font-size: large;
+}
+.inset-figure {
+  text-align: center;
+}
+.inset-example {
+  text-align: center;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+.inset-example pre {
+  text-align: left;
+}
+.inset-table {
+  text-align: center;
+}
+.inset-table table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border-collapse: collapse;
+}
+.inset-table td, .inset-table th {
+  padding: 0.2ex 1ex;
+  vertical-align: top
+}
+.cbook-table-heading th, .cbook-table-first-row td {
+  border-top: 1px solid black;
+}
+.cbook-table-last-row td {
+  border-bottom: 1px solid black;
+}
+.cbook-table-notes-row td {
+  font-size: smaller;      /* TODO: this needs to work relatively */
+}
+.cbook-exercises {
+  margin-top: 3ex;
+  margin-bottom: 3ex;
+  border-left: 1ex solid #090;
+  padding-left: 2ex;
+}
+.cbook-exercises .exercise {
+  font-weight: bold;
+}
+.cbook_next_prev {
+  text-align: center;
+  border-top: 1px dashed black;
+  margin: 2em;
+}
+.cbook_next_prev p {
+  margin-left: auto;
+  margin-right: auto;
+  margin: 2em;
+}
+
+
+/* Formatting for course schedules */
+.CourseSchedule h2 {
+  margin-top: 3ex;
+}
+
+
+/* Sneaky tricks ahoy.  'Nav 4' has a bug where it only obeys @media tags if
+** the content is precisely "screen".  But this gives a perfect opportunity to
+** hide the rest of this style sheet from that browser's crappy quarter-baked
+** implementation.  If we just double the "screen", 'Nav 4' ignores it, but
+** sane browsers DTRT: */
+@media screen, screen
+{
+
+/* Boxes */
+  /* A visibly bordered box. Mainly for right hand column notices */
+  .box
+  {
+    border: 1px dotted #C6C6C6;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0.5ex;
+    margin: 1ex 0em;
+  }
+  .redbox
+  {
+    border: 1px solid #C60000;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0.5ex;
+    margin: 1ex 0em;
+  }
+
+  /* Ensure that images within boxes don't get squashed up against preceding text. */
+  .box img
+  {
+    margin-top: 0.5ex;
+  }
+  .box a
+  {
+    text-decoration: none;
+  }
+
+/* Normal Links */
+  /* Default link colours and decoration for links in various states */
+  
+  a:link
+  {
+    color: #069; /* #80A0D0; */
+  }
+  
+  /* Default colours for visited links */
+  a:visited
+  {
+    color: #579; /* old purple #A0A; */
+  }
+  /* Default colours for hovered links 
+  N.B. The hovered foreground colour won't change to white for visited links 
+  unless you set a:hover after setting a:visited */
+  a:hover
+  {
+    color: #FFFFFF;
+    background-color: #069; 
+  }
+
+
+/* Headings. Settings required because browser defaults are just innapropriate
+ * for our styles and layout.  Overly large h1 and h2 are particularly
+ * problematic. */
+  /* Default colour for headings. Softer grey to match default text and the
+   * blues in links. */
+  h1, h2, h3, h4, h5, h6
+  {
+    color: #000;
+  }
+
+  h1
+  {
+    text-align: left;
+    font-size: 140%;
+    font-weight: bold;
+  }
+
+  h2
+  {
+    text-align: left;
+    font-size: 116%;
+    font-weight: bold;
+  }
+
+  h3, .faq
+  {
+    text-align: left;
+    font-size: 108%;
+    font-weight: bold;
+  }
+
+  h4
+  {
+    text-align: left;
+    font-size: 102%;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  h5
+  {
+    text-align: left;
+    font-size: 98%;
+    font-weight: bold;
+  }
+
+  h2 a
+  {
+    text-decoration: none;
+  }
+
+
+/* Settings for the banner area */
+  /* Create banner box to contain Logo, Section banner graphic and Search */
+  .Banner
+  {
+    background-color: #B0B0B0;
+    background-image: url("banner.jpg");
+    background-repeat: no-repeat;
+    font-family: "andale mono", sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 9.2ex;
+  }
+
+  /* Float the company logo to the left of the banner box */
+  #Logo
+  {
+    float: left;
+    padding: 2ex 2ex;
+  }
+
+  /* Prevent colour from appearing when users mouse over the logo */
+  #Logo a:hover
+  {
+    background-color: transparent;
+  }
+
+  /* Float the search box to the right of the banner box */
+  #Search
+  {
+    float: right;
+    padding-top: 1em;
+    padding-right: 1em;
+  }
+
+  /* Modify form properties to fit with banner position and colours */
+  .Banner form label
+  {
+    display: inline;
+    color: white;
+    font-family: arial, sans-serif;
+    font-weight: bold;
+  }
+  .Banner input
+  {
+    color: #666;
+    background-color: white;
+    font-family: arial, sans-serif;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+
+  /* We can make things appear only in browsers to which this CSS isn't
+  ** applying by assigning them to the NoCSS2 class, then making such things
+  ** disappear in browsers that are doing this CSS: */
+  .NoCSS2
+  {
+    display: none;
+  }
+
+
+  /*
+  ** Navigation Column
+  */
+
+  /* Have different spacing and left indent for the different levels: */
+  .nav
+  {
+    padding-left:  0em;
+    padding-right:  0em;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .nav0, .nav1
+    {
+      margin: 0;
+      padding-left:  0em;
+      padding-right: 0;
+      padding-top: 0;
+      padding-top: 0;
+    }
+
+  .nav2
+    {
+      margin: 0;
+      padding-left: 0.6em;
+      padding-right: 0;
+      padding-top: 0.1ex;
+      padding-bottom: 0.10ex;
+      color: #069; /* #80A0D0; */
+    }
+
+  .nav3
+    {
+      margin: 0;
+      padding-left: 1.2em;
+      padding-right: 0;
+      padding-top: 0.1ex;
+      padding-bottom: 0.1ex;
+      line-height: 2ex;
+      color: #069; /* #80A0D0; */
+    }
+
+  .nav4
+    {
+      margin: 0;
+      padding-left: 1.8em;
+      padding-right: 0;
+      padding-top: 0.1ex;
+      padding-bottom: 0.1ex;
+      line-height: 2ex;
+      color: #069; /* #80A0D0; */
+    }
+
+  .nav5
+    {
+      margin: 0;
+      padding-left: 2.4em;
+      padding-right: 0;
+      padding-top: 0.1ex;
+      padding-bottom: 0.1ex;
+      line-height: 2ex;
+      color: #069; /* #80A0D0; */
+    }
+
+  /* Navigation links in the left column should be blockwise, so the highlight
+  ** bar (and sensitive area) can go the full width: */
+  .nav a
+  {
+    display: block;
+    /* Plain 'display: block' doesn't work quite right in IE -- the entire
+       block gets things like :hover set right, but hovering over the
+       non-text parts of the block doesn't let you click there.  This is
+       fixed by adding this: */
+    text-decoration: none;
+  }
+
+
+  /* Smaller text in address/etc block: */
+  .ColBtm
+  {
+    font-size: 83%;
+  }
+
+
+  /*
+  ** Search Results
+  */
+
+  .SearchResults em
+  {
+    font-style: normal;         /* not italic */
+    font-weight: bold;
+  }
+
+  .SearchResults li
+  {
+    padding-bottom: 0.8ex;
+  }
+
+
+  /*
+  ** General Forms
+  */
+  .required_field {
+    font-size: 115%;
+    font-weight: bold;
+    color: red;
+  }
+  .error {
+    color: #FF0000;
+    background-color: #FFFFDD;
+    font-weight: bold;
+  }
+  .SpacedForm td {
+    padding-bottom: 2ex;
+  }
+
+
+  /*
+  ** Tab Strip
+  */
+  /* Box to contain tabs */
+  .Tabsbar
+  {
+    margin: 0;
+    padding: 0;
+    background-color: #105080;
+    text-align: right;
+    line-height: 2.2ex;
+  }
+  /* all cells containing a tab: */
+  /* DMF ... I've a feeling that this is now redundant ... must check */
+  .Tab
+  {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-top: 0;
+    font-family: "andale mono", sans-serif;
+    font-size: smaller;
+    vertical-align: top;
+    text-align: center;
+  }
+
+  /* Normal state for Tab links.  Main issues: a) L-R padding to avoid
+   * 'resizing' on state change. b) No underlining. c) T-B padding fills all
+   * available line space, ensuring tab-like appearance and no nasty overlaps
+   * when the tab line wraps to two or more visible lines. */
+  .Tab a
+  {
+    margin: 0;
+    border: none;
+    padding-top: 0;
+    padding-bottom:0;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    text-decoration: none;
+    color: #AACCFF;
+  }
+
+  /* Turn off visited link colour change for Tab menus.  Finely balanced
+   * judgement that consistency and aesthetics together slightly outweigh the
+   * 'where have I been?' value of visited link colours. */
+  .Tab a:visited { color: #AACCFF; }
+
+  /* Tab links in hover state.  Main issues:  a) Pleasant reverse colours. b)
+   * Size consistency with non-hover state and selected tab state. */
+  .Tab a:hover
+  {
+    margin: 0;
+    border: none;
+    padding-top: 0;
+    padding-bottom:0;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    color: #003399;
+    background-color: #AACCFF;
+  }
+
+  /* By default we assume that sections have a particular style.  That is a
+   * left-over from the previous Smylers/Aaron style sheet.  DMF was hoping that
+   * the following would set defaults for section which didn't have a specific
+   * style defined in its content (the _options file).  DMF not sure that it
+   * works.  Needs checking. */
+  .Tab#ThisTab
+  {
+    margin: 0;
+    border: none;
+    padding-top: 0;
+    padding-bottom:0.1ex;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    color: #000;
+    background-color: white;
+  }
+
+  /* A default style for any section.  Needs to be set in the section's
+   * _options file for it to work. */
+  .global #ThisTab
+  {
+    margin: 0;
+    border: none;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-top: 0;
+    padding-bottom:0.1ex;
+    color: #666;
+    background-color: white;
+  }
+
+  /* A series of Theme specific settings, including tabs.  All currently unused and commented
+   * out here.  Left for future reference.
+
+  .Company #ThisTab
+  {
+    margin: 0;
+    border: none;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-top: 0.4ex;
+    padding-bottom:0.3ex;
+    color: #666;
+    background-color: white;
+  }
+
+  .Company .banner
+  {
+    background-color: #bac8c9;
+  }
+
+  */
+
+  /*
+  ** Images
+  */
+  .Centre p img
+  {
+    float: right;
+    padding-left: 0.6em;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+  }
+
+  .delivery
+  {
+    float: right;
+    vertical-align: middle;
+    text-align: right;
+    width: 100%;
+    padding-bottom: 1ex;
+    font-size: smaller;
+  }
+
+  .delivery img
+  {
+    background-color: white;
+    padding: 0;
+    margin-left: 1.5ex;
+    color: #105080;
+  }
+
+  .delivery a:link, .delivery a:visited
+  {
+    margin:0;
+    padding:0;
+    vertical-align: top;
+    text-decoration: none;
+  }
+
+  .delivery a:hover, .delivery a:active
+  {
+    margin:0;
+    padding:0;
+    vertical-align: top;
+    text-decoration: none;
+  }
+
+  /* Two versions of <hr> style: one for Mozilla and similar, and one
+   * for IE.  The IE one is filtered out with the star-html hack
+   * (see http://centricle.com/ref/css/filters/tests/star_html/) */
+  hr {
+    margin-top: 2ex;
+    border-width: 1px 0 0 0;
+    border-style: dotted none none none;
+    border-color: #CCC;
+  }
+  * html hr {
+    border: 1px dotted #CCC;
+  }
+
+
+} /* @media */
+
+/* Uncommented settings. Put here for editing convenience.  Must be commented
+ * and relocated to sensible places. */
+.photos
+{
+ position: relative;
+ padding: 0;
+ margin: 0;
+ width: 100%;
+}
+.urgent
+{
+  color: #D00;
+}
+
+.debug
+{
+  color: red;
+}
+
+.warning
+{
+  color: red;
+}
+
+/* vi:set ts=2 sw=2 expandtab: */
+
+/* I haven't come across anything with the msdeals id, so I'm now using it for the book reviews. VEW 21/07/09*/
+#msdeals
+{
+  float: right;
+  width: 11em;
+  border: dotted 1px #999;
+  padding: 0 0.5em 0.6ex;
+  margin: 1em;
+  font-size: smaller;  
+  text-align: left;
+}
+
+.author
+{
+  font-weight: normal;
+  font-style: italic;
+  font-size: 90%;
+}
+
+#outline-nav
+{
+ float: right;
+ width: 14em;
+ margin-top: 0.6em;
+ padding: 0 0.5em 0 0.5em;
+ font-size: 0.7em;
+ border: dotted 1px #ccc;
+
+}
+
+#outline-nav h2
+{
+ font-size: 0.9em;
+ border-bottom: none;
+
+}
+
+#outline-nav li
+{
+ /* list-style-type: none; */
+}
+
+#outline-nav li, #outline-nav ul
+{
+ margin-left: 0;
+ padding-left: 0;
+ margin-left: 1em;;
+
+}
+
+#outline-intro
+{
+ /* float: left;
+ width: 69%; */
+ padding-bottom: 1em;
+}
+
+#outline-main
+{
+ clear: both;
+}
+
+#course-contents-list
+{
+ /* variants here for firefox, opera, Safari and Chrome */
+ -moz-column-width: 17em;
+ -moz-column-gap: 1em;
+ column-width: 17em;
+ column-gap: 1em;
+ -webkit-column-width: 17em;
+ -webkit-column-gap: 1em;
+
+}
+
+a.gototop
+{
+ float: right;
+ padding-right: 1em;
+
+}
+
+.outline h2
+{
+ border-bottom: solid 2px #105080;
+}
+
+/* DMF 2008-12-03 */
+#container {
+  position: relative;
+}
+* html #container {
+  height: 1px;
+}
+#menu {
+  position: absolute;
+  width: 19%;
+  padding: 1em 0 0 1%;
+}
+#main {
+  position: absolute;
+  /* MB - reduce the width of the main column slightly to give more whitespace
+  width: 56%;
+  left: 20%;
+  */
+  width: 50%;
+  left: 23%;
+
+  padding: 1em 2%;
+}
+#sidebar {
+  position: absolute;
+  width: 19%;
+  padding: 1em 1% 0 0;
+  left: 80%;
+}
+.skiplink {
+  position: absolute;
+  left: -2000px;
+}
+
+#sidebar h3 {
+  margin-top: 0.5ex;
+}
+
+
+#main h1 {
+  margin-top: 0;
+}
+
+/* 10/06/2009 Special offer Class VEW */
+
+#socontainer {
+  position: absolute;
+  top: 2em;
+}
+
+p.specialoffer {
+  color: #FF6600;
+  font-size: 105%;
+  font-weight: bold;
+}
+
+#somain {
+  position: relative;
+  padding-top: 4.5em;
+}
+
+/* This is for the special offers alert in the prices.box */
+
+#boxoffer {
+  color: #FF6600;
+}
+
+/*positioning for book covers and reviews VEW 22/07/09*/
+
+div.right {
+  float: right;
+  clear: right;
+  padding-bottom: 1em;
+  border-bottom: 1px dotted #C6C6C6;
+}
+
+.book {
+  float: left;
+  padding-right: 1em;
+  padding-top: 1em;
+  clear: left;
+}
+
+#left {
+  float: left;
+  clear: left;
+}
+
+
+
+/*VEW 11/11/09*/
+
+address {
+font-style: normal;
+}
+
+/*styling for breadcrumb links VEW 26/03/10*/
+
+div #breadcrumb {
+ font-size: 72%;
+}
+
+/*VEW 17/08/10*/
+
+.phonecontact {
+  font-size: 120%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*VEW Booking Form 10/09/2010*/
+
+
+#booking-form  a
+{
+  color: #FFFFFF;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+#booking-form-text {
+  text-align: center;
+  margin-top: 0.1em;
+}
+
+/* MB 3/2013, list items for wiki-like markup */
+li.NestedL{
+        list-style-type:none;
+}
+li.NestedL ul, li.NestedL ol{
+        padding-top:0;
+}

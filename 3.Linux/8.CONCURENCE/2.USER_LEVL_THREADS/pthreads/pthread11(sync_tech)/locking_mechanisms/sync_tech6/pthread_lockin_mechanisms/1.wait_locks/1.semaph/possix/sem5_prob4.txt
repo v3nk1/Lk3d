@@ -1,0 +1,10 @@
+//it is priority inversion.. its for realtime case.. we cannt see it here..
+
+
+	These 4 problems are only for binary semaphores make sure that this point very clear..(these problems are not there for countable semaphores)	
+
+	The semaphore(binary) which address all threse problems of binary semaphore is called mutex.
+
+	pthread library has implemented it..
+
+

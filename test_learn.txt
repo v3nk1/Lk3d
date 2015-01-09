@@ -1,0 +1,37 @@
+
+/**********
+ * TEST-1 *
+ **********/
+
+sizeof("abcdefgh") = 8(char)+1(\0) = 9
+sizeof('A') = 4
+
+
+/**********
+ * TEST-2 *
+ **********/
+
+> State of local variable is garbage
+> In any function the arguments seperated with comma(,) the associativity is from right to left
+	ex:
+	   int x = 10;
+	   printf("%d %d %d\n",x,x++,++x);
+	        	       <==<===<== Associativity L <-- R
+	   O/P: 1st 3rd(++x) argument has passed to stack(pushed ie top of stack) ie., 11(10+1 since pre-increment) has passed & now x=11
+		2nd middle(x++) value has passed to stack(pushed ie top of stack) ie., 11(since its post-increment) has passed & now x=11+1=12
+		last 1st(x)  argument has passed to stack(pushed ie top of stack) ie., 12
+		
+		Now stack prints like pop(takeoff the top value of stack)
+			So o/p like
+					12 11 11
+
+
+> printf("%x\n",0x123); 	=> prints 123
+  printf("%#x\n",0x345);	=> prints 0x345		0x in output represents hex bcoz of # 0x is printing in output
+  printf("%#o\n",0123);		=> prints 0123		0 represents octal
+  printf("%#d\n",123);		=> # is incompatible with %d
+  
+  printf("%*d",3,987);		=> it prints the charectrs in double quotes "   987", here * is used bcoz to left 3 spaces before 987
+  printf("%09d",987);		=> it prints the charectrs in double quotes "000000987"
+  printf("%9d",3,987);		=> it prints the charectrs in double quotes "      987"
+ 

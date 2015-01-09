@@ -1,0 +1,11 @@
+
+	In this headers.h file there is one global structure., this is only one way to use structure in other linking file.
+	this headers.h is must included in that particular linking file where the stucture is used.
+	
+	The defined structure in headers.h is full of fuction_pointers. becoz we are storing individual function address in their respective func_pointers, so that we can call approriate one with respect to plugin. since all plugin s  must call same fuctions.
+
+   =>   OR there is no other way actually, if u are irritated by including headers.h then difine structures where u required., no      extern keyword is valid with structures remember.
+	
+	and typedef is generally used for simplicity to declare very simply ie., by typedef no need to write "stuct tag_name" instead one assigned Identifier can be used.. 
+
+	Declare each plugins(ie., mp3,mp4 ..) by extern in headers.h only, bcoz we define structure in headers.h na??

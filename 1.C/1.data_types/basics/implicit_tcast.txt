@@ -1,0 +1,14 @@
+Implicit type cast conversion:
+------------------------------
+	When u compare different data types then compiler done typecast implicitly inorder to compare them
+
+		double
+		  ^
+		  |
+		float					unsigned
+		  ^					   ^
+		  |					   |
+	        integer					 signed
+		  ^
+		  |
+		 char

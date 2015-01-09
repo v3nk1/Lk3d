@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html class="dj_gecko dj_contentbox" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Search:</title>
+     
+<style type="text/css">
+/* need this one for Mozilla */
+HTML { 
+	width:100%;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	border:0px;
+ }
+
+BODY {
+	background:ButtonFace;
+	border:0px;
+	height:100%;
+}
+
+TABLE {
+	font: icon;
+	background:ButtonFace;
+	margin: 0px;
+	padding: 0px;
+	height:100%;
+}
+
+FORM {
+	background:ButtonFace;
+	height:100%;
+	margin:0px;
+}
+
+INPUT {
+	font: icon;
+	margin:0px;
+	padding:0px;
+}
+
+INPUT {
+    font-size: 1.0em;
+}
+
+A {
+	color:WindowText;
+	text-decoration:none;
+}
+
+#searchTD {
+	padding-left:7px;
+	padding-right:4px;
+}
+
+#searchWord {
+	margin-left:5px;
+	margin-right:5px;
+	border:1px solid ThreeDShadow;
+}
+
+#searchLabel {
+	color:WindowText;
+}
+
+#go {
+	background:ThreeDShadow;
+	color:Window;
+	font-weight:bold;
+	border:1px solid ThreeDShadow;
+	margin-left:1px;
+	font-size: 1.0em;
+}
+
+#scopeLabel {
+	text-decoration:underline; 
+	color:#0066FF; 
+	cursor:pointer;
+	padding-left:15px;
+}
+
+#scope { 
+	text-align:right;
+	margin-left:5px;
+	border:0px;
+	color:WindowText;
+	text-decoration:none;
+}
+
+
+</style>
+<script language="JavaScript" src="search_data/utils.js"></script>
+<script language="JavaScript">
+var isIE = navigator.userAgent.indexOf('MSIE') != -1;
+var isMozilla = navigator.userAgent.toLowerCase().indexOf('mozilla') != -1 && parseInt(navigator.appVersion.substring(0,1)) >= 5;
+
+var advancedDialog;
+
+function openAdvanced() 
+{ 
+    var scope = document.getElementById("scope").firstChild;
+    var workingSet = ""; 
+    if (scope != null) 
+              workingSet = document.getElementById("scope").firstChild.nodeValue;                
+    var minSize = 300; 
+    var maxHeight= 500;  
+    var maxWidth = 600;       
+    var w = minSize; 
+    var h = minSize; 
+      
+    // If we have large fonts make the dialog larger, up to 500 pixels high, 600 wide
+    try {         
+        var letterHeight = document.getElementById("searchWord").offsetHeight; 
+        var requiredSize = 16 * letterHeight; 
+        if (requiredSize > minSize) { 
+            if (requiredSize < maxWidth) { 
+                w = requiredSize; 
+            } else { 
+                w =  maxWidth; 
+            }
+            if (requiredSize < maxHeight) { 
+                h = requiredSize; 
+            } else {               
+                h = maxHeight;
+            }
+        } 
+             
+    } catch (e) {} 
+    
+
+	var l = parent.screenX + (parent.innerWidth - w) / 2;
+	var t = parent.screenY + (parent.innerHeight - h) / 2;
+
+	// move the dialog just a bit higher than the middle
+	if (t-50 > 0) t = t-50;
+	
+	window.location="javascript://needModal";
+	advancedDialog = window.open("workingSetManager.jsp?workingSet="+encodeURIComponent(workingSet), "advancedDialog", "resizable=yes,height="+h+",width="+w+",left="+l+",top="+t );
+	advancedDialog.focus(); 
+}
+
+function closeAdvanced()
+{
+	try {
+		if (advancedDialog)
+			advancedDialog.close();
+	}
+	catch(e) {}
+}
+
+/**
+ * This function can be called from this page or from
+ * the advanced search page. When called from the advanced
+ * search page, a query is passed.
+ */
+function doSearch(query)
+{
+	var workingSet = document.getElementById("scope").firstChild.nodeValue;
+
+	if (!query || query == "")
+	{
+		var form = document.forms["searchForm"];
+		var searchWord = form.searchWord.value;
+		var maxHits = form.maxHits.value;
+		if (!searchWord || searchWord == "")
+			return;
+		query ="searchWord="+encodeURIComponent(searchWord)+"&maxHits="+maxHits;
+		if (workingSet != 'All\u0020topics')
+			query = query +"&scope="+encodeURIComponent(workingSet);
+	}
+		
+	/******** HARD CODED VIEW NAME *********/
+	// do some tests to ensure the results are available
+	if (parent.HelpFrame && 
+		parent.HelpFrame.NavFrame && 
+		parent.HelpFrame.NavFrame.showView &&
+		parent.HelpFrame.NavFrame.ViewsFrame && 
+		parent.HelpFrame.NavFrame.ViewsFrame.search && 
+		parent.HelpFrame.NavFrame.ViewsFrame.search.searchViewFrame) 
+	{
+		parent.HelpFrame.NavFrame.showView("search");
+		var searchView = parent.HelpFrame.NavFrame.ViewsFrame.search.searchViewFrame;
+		// group search
+		var index = query.indexOf("group");  
+		var selectedGroup = getCookie("groupBy");
+		if(index==-1 && selectedGroup!=null)
+			query = query + "&group=" + selectedGroup; 
+		else if(index!=-1) {
+			query = query + query.substr(0, index - 1) + "&group=" + selectedGroup; 
+		}
+		// group search ends
+		searchView.location.replace("searchView.jsp?"+query+"&uniquerequestid="+new Date().getTime());
+	} 
+}
+
+function fixHeights()
+{
+	if (!isIE) return;
+	
+	var h = document.getElementById("searchWord").offsetHeight;
+	document.getElementById("go").style.height = h;
+}
+
+function onloadHandler(e)
+{
+	var form = document.forms["searchForm"];
+	form.searchWord.value = '';
+	fixHeights();
+	if (isIE) {
+		document.onkeydown = enterKeyDownHandler;
+	}else{
+		document.addEventListener('keydown', enterKeyDownHandler, true);
+	}	
+}
+function enterKeyDownHandler(e) {
+		var key;
+		if(isIE){
+			key = window.event.keyCode;
+		}else{
+			key = e.keyCode;
+		}
+		if (key == 13) {
+			try{
+				document.getElementById("go").click();
+			}catch(e)
+			{return false;}	
+		}
+		return true;
+}
+</script>
+
+</head>
+
+<body dir="ltr" onload="onloadHandler()" onunload="closeAdvanced()">
+
+	<form name="searchForm" onsubmit="return false;">
+		<table id="searchTable" valign="middle" align="left" border="0" cellpadding="0" cellspacing="0">
+			<tbody><tr nowrap="" valign="middle">
+				<td id="searchTD">
+					<label id="searchLabel" for="searchWord" accesskey="s">
+					&nbsp;Search:
+					</label>
+				</td>
+				<td>
+					<input id="searchWord" name="searchWord" size="24" maxlength="256" alt="* = any string, ? = any character, &quot;&quot; = phrase, AND, OR, NOT = boolean operators " title="* = any string, ? = any character, &quot;&quot; = phrase, AND, OR, NOT = boolean operators " type="text">
+				</td>
+				<td>
+					<input onclick="this.blur();doSearch()" value="GO" id="go" alt="GO" title="GO" type="button">
+					<input name="maxHits" value="500" type="hidden">
+				</td>
+				<td nowrap="nowrap">
+					<a id="scopeLabel" href="javascript:openAdvanced();" title="Select Search Scope" alt="Select Search Scope" onmouseover="window.status='Select\u0020Search\u0020Scope'; return true;" onmouseout="window.status='';">Search scope:</a>
+				</td>
+				<td nowrap="nowrap">
+					<input name="workingSet" value="All topics" type="hidden">
+					<div id="scope">All topics</div>
+				</td>
+			</tr>
+
+		</tbody></table>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+
+
+<style type="text/css">
+#logout,#logon {
+	text-decoration:underline; 
+	color:#0066FF; 
+	cursor:pointer;
+	padding-left:15px;   
+}
+</style>
+<script type="text/javascript">
+	var djConfig = { 
+		modulePaths: {dojoMessages: "../../../vcc/dojomessages/base"},
+		parseOnLoad: true,
+		locale:'en'
+	};
+</script>
+<script type="text/javascript" src="search_data/dojo.js"></script>
+<script type="text/javascript">
+	dojo.require("dojo.string");
+	dojo.i18n._preloadLocalizations("dojo.nls.dojo", ["iw","iw-il","bg","hr","ro"]);
+	dojo.requireLocalization("dojoMessages", "messages");
+	var nlsStrings_welcomeBar;
+	var templateHello;
+	dojo.addOnLoad(function(){
+		nlsStrings_welcomeBar = dojo.i18n.getLocalization("dojoMessages","messages");
+		templateHello = nlsStrings_welcomeBar.LABEL_HELLO;
+	});
+</script>
+<script language="javascript">
+    var guest = "guest";
+</script>
+<script language="javascript" src="search_data/welcomebar.js"></script>
+
+<table id="vccWelcomeTable" valign="middle" align="right" border="0" cellpadding="0" cellspacing="0">
+    <tbody><tr nowrap="" valign="middle">
+		<td id="helloWord">
+			<span id="helloLabel">Hello, guest</span>
+		</td>
+<!-- We do NOT provide the logon service for the request from other authenticated domain, like jazz.net-->
+
+		<td nowrap="nowrap">
+			<a href="javascript:void(0);" id="logout" onclick="javascript: window.top.HelpFrame.ContentFrame.vccFrames.theVccFrame.roleChange.logout();" alt="Logout" style="display:none;">Sign out</a>
+		</td>
+
+		<td nowrap="nowrap">
+			<a href="javascript:void(0);" id="logon" onclick="javascript: window.top.HelpFrame.ContentFrame.vccFrames.theVccFrame.logon.show();" alt="Logon">Sign in</a>
+		</td>
+
+		<td nowrap="nowrap">
+			&nbsp;&nbsp;
+		</td>
+	</tr>
+</tbody></table>
+
+	</form>		
+
+
+
+
+</body></html>

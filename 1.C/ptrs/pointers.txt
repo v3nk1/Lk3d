@@ -1,0 +1,131 @@
+summary
+
+1. Pointers
+Address operator
+
+	& (Address operator) will return a pointer to operand type.
+
+	int a;
+	&a; ==> pointer to integer
+
+	char c;
+	&c; ==>
+
+	float f;
+	&f; ==>
+
+	short int s; 
+	&s; ==>
+
+	unsigned int ui;
+	&ui; ==>
+
+	unsigned char c;
+	&c; ==>	
+	
+
+Pointer declaration
+
+	Syntax 
+		type_spec * name;
+
+	Example	
+		int *p;			/* p is a pointer to integer */
+		unsigned int *p;	/* p is pointer to unsigned int */
+		char *c;		/* c is pointer to char */
+
+Composition of a pointer 
+
+	On 32 bit - 4 bytes
+	On 64 bit - 8 bytes
+
+	int main()
+	{
+	        int *i;
+	        char *c;
+	        double *d;
+        	float *f;
+        	long long int *lli;
+
+        	printf(" %lu\n",sizeof(i));
+        	printf(" %lu\n",sizeof(c));
+        	printf(" %lu\n",sizeof(d));
+        	printf(" %lu\n",sizeof(f));
+        	printf(" %lu\n",sizeof(lli));
+
+	}
+
+
+Pointer initilization
+
+	Pointers should be initilized with return value of "&" operator or with "NULL" 
+	or unsigned integer constant type-casted to pointer type.
+	Initilize pointers with compatable addresses.
+	
+	Example
+	
+		int a=10;
+		int *p = &a; /* &a returns pointer to integer
+				p is pointer to integer, Compatable assignement */
+
+		int a=10;
+		char *p = &a; /* &a returns pointer to integer
+				p is pointer to char, Incompatable assignement */
+
+	Pointers whose initial state in "NULL" are refered as "NULL pointers"
+		int *p = NULL;	/* p is pointer to integer whose state is NULL, so "p" is NULL pointer. 
+	
+	NULL pointers should not be dereffered without initilizing with valied address.
+		char *p = NULL;
+		*p = 'A';	/* Not valied, at runtime segmentation fault.
+	
+
+Read/Write operations over data using pointer
+	
+	Pointer support read/wrire operations over data with an unary operator "*" called as dereference operator
+	
+	Syntax
+		*pointer;	
+	Example
+		int a=10,b;
+		int *p=&a;
+	
+		*p=100;	/* Write operation on integer data */ 
+		b=*p;	/* Read operation on data with pointer */
+
+Pointer arit., operations
+
+	Pointer supports following arit,. operators 
+		+ (Binary operator)
+		- (Binary operator)
+		++ (Unary operator)
+		-- (Unary operator)
+
+	Increment / Decrement operation with pointers will increment / decrement by data size.
+	
+	int *p;
+	p = p+1; ==> increments by 4 bytes	/* data size is 4 bytes */
+
+	char *c;
+	c = c+2; ==> increments by 2 bytes	/* data size is 1 byte */
+
+	double *d;
+	d = d+2; ==> increments by 16 bytes	/* data size is 8 bytes */
+	
+	unsigned short int *p;
+	p = p+4; ==> increments by 8 bytes	/* data size is 2 bytes */
+
+	pointer + sizeof(type_of_data) * qty
+
+Exercise
+
+	1. Write a c program which will convert the given integer from big to little endian
+	2. Print unsigned integer values byte by byte
+	3. Store two 2 bytes data in one 4 byte container and read the values
+
+		
+Call by reference 
+	If actual arguments of a function are addresses of arguments that 
+	it is called as call by reference.
+
+	 

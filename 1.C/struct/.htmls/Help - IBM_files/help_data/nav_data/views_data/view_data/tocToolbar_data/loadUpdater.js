@@ -1,0 +1,1 @@
+function loadUpdater(_1,_2){ try{ parent.ContentViewFrame.window.location=infocenterContext+"/updater/updater.jsp"; } catch(e){ } if(isIE&&_1&&document.getElementById(_1)){ document.getElementById(_1).blur(); } }; 

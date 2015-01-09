@@ -1,0 +1,31 @@
+_init, _fini are for only dynamic libraries(shared object)
+not for static libraries
+
+DYNAMIC LIB:
+------------
+	Dynamic library can be created using more than one .o
+	So, if .so is being created with more than one .o then
+	ensure that there is only one instance of _init, _fini.
+	
+	Each dynamic library should have a single instance of _init,
+	_fini.
+
+STATIC LIB:
+-----------
+	Static Libraries are lil confusing. Bcoz there is a mis-coneception
+	that static libraries will integrate into the exectutable being 
+	created despite of function being called in the executable if 
+	compile time linking been used. 
+
+	But in objdump -D a.out, 
+	it clearly shows that which function is being 
+	called in source(main) file that only will be integrated by linker.
+
+HEADER FILE IMPORTANCE:
+-----------------------
+
+	For only validation and sanity checks that should be done 
+	before calling a function, Otherwise it doesn't mind 
+	about type, count, return type of the formal arguments of 
+	function.
+	

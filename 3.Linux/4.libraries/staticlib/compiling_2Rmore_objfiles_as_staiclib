@@ -1,0 +1,7 @@
+
+# cc -c lib.c -o liba.o
+# cc -c lib1.c -o libb.o
+
+
+# ar rcs libab.a liba.o libb.o
+# cc test.c ./libab.a -o test

@@ -1,0 +1,136 @@
+<html lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- base href="http://pic.dhe.ibm.com/infocenter/ratdevz/v8r0/vcc/vccView.jsp?view=vcc&topic=%2Fcom.ibm.xlcpp111.aix.doc%2Fcompiler_ref%2Fpragma_pack.html&topic=%2Fcom.ibm.xlcpp111.aix.doc%2Fcompiler_ref%2Fpragma_pack.html" -->
+<title>All Comments View</title></head>
+<body onload="onloadHandler()" dir="ltr" style="margin-right: 0px; margin-left: 0px; padding: 0 0 0 5px;">
+
+		<div dojotype="dijit.layout.ContentPane">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+	@IMPORT url("../vccComment/css/allCommentsView.css");
+BODY {
+    
+	font:icon;
+}
+
+TABLE {
+	font:icon;
+}
+
+ 
+UL { 
+	margin-left:-20px;
+}
+
+#root {
+	margin-left: -35px;
+	margin-top: 5px;
+}
+
+
+</style>
+<script type="text/javascript">
+
+// All comment types
+var typeList = ["Comment","Change text","Change Graphic","Change Screenshot","Delete","Final Output Formatting Problem","Index Entry","Issue/Problem","New","Question","Reference/Link_Addition","Reference/Link_Broken","Replace","Suggestion","Typo","Wrong Sequence","Response",];
+
+// All comment dispositions
+var dispositionList = ["Unassigned","Open","Accepted","Completed","Rejected","Deferred","Reopened","Duplicate","Response",];
+
+// direction
+var direction_anchor = "ltr"
+
+</script>
+<script language="JavaScript" src="searchView_data/vccajax.js"></script>
+<script language="JavaScript" src="searchView_data/freeselect.js"></script>
+<script language="JavaScript" src="vccView_data/allCommentView.js"></script>
+<script language="JavaScript" src="indexView_data/resize.js"></script>
+<script language="JavaScript">
+    
+	var isIE = (document.all)? true:false;
+	function onloadHandler(){
+		if (isIE) {
+			document.onkeydown = enterKeyDownHandler;
+			if(document.getElementById("ETSTagCloud")){
+			    document.getElementById("ETSTagCloud").style.width='100%';
+			    document.getElementById("ETSTagCloud").style.left='auto';
+			    document.getElementById("ETSTagCloud").style.right='auto';
+			}
+
+		}
+		else {
+			document.addEventListener('keydown', enterKeyDownHandler, true);
+		}	
+	}
+	function enterKeyDownHandler(e) {
+		var key;
+		if(isIE){
+			key = window.event.keyCode;
+		}else{
+			key = e.keyCode;
+		}
+		if (key == 13) {
+			try{
+				document.getElementById("ETS_GO").click();
+			}catch(e)
+			{return false;}	
+		}
+		return true;
+}
+</script>
+
+
+<div id="holder">
+    <div id="buttonmessage">
+    	<div>To view hot topics, click <img src="vccToolbar_data/e_hot.gif"></div>
+    	<div>To view your comments, sign in and click <img src="vccToolbar_data/e_i_am.gif"></div>
+    	<div>To view others' comments, select a user in the comment frame</div>
+    </div>
+    <div id="placeholder">
+      <table>
+        <tbody><tr>
+          <td id="comment_owner">
+            <span id="owner"></span>
+          </td>
+          <td id="expand_collapse_all">
+             <a href="javascript:void(0);" onclick="this.blur();expandAllTopics()" title="Expand All"><img src="vccView_data/expand_all.gif" id="expandAll_img"></a>
+             <a href="javascript:void(0);" onclick="this.blur();collapseAllTopics()" title="Collapse All"><img src="vccView_data/collapse_all.gif" id="collapseAll_img"></a>
+          </td>
+        </tr>
+      </tbody></table>
+    </div>
+</div>
+<div style="height: 100px;" id="topicList">
+<ul class="expanded" id="root">
+</ul>
+</div>
+<div id="navigation">
+<table id="innerNavigation" style="background: transparent;" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<td id="td_previous">
+		<a href="javascript:void(0);" id="previous" class="enabled" onclick="this.blur();loadPreviousPage()">&lt;&lt; Previous</a>
+		</td>
+		<td id="td_next">
+		<a href="javascript:void(0);" id="next" class="enabled" onclick="this.blur();loadNextPage()">Next &gt;&gt;</a>
+		</td>
+</tr></tbody></table>
+</div>
+
+<script language="javascript">document.body.onresize = reSize;document.title='All Comments View';</script>
+
+		</div>
+	
+
+</body></html>

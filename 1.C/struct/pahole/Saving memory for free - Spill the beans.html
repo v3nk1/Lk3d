@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="ROBOTS" content="INDEX, FOLLOW">
+
+  <title>Saving memory for free - Spill the beans</title>
+  <meta name="description" content="We have reduced the memory footprint of VLC media player only by repacking some important structures. Let's have a look at the way the structures are arranged in memory and its" lang="en">
+  <meta name="copyright" content="">
+  <meta name="author" content="Rémi Duraffort">
+  <meta name="date" scheme="W3CDTF" content="2010-07-14T16:08:00+02:00">
+
+  <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/">
+  <meta name="dc.title" content="Saving memory for free">
+  <meta name="dc.description" content="We have reduced the memory footprint of VLC media player only by repacking some important structures. Let's have a look at the way the structures are arranged in memory and its" lang="en">
+  <meta name="dc.creator" content="Rémi Duraffort">
+  <meta name="dc.language" content="en">
+  <meta name="dc.publisher" content="Rémi Duraffort">
+  <meta name="dc.rights" content="">
+  <meta name="dc.date" scheme="W3CDTF" content="2010-07-14T16:08:00+02:00">
+  <meta name="dc.type" content="text">
+  <meta name="dc.format" content="text/html">
+
+  <link rel="top" href="http://ivoire.dinauz.org/blog/" title="Home">
+  <link rel="contents" href="http://ivoire.dinauz.org/blog/archive" title="Archives">
+  
+  <link rel="next" href="http://ivoire.dinauz.org/blog/post/2010/07/30/ZFS-and-shred" title="ZFS and shred">
+
+  <link rel="prev" href="http://ivoire.dinauz.org/blog/post/2010/02/01/Visualisations-in-VLC" title="Visualisations in VLC">
+
+  <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="http://ivoire.dinauz.org/blog/feed/atom">
+
+  <link rel="stylesheet" type="text/css" href="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/style.css" media="screen">
+<link rel="stylesheet" type="text/css" href="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/print.css" media="print">
+
+<script type="text/javascript" src="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/jquery.js"></script>
+<script type="text/javascript" src="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/jquery_002.js"></script>
+
+
+
+  <script type="text/javascript" src="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/post.js"></script>
+  <script type="text/javascript">
+  //<![CDATA[
+  var post_remember_str = 'Remember me on this blog';
+  //]]>
+  </script>
+</head>
+
+<body class="dc-post">
+<div id="page">
+
+
+<div id="top">
+  <h1><span><a href="http://ivoire.dinauz.org/blog/">Spill the beans</a></span></h1>
+
+  </div>
+
+<p id="prelude"><a href="#main">To content</a> |
+<a href="#blognav">To menu</a> |
+<a href="#search">To search</a></p>
+
+<div id="wrapper">
+
+<div id="main">
+  <div id="content">
+
+  <p id="navlinks">
+  <a href="http://ivoire.dinauz.org/blog/post/2010/02/01/Visualisations-in-VLC" title="Visualisations in VLC" class="prev">« Visualisations in VLC</a>
+   <span>-</span> <a href="http://ivoire.dinauz.org/blog/post/2010/07/30/ZFS-and-shred" title="ZFS and shred" class="next">ZFS and shred »</a>
+  </p>
+
+  <div id="p3" class="post">
+    <h2 class="post-title">Saving memory for free</h2>
+
+    <p class="post-info">By Rémi Duraffort    on Wednesday, July 14 2010, 16:08        - <a href="http://ivoire.dinauz.org/blog/category/Geek/VideoLAN/VLC-media-player">VLC media player</a>
+        - <a href="http://ivoire.dinauz.org/blog/post/2010/07/14/Saving-memory-for-free">Permalink</a>
+    </p>
+
+        <ul class="post-tags">    <li><a href="http://ivoire.dinauz.org/blog/tag/Optimization" rel="tag">Optimization</a></li>
+                <li><a href="http://ivoire.dinauz.org/blog/tag/VideoLAN" rel="tag">VideoLAN</a></li>
+                <li><a href="http://ivoire.dinauz.org/blog/tag/VLC" rel="tag">VLC</a></li>
+    </ul>    
+    
+          <div class="post-excerpt"><p>We have reduced the memory 
+footprint of VLC media player only by repacking some important 
+structures. Let's have a look at the way the structures are arranged in 
+memory and its impact on the memory usage.</p></div>
+    
+    <div class="post-content"><h2>Memory representation of  a structure</h2>
+<p>When creating a structure you do not really care about the 
+representation of this structure in memory. You expect the structure's 
+size to be the sum of its components sizes. Unfortunately the size of a 
+structure also depends on other parameters.</p>
+<p>These parameters are mainly:</p>
+<ul>
+<li>The CPU architecture (32 or 64 bits)</li>
+<li>Some optimizations done by the compiler</li>
+<li>The order in which the components appears in the structure</li>
+</ul>
+<p>Lets have a look at the following basic structure:</p>
+<pre>struct
+{
+&nbsp;&nbsp;int i_age;
+&nbsp;&nbsp;char *psz_name;
+&nbsp;&nbsp;int i_level;
+} people_t;
+</pre>
+<p>For a 64 bits CPU, the structure will look like this in memory:</p>
+<p><img src="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/people_t_non_packed.png" alt="people_t non-packed structure compiled for a 64 bits CPU"></p>
+<p>As you noticed, the structure is full of holes when compiled for a 64
+ bits processor: it uses 50% more memory than the sum of the size of its
+ elements. The explanation is really simple: the CPU can read faster 
+aligned memory that non-aligned memory. In the case of a 64 bits 
+processor, the alignment corresponds to 64 bits of memory (for a 32 bits
+ CPU the right alignment is 32 bits). To improve performances, the 
+compiler tries to align each variable of the structure on 64 bits.</p>
+<h2>Pahole : finding holes in your structures</h2>
+<p><a href="http://git.kernel.org/?p=linux/kernel/git/acme/pahole.git;a=summary" hreflang="en">Pahole</a> is a tool that help you find out holes in your structures. On Debian you can install Pahole with the package <a href="http://packages.debian.org/lenny/dwarves" hreflang="en">dwarves</a>.</p>
+<pre>gcc -g -o test test.c
+pahole test
+typedef struct {
+&nbsp;&nbsp;int i_age; /* 0 4 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* XXX 4 bytes hole, try to pack */
+&nbsp;&nbsp;
+&nbsp;&nbsp;char *psz_name; /* 8 8 */
+&nbsp;&nbsp;int i_level; /* 16 4 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* size: 24, cachelines: 1 */
+&nbsp;&nbsp;/* sum members: 16, holes: 1, sum holes: 4 */
+&nbsp;&nbsp;/* padding: 4 */
+&nbsp;&nbsp;/* last cacheline: 24 bytes */
+} people_t;	/* definitions: 1 */
+</pre>
+<p>Pahole analyzes the binary produced by GCC (do not forget the -g 
+switch to enable debug symbols) and lists the structures that contain 
+holes. Pahole shows that:</p>
+<ul>
+<li>There is a 4 bytes (32 bits) long hole between <em>i_level</em> and <em>psz_name</em></li>
+<li>The compiler adds 4 bytes of padding to fill the structure at the end</li>
+<li>The size of the structure is 24 bytes though the sum of its members is only 16 bytes</li>
+</ul>
+<p>We can now reorganize the elements inside the structure to reduce the size of this structure</p>
+<pre>struct
+{
+&nbsp;&nbsp;char *psz_name;
+&nbsp;&nbsp;int i_age;
+&nbsp;&nbsp;int i_level;
+} people_t;
+</pre>
+<p>The structure now looks like this in memory:</p>
+<p><img src="Saving%20memory%20for%20free%20-%20Spill%20the%20beans_files/people_t_packed.png" alt="people_t packed structure compiled for a 64 bits CPU"></p>
+<h2>Important structures in VLC</h2>
+<p>Let's have a look at the memory footprint of VLC media player when 
+VLC isn't doing anything. Of course most of the memory is used by the 
+Qt4 interface. Let's restart VLC without the Qt4 interface to look 
+deeper in the core memory footprint.</p>
+<p>Most of the memory used by an instance of VLC (without any interface) comes from the <em>module bank</em>.
+ This structure lists the properties of every module the current VLC can
+ launch. Actually there are 369 modules in the source tree. Moreover 
+some of these modules depend on the architecture and the Operating 
+System, thus most VLC instances have approximatively <em>200 modules</em>. For each module, a structure called <em>module_t</em> is created. This structure contains another structure called <em>module_config_t</em>.</p>
+<h3>Analysis of this structure</h3>
+<p>With Pahole, we can look at the memory used by one instance of the structure</p>
+<pre>pahole --class_name=module_config_t src/modules/.libs/libvlccore_la-entry.o
+struct module_config_t {
+&nbsp;&nbsp;int                        i_type;               /*     0     4 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* XXX 4 bytes hole, try to pack */
+&nbsp;&nbsp;
+&nbsp;&nbsp;char *                     psz_type;             /*     8     8 */
+&nbsp;&nbsp;char *                     psz_name;             /*    16     8 */
+&nbsp;&nbsp;char                       i_short;              /*    24     1 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* XXX 7 bytes hole, try to pack */
+&nbsp;&nbsp;
+&nbsp;&nbsp;char *                     psz_text;             /*    32     8 */
+&nbsp;&nbsp;char *                     psz_longtext;         /*    40     8 */
+&nbsp;&nbsp;module_value_t             value;                /*    48     8 */
+&nbsp;&nbsp;module_value_t             orig;                 /*    56     8 */
+&nbsp;&nbsp;/* --- cacheline 1 boundary (64 bytes) --- */
+&nbsp;&nbsp;module_value_t             saved;                /*    64     8 */
+&nbsp;&nbsp;module_value_t             min;                  /*    72     8 */
+&nbsp;&nbsp;module_value_t             max;                  /*    80     8 */
+&nbsp;&nbsp;vlc_callback_t             pf_callback;          /*    88     8 */
+&nbsp;&nbsp;void *                     p_callback_data;      /*    96     8 */
+&nbsp;&nbsp;char * *                   ppsz_list;            /*   104     8 */
+&nbsp;&nbsp;int *                      pi_list;              /*   112     8 */
+&nbsp;&nbsp;char * *                   ppsz_list_text;       /*   120     8 */
+&nbsp;&nbsp;/* --- cacheline 2 boundary (128 bytes) --- */
+&nbsp;&nbsp;int                        i_list;               /*   128     4 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* XXX 4 bytes hole, try to pack */
+&nbsp;&nbsp;
+&nbsp;&nbsp;vlc_callback_t             pf_update_list;       /*   136     8 */
+&nbsp;&nbsp;vlc_callback_t *           ppf_action;           /*   144     8 */
+&nbsp;&nbsp;char * *                   ppsz_action_text;     /*   152     8 */
+&nbsp;&nbsp;int                        i_action;             /*   160     4 */
+&nbsp;&nbsp;_Bool                      b_dirty;              /*   164     1 */
+&nbsp;&nbsp;_Bool                      b_advanced;           /*   165     1 */
+&nbsp;&nbsp;_Bool                      b_internal;           /*   166     1 */
+&nbsp;&nbsp;_Bool                      b_restart;            /*   167     1 */
+&nbsp;&nbsp;char *                     psz_oldname;          /*   168     8 */
+&nbsp;&nbsp;_Bool                      b_removed;            /*   176     1 */
+&nbsp;&nbsp;_Bool                      b_autosave;           /*   177     1 */
+&nbsp;&nbsp;_Bool                      b_unsaveable;         /*   178     1 */
+&nbsp;&nbsp;_Bool                      b_safe;               /*   179     1 */
+&nbsp;&nbsp;
+&nbsp;&nbsp;/* size: 184, cachelines: 3 */
+&nbsp;&nbsp;/* sum members: 165, holes: 3, sum holes: 15 */
+&nbsp;&nbsp;/* padding: 4 */
+&nbsp;&nbsp;/* last cacheline: 56 bytes */
+};
+</pre>
+<p>Pahole shows that the memory used by the structure is 15 bytes bigger than the sum of its elements.</p>
+<h3>Saving some memory</h3>
+<p>That's now really easy to save some memory by repacking the 
+structure. The goal is simple: try to fill the holes. For example there 
+are two holes of size 4 (just after i_type and i_list), If i_type and 
+i_list are placed side by side, the hole disappears.</p>
+<p>The manual packing was done some months ago in this <a href="http://git.videolan.org/?p=vlc.git;a=commitdiff;h=9e90c99a3b9c33bdf34fa712969f411d1fa7934d" hreflang="en">commit</a>. This change saved some kilo bytes of memory only by repacking one structure.</p></div>
+
+      </div>
+
+  
+
+                <div id="comments">
+        <h3>Comments</h3>
+      <dl>
+          <dt id="c25" class=" odd first"><a href="#c25" class="comment-number">1.</a>
+      On Wednesday, July 14 2010, 15:45      by Tim</dt>
+
+      <dd class=" odd first">
+
+      
+      <p>Interesting post. Sounds like a lot of work for a few kilobytes though.</p>
+            </dd>
+                  <dt id="c26" class="  "><a href="#c26" class="comment-number">2.</a>
+      On Wednesday, July 14 2010, 18:27      by <a href="http://ivoire.dinauz.org/blog" rel="nofollow">ivoire</a></dt>
+
+      <dd class="  ">
+
+      
+      <p>To be honest, that's harder and longer to explain than to 
+apply. You just need to run Pahole on some important structures (often 
+used), move some variables, recompile and you are done. The patch was 
+done in less than 10 minutes. For some KBytes of memory that's worth it.</p>
+            </dd>
+                  <dt id="c27" class=" odd "><a href="#c27" class="comment-number">3.</a>
+      On Wednesday, July 14 2010, 22:42      by Remi Denis-Courmont</dt>
+
+      <dd class=" odd ">
+
+      
+      <p>They are other ways to pack than reordering. You can also use 
+smaller types when adequate, at least for integers. For instance, this 
+whole pack of booleans could be turned into a set of bit fields 
+("unsigned b_xxx:1;").</p>
+
+
+<p>But there are other considerations. Code readability can get really 
+bad if one reorders large structures blindly. Also, if the structure 
+occupies more than one cache line, "related" members should be kept 
+together for optimal perfomance. For instance, you'd want a mutex on the
+ same cache line as the data that it protects, or the table length on 
+the same cache line as the table head pointer.</p>
+
+
+<p>Unfortunately, those savings are dwarfed by the memory size of 
+decoded pictures, the input byte stream cache. Those and the Qt4 runtime
+ make up most of the VLC anonymous memory allocations.</p>
+            </dd>
+          </dl>
+      </div>
+          
+  
+  
+  
+    </div>
+</div> <!-- End #main -->
+
+<div id="sidebar">
+  <div id="blognav">
+    <div id="search"><h2><label for="q">Rechercher</label></h2><form action="http://ivoire.dinauz.org/blog/" method="get"><fieldset><p><input size="10" maxlength="255" id="q" name="q" type="text"> <input class="submit" value="ok" type="submit"></p></fieldset></form></div><div id="topnav"><ul><li class="topnav-home"><a href="http://ivoire.dinauz.org/blog/">Home</a><span> - </span></li><li class="topnav-arch"><a href="http://ivoire.dinauz.org/blog/archive">Archives</a></li></ul></div><div class="categories"><h2>Catégories</h2><ul><li><a href="http://ivoire.dinauz.org/blog/category/Geek">Geek</a><ul><li><a href="http://ivoire.dinauz.org/blog/category/Geek/VideoLAN">VideoLAN</a><ul><li class="category-current"><a href="http://ivoire.dinauz.org/blog/category/Geek/VideoLAN/VLC-media-player">VLC media player</a></li></ul></li><li><a href="http://ivoire.dinauz.org/blog/category/Geek/PRoot">PRoot</a></li></ul></li></ul></div><div class="tags"><h2>Tags</h2><ul><li><a href="http://ivoire.dinauz.org/blog/tag/Android" class="tag10">Android</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/CARE" class="tag10">CARE</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Compilation" class="tag30">Compilation</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Debian" class="tag30">Debian</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/debugging" class="tag10">debugging</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Extension" class="tag20">Extension</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Free%20Software" class="tag20">Free Software</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/GCi" class="tag20">GCi</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/GSoC" class="tag30">GSoC</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/lua" class="tag20">lua</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Multicat" class="tag20">Multicat</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Optimization" class="tag10">Optimization</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/PRoot" class="tag50">PRoot</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/Streaming" class="tag10">Streaming</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/timescaler" class="tag10">timescaler</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/valgrind" class="tag10">valgrind</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/VideoLAN" class="tag90">VideoLAN</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/VLC" class="tag100">VLC</a> </li><li><a href="http://ivoire.dinauz.org/blog/tag/ZFS" class="tag10">ZFS</a> </li></ul><p><strong><a href="http://ivoire.dinauz.org/blog/tags">Tous les tags</a></strong></p></div>  </div> <!-- End #blognav -->
+
+  <div id="blogextra">
+    <div class="syndicate"><h2>S'abonner</h2><ul><li><a type="application/atom+xml" href="http://ivoire.dinauz.org/blog/feed/atom" title="This blog's entries Atom feed" class="feed">Entries feed</a></li><li><a type="application/atom+xml" href="http://ivoire.dinauz.org/blog/feed/atom/comments" title="This blog's comments Atom feed" class="feed">Comments feed</a></li></ul></div>  </div> <!-- End #blogextra -->
+</div>
+
+</div> <!-- End #wrapper -->
+
+<div id="footer">
+  <p>Powered by <a href="http://dotclear.org/">Dotclear</a></p>
+</div>
+
+</div> <!-- End #page -->
+
+
+<div id="link64_vdp_tabid" style="display:none;">1002</div></body></html>

@@ -1,0 +1,142 @@
+#include <linux/module.h>
+#include <linux/fs.h>
+#include <linux/sched.h>
+#include <linux/slab.h>
+#include <asm/page.h>
+#include <asm/pgtable.h>
+#include <linux/highmem.h>
+
+#include <linux/device.h>
+
+static unsigned int major;
+
+int ptd_open(struct inode *i, struct file *filp)
+{
+	return 0;
+}
+
+int ptd_close(struct inode *i, struct file *filp)
+{
+	return 0;
+}
+
+ssize_t ptd_read(struct file *filp,char __user *buf, size_t count, loff_t *fpos)
+{
+
+	pgd_t *pgd;
+	pud_t *pud;
+	pmd_t *pmd;
+	pte_t *ptep,pte;
+	char *real;
+	struct page *page=NULL;
+	unsigned long t,addr=t=(unsigned long)buf;
+
+	pr_info("%s: __user buf addr: %p\n",__func__,buf);
+
+	pr_info("%s: %d\n","PGDIR_SHIFT",PGDIR_SHIFT);
+	pr_info("%s: %d\n","PTRS_PER_PGD",PTRS_PER_PGD);
+
+	pr_info("%s: %lu\n","PTE_PFN_MASK",PTE_PFN_MASK);
+
+	pr_info("%s: %d\n","PUD_SHIFT",PUD_SHIFT);
+	pr_info("%s: %d\n","PTRS_PER_PUD",PTRS_PER_PUD);
+
+	pr_info("%s: %d\n","PMD_SHIFT",PMD_SHIFT);
+	pr_info("%s: %d\n","PTRS_PER_PMD",PTRS_PER_PMD);
+
+	pr_info("%s: %d\n","PAGE_SHIFT",PAGE_SHIFT);
+	pr_info("%s: %d\n","PTRS_PER_PTE",PTRS_PER_PTE);
+	//pr_info("%s: %lu\n","ARCH_PFN_OFFSET",ARCH_PFN_OFFSET);
+	pr_info("%s: %lu\n","PAGE_OFFSET",PAGE_OFFSET);
+
+//	pr_info("%s: %p\n","mem_map",mem_map);
+	pr_info("%s: %p\n","pgd",current->mm->pgd);
+
+	pgd=pgd_offset(current->mm,addr);
+	if (pgd_none(*pgd) || pgd_bad(*pgd))
+        	goto out;
+
+	pr_info("pgd.pgd %lu\n",pgd->pgd);
+	
+	pud = pud_offset(pgd,addr);
+	if (pud_none(*pud) || pud_bad(*pud))
+	        goto out;
+	
+	/* Find an entry in the second-level page table.. */
+	pmd = pmd_offset(pud, addr);
+	if (pmd_none(*pmd) || pmd_bad(*pmd))
+	        goto out;
+	pr_info("pud.pud %lu\n",(*pud).pud);
+
+	ptep = pte_offset_map(pmd, addr);
+	if (!ptep)
+	        goto out;
+	pte = *ptep;
+	
+	page = pte_page(pte);
+	if (page)
+        printk(KERN_INFO "Page frame struct is @ %p\n", page);
+
+	real=kmap(page);
+
+	if(sizeof(long)==sizeof(int)){
+		t=t<<20;
+		t=t>>20;
+	} else {
+		t=t<<52;
+		t=t>>52;
+		}
+	pr_info("offset: %x, gotaddr: %p\n",(unsigned)t,real+t);
+	pr_info("%s:%s\n",__func__,real+t);
+	
+	/*
+	 * Changing the value of the 1st char to 'B' and print here, and see that affect has
+	   appeared in user-space or not by waiting on getchar()
+	 */
+	real[t]='B';
+	pr_info("%s:%s\n",__func__,real+t);
+
+	kunmap(page);
+	pte_unmap(ptep);
+out:
+    return 0;
+}
+
+struct file_operations ptd_fops = {
+	.owner		= THIS_MODULE,
+	.open		= ptd_open,
+	.release	= ptd_close,
+	.read		= ptd_read,
+};
+
+struct class *cls;
+
+int init_module(void)
+{
+	pr_info("%s: Loading ptdump.\n",__func__);
+	printk("%s: pgdir_shift: %d\n",__func__,PGDIR_SHIFT);
+	printk("%s: pgdir_shift: %d\n",__func__,PTRS_PER_PGD);
+	major = register_chrdev(0,"addtrans",&ptd_fops);
+	if ( major <= 0 ) {
+	   printk("Error in registering character device\n");
+	   return -1;
+	}
+	
+	printk("Assigned major number = %d\n",major);
+	cls=class_create(THIS_MODULE,"test-page");
+	pr_info("dev: %p\n",device_create(cls,NULL,MKDEV(major,0),NULL,"addtrans"));
+	
+	return 0;
+}
+
+void cleanup_module(void)
+{
+	device_destroy(cls,MKDEV(major,0));
+	class_destroy(cls);
+	unregister_chrdev(major,"addtrans");
+	printk("Unloading\n");
+}
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("support@techveda.org");
+

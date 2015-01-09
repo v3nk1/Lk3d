@@ -1,0 +1,71 @@
+div.wpcf7 {
+	margin: 0;
+	padding: 0;
+}
+
+div.wpcf7-response-output {
+	margin: 2em 0.5em 1em;
+	padding: 0.2em 1em;
+}
+
+div.wpcf7-mail-sent-ok {
+	border: 2px solid #398f14;
+}
+
+div.wpcf7-mail-sent-ng {
+	border: 2px solid #ff0000;
+}
+
+div.wpcf7-spam-blocked {
+	border: 2px solid #ffa500;
+}
+
+div.wpcf7-validation-errors {
+	border: 2px solid #f7e700;
+    color: red !important; 
+}
+
+span.wpcf7-form-control-wrap {
+	position: relative;
+}
+
+span.wpcf7-not-valid-tip {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FF0000;
+    font-size: 10pt;
+    padding: 2px;
+    position: absolute;
+    top: 20%;
+    width: 245px !important; 
+    z-index: 100;
+    margin-left: -252px !important;
+    clear: both !important; 
+    margin-top: 17px !important;
+    color: red !important; 
+}
+
+span.wpcf7-not-valid-tip-no-ajax {
+	color: #f00;
+	font-size: 10pt;
+	display: block;
+}
+
+span.wpcf7-list-item {
+	margin-left: 0.5em;
+}
+
+.wpcf7-display-none {
+	display: none;
+}
+
+div.wpcf7 img.ajax-loader {
+	border: none;
+	vertical-align: middle;
+	margin-left: 4px;
+}
+
+div.wpcf7 .watermark {
+	color: #888;
+}
+
+.wpcf7-submit{float:left;padding:5px 7px; text-decoration:none; font-weight: normal; color:#444;background-color:#ccc;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px; font-size:12px !important; font-family:'Conv_verdana',Sans-Serif; line-height:25px; cursor:pointer; border:none; margin-top:36px; margin-right:8px; text-transform: uppercase;behavior: url(PIE.htc); position:relative;}

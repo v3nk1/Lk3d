@@ -1,0 +1,108 @@
+1. prog to open a file with open API?
+2. Create a file through open API and print return value?
+3. write a prog which will print the following file status: total size, user id, group id, permissions
+4. write a function to update a particular record given by user, file shud contain minimum of 10 records.
+5. Implement a directory lister. (like ls)
+6. (VFS Design #1):Design an application that can take image file as input and displays its contents
+7. (VFS Design #2):design above case such that its able to support multiple plugins
+8. (VFS Design #3):Binary extension
+9. (VFS Design #4):load the shared object as and when needed
+10. Create a shared library for add function taking 2 integers as arguments
+11. write an example for dlsym
+12. Implement synchronous I/O
+13. Implement Direct I/O
+14. Implement Vector I/O
+15. Implement Multiplexed I/O
+16. Implement Memory map I/O
+17. 
+	struct msg{
+		char msg[100];
+		int len;
+		};
+	
+	(i)  Using memory map I/O, write above object into a record.
+	(ii) print alternate records from a record_file.
+	(iii)Update a specefic record
+	(iv) search for a specific record
+
+18. Write an example for fifo/pipe for ipc communication
+19. Adding A system call to kernel
+20. write a prog to change default disposition of a signal using signal API
+21. write a prog to change default disposition of a signal using sigaction API
+22. write a prog to Ignoring a signal
+23. write a prog restore to Default signal disposition
+24. write a prog which will register application defined singal handler for SIGINT using sigaction interface
+25. Write a prog for all Macros of SA_FLAGS in sigaction
+26. Block a signal using sigprocmask API
+27. Write a example to create a child process using fork API
+28. Write code for checking what segments are sharing to child from parent
+	(i) stack
+	(ii) bss
+	(iii) data
+	(iv) Heap
+29. Prog to check wheather the opened files are inhereted to the child process (or) not?
+30. check wheather the singnal handlers are inherited by the child process from its parent
+31. check wheather the blocked signals are inherited by the child process from its parent process.
+32. Is update the values of local variables created by parent, try to update form child.
+33. w.a.p to demonstrate pread,pwrite
+34. Try to implement all programs of fork with vfork API.
+35. w.a.p that uses clone api to create new lwp.
+36. w.a.p to test cases to verify effect of following clone flags
+	i. clone_vm
+	ii. clone_sighand
+	iii. clone_parent
+37. create a thread which will take following struct as argument 
+		struct msg{
+			char buf[50];
+			int len;
+			};
+		Thread shud print the values of argument.
+38. write a prog which will create 2 user level threads. T2 shud synchronise with T1 and collects its exit status.
+	T1 take a string as argument and return s its length as exit state.
+39. create a detached thread and try to join with this thread and observe the behaviour.
+40. create 2 threads one with fifo and other with round robin policy with priorities 10,20 respectively. print the those in program
+41. write an example for updating a global resource using automic operations.
+42. Implement poll-lock mechanism.
+43. write a program to register a binary semaphore
+44. w.a.p to register a countable semaphore
+45. w.a.p to jestify the problems of binary semaphore
+	i. Accedental release
+	ii. owners death
+	iii. recursive locking
+46. w.a.p to register a mutex.
+47. w.a.p to check all the problems of the binary semaphores are address in mutex.
+48. w.a.p to register a robust mutex.
+49. w.a.p to use rwlocks.
+50. w.a.p which will create,delete,send,recieve a msg using sysV msg queue.
+51. Implement an application which will create a child process. Child process acts like a server which will take the request from the client.
+	parent will act like client which will initiate the request.
+52. w.a.p which will create,delete,send,recieve a msg using possix msg queue.
+53. w.a.p to use mq_notify function
+54. w.a.p to use possix shared memory
+55. w.a.p to implement stack,queue,single linkend list,double linked list, circular linked list
+	i. insert node
+	ii. delete node
+	iii. search node
+	iv.  display nodes
+
+KERNEL PROG:
+56. write a simple module which will print "hello world".
+57. write a module which will export a global symbol directly inorder to use in other modules.
+58. write a module which will export a symbol indirecly inorder to use in other modules.
+59. write a module to access a kernel data structure.
+60. write a module which will interact with a RTC chip inorder to read each entity of date,time
+61. write a module to read current calender
+62. write a module to print the information(apic id,version no, verctor id,max irq lines, arbitrary register) of APIC device.
+
+DEVICE-DRV
+72. write a simple charecter driver.
+73. implement a dynamic char driver
+74. implement a dynamic char driver which automates the creation of device node(dev file).
+75. implement a driver which will support device specific read,write,open,close.
+76. implement module which will interact with rtc and prints output to user address space.
+77. implement a char driver which supports 2 minor no.. In open call of the driver print the minior no of the device node which has opened by 		the application.
+78. Register a char driver as misc driver.
+79. Allocate 1024 bytes of kernel buffer and Implement a char driver to provide read/write operations on that buffer. Write a test application 		to test read, write operations
+80. Implement lseek for above question
+81. Dymanic memory allocation of a buffer in kernel space(kmalloc)
+82. Allocate 2 kernel buffers of 1024 bytes each DEVBUFA, DEVBUFB. Implement a char driver that maps DEVBUFA to /dev/bufa and 			   DEVBUFB to /dev/bufb. Driver shud provide support for read, write operations.

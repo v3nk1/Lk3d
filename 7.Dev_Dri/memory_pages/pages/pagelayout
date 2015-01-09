@@ -1,0 +1,49 @@
+Virtual address layout in:
+
+32-bit:
+-------
+	
+	,-------------------------------------------------------,
+	|  pgd  |     pmd	|      pte	|      off	|
+	*-------------------------------------------------------*
+
+bits:  31 <-> 30|29  <------> 21|20  <------> 12|11  <------>	0
+
+	offset	:  0-11 bits	(12 bits)
+	pte	: 12-20	bits	(9  bits)
+	pmd	: 21-29 bits	(9  bits)
+	pud	: always rounded to 0. (0 bits)
+	pgd	: 30-31 bits	(2  bits)
+
+
+To get offset from given virtual address of 32-bit(4bytes):
+
+	offset_val=((vaddr<<(31-11))>>(31-11));
+		/* ie., vaddr=vaddr<<(31-11);vaddr=vaddr>>(31-11); */
+
+
+
+64-bit:
+-------
+
+	,-----------------------------------------------------------------------------------------------,
+        |    reserved    |      pgd	|      pud	|     pmd       |      pte      |      off      |
+        *-----------------------------------------------------------------------------------------------*
+
+bits:  63  <-------->  48|47 <------> 39|38  <------> 30|29  <------> 21|20  <------> 12|11  <------->  0      	
+
+        offset  :  0-11 bits    (12 bits)
+        pte     : 12-20 bits    (9  bits)
+        pmd     : 21-29 bits    (9  bits)
+        pud     : 30-38 bits	(9  bits)
+        pgd     : 39-47 bits    (9  bits)
+	reserved: 48-63 bits	(16 bits)
+              
+To get offset from given virtual address of 64-bit(8bytes):
+
+        offset_val=((vaddr<<(63-11))>>(63-11));
+                /* ie., vaddr=vaddr<<(63-11);vaddr=vaddr>>(63-11); */
+
+
+
+

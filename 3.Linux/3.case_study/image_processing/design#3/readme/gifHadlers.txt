@@ -1,0 +1,25 @@
+	Its also same as design#2, except that here we are using our own _init(); _fini();
+
+	these are the functions extecuted by _start function at the pre-amble and post-amble resectively.
+
+	stdlib.h defaultly includes it.
+
+	so if u want to execute your own _init _fini functions then then at the time of creating shared object shud use a flag called -nostdlib otherwise error tells that toomany definitons.
+
+	and in your _init() function register gifHandler, by passing address of gifHandler(pointer to structure-obj(sh)) by invoking a function reg_handler defined in "config.c" file.
+	so this function name must declared by extern in this file(gifHandler.c).
+
+
+CREATION OF SHARED OBJECT:
+``````````````````````````
+>step1:	first create position independent code. by using flag -fPIC with cc. create object file (.o).
+```````		ie., cc -c -fPIC gifHandler.c it creates gifHandler.o.
+>step2:	and create a shared object by flag -shared.
+```````		in this creation we have our own _init and _fini function so must and shud ly tell the compiler that nostdlib by  	  flag -nostdlib. so sytax of this step2 is
+		cc -shared -nostdlib gifHandler.o -o lib_gif.so
+	we are saving output as lib_gif.so.   -o is for that purpose only.
+
+
+
+
+SIMILAR PROCESS FOR ALL TIF,JPG..............

@@ -1,0 +1,716 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html class="dj_gecko dj_contentbox" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Widget</title>
+
+<style type="text/css">
+	@import "dojoroot/dijit/themes/tundra/tundra.css";
+	@import "dojoroot/dijit/themes/tundra/tundra_rtl.css";
+	@import "dojoroot/dojo/resources/dojo.css";
+	@import "css/VCCFrameStyle.css";
+</style>
+<script type="text/javascript">
+	var djConfig = { modulePaths: {dojoMessages: "../../../vccComment/dojomessages/comment"},
+                       parseOnLoad: true,
+                       locale:'en'};
+</script>
+<script language="javascript">
+	var AU = {
+	BitSet: function(inputBits){
+		this.itemBit = 32;
+		if(inputBits){
+			this.bits = inputBits;
+			this.itemCount = inputBits.length;
+		}else{
+			this.itemCount = 0;
+			this.bits = new Array();
+		}
+				
+		this.test = function(mask){
+			var validItemCount = this.itemCount;
+			if(validItemCount > mask.itemCount){
+				validItemCount =  mask.itemCount;
+			}
+			for(var i = 0; i < validItemCount; i++){
+				if(0 != mask.bits[i]){
+					if(0 != (this.bits[i] & mask.bits[i])){
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+	}
+};
+
+AU.MASK = {
+	ADMINISTRATOR: new AU.BitSet([1]),
+	RATING: new AU.BitSet([2]),
+	PROFILE: new AU.BitSet([4]),
+	VCCENABLE: new AU.BitSet([8]),
+	COMMENTFILTER: new AU.BitSet([16]),
+	DISPOSITION: new AU.BitSet([32]),
+	COMMENTTYPE: new AU.BitSet([64]),
+	ADDCOMMENT: new AU.BitSet([128]),
+	ASSIGNMODERATOR: new AU.BitSet([256])	,
+MASK_LENGTH:9
+};
+
+AU.ROLE = {
+Moderator:{name:'Moderator',id:0},Author:{name:'Author',id:1},Administrator:{name:'Administrator',id:2},Reviewer:{name:'Reviewer',id:3},Anonymous:{name:'Anonymous',id:4}
+};
+	var sessionID = "azjce9a4owom";
+	var userRight = new AU.BitSet([]);
+	var role = 4;
+	var resetRows = true;
+	var isInternalMode = false;
+	var isRTL = false;
+	var myID = "null";
+</script>
+<script type="text/javascript" src="searchView_data/vccajax.js"> </script>
+<script type="text/javascript" src="search_data/dojo.js"></script>
+<script type="text/javascript">
+dojo.require("dojo.string");
+dojo.i18n._preloadLocalizations("dojo.nls.dojo", ["iw","iw-il","bg","hr","ro"]);
+dojo.requireLocalization("dojoMessages", "messages");
+var nlsStrings;
+dojo.addOnLoad(function(){
+	nlsStrings = dojo.i18n.getLocalization("dojoMessages","messages");
+});
+</script>
+
+<script language="javascript" src="vccFrame_data/vccutils.js"> </script>
+
+<script language="javascript" src="vccFrame_data/logon_external.js"></script>
+
+<script language="javascript" src="vccFrame_data/roleChange.js"> </script>
+<script language="javascript" src="vccFrame_data/vccframe.js"> </script>
+
+<script language="javascript">theVccFrame.logon = new vcc.base.logon();</script>
+
+                                   
+</head>
+<body role="application" class="tundra" dir="ltr">
+<div style="height: 1000px; display: none;" id="loading">Loading ... ...</div>
+<!-- VCC Frame main -->
+<div style="padding: 0px;" class="dijitContainer dijitBorderContainer" widgetid="main" dojotype="dijit.layout.BorderContainer" id="main">
+
+<!-- VCC Frame Header Pane container -->
+<div class="dijitContentPane dijitBorderContainer-dijitContentPane dijitBorderContainerPane" role="group" title="" widgetid="vcc_frame_header" dojotype="dijit.layout.ContentPane" id="vcc_frame_header" region="top" style="height: 22px; overflow: hidden; padding: 0px; border: medium none; top: 0px; left: 0px; right: 0px;">
+
+<!-- VCC Frame Header toolbar -->
+<div widgetid="vcc_toolbar" style="background-color: buttonface;" id="vcc_toolbar" role="toolbar" class="dijit dijitToolbar" wairole="toolbar" tabindex="0" dojoattachpoint="containerNode">
+
+<!-- VCC Frame toolbar: action buttons -->
+<div id="vccactions" style="float: right; display: none;"><span widgetid="exp_all" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="exp_all" aria-labelledby="exp_all_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-exp_all_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="exp_all_label" dojoattachpoint="containerNode">
+	<img id="exp_img" src="vccView_data/expand_all.gif"> 
+	
+</span></button></span></span></span><span widgetid="col_all" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="col_all" aria-labelledby="col_all_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-col_all_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="col_all_label" dojoattachpoint="containerNode">
+	<img id="col_img" src="vccView_data/collapse_all.gif">
+	
+</span></button></span></span></span><div style="-moz-user-select: none;" widgetid="viewaction_separator" id="viewaction_separator" class="dijitToolbarSeparator dijitInline"></div><span id="tipSpan" style="color: gray; display: none;" onmouseover="this.style.cursor='not-allowed';"><img style="vertical-align:middle" src="vccFrame_data/cd_element.gif">&nbsp;Comment on Topic</span><span widgetid="addcomment_btn" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button aria-disabled="false" style="-moz-user-select: none; display: inline;" tabindex="0" id="addcomment_btn" aria-labelledby="addcomment_btn_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-addcomment_btn_label"><span class="dijitReset dijitInline addComment" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="addcomment_btn_label" dojoattachpoint="containerNode">
+	
+</span></button></span></span></span><div style="-moz-user-select: none;" widgetid="comment_separator" id="comment_separator" class="dijitToolbarSeparator dijitInline"></div>
+
+<!-- VCC Frame toolbar: 1. button "switch role" --><span widgetid="maximize_restore" title="Maximize" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="maximize_restore" aria-labelledby="maximize_restore_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-maximize_restore_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="maximize_restore_label" dojoattachpoint="containerNode">
+	<img id="maximize_img" src="vccToolbar_data/e_maximize.gif"> 
+	
+</span></button></span></span></span>
+
+</div>
+<!--end of vccactions-->
+
+<!-- VCC Frame toolbar: comment amount-->
+<div id="vcc_show_hide_div" style="float:left; padding: 2px 5px;">
+	<a href="javascript:void(0);" id="switchDisplayLink" style="text-decoration:none;" accesskey="O" onclick="javascript:theVccFrame.switchDisplay();"></a>
+	<img style="cursor:pointer; vertical-align: 2px;" id="commentsArrow" src="vccFrame_data/plus_comment.gif" onclick="javascript:theVccFrame.switchDisplay();" onmouseover="this.style.cursor='pointer';this.style.cursor='hand'">
+	<span style="cursor:pointer;" class="commentsLabel" id="comment_amount" onclick="javascript:theVccFrame.switchDisplay();">0 Comment(s)</span>
+</div>
+
+<!-- VCC Frame toolbar: locale Info -->
+<div id="localeInfo_div" style="float:left; display:none">
+	<span widgetid="localeSwitch_button" class="dijit dijitReset dijitLeft dijitInline dijitDropDownButton dijitDropDownButtonDisabled dijitDisabled" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse,onclick:_onDropDownClick,onkeydown:_onDropDownKeydown,onblur:_onDropDownBlur,onkeypress:_onKey"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button disabled="disabled" aria-disabled="true" style="-moz-user-select: none; display: none;" id="localeSwitch_button" aria-labelledby="localeSwitch_button_label" aria-haspopup="true" role="button" class="dijitReset dijitStretch dijitButtonContents" type="button" name="" dojoattachpoint="focusNode,titleNode" wairole="button" waistate="haspopup-true,labelledby-localeSwitch_button_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"></span><span class="dijitReset dijitInline dijitButtonText" dojoattachpoint="containerNode,popupStateNode" id="localeSwitch_button_label">More</span><span class="dijitReset dijitInline dijitArrowButtonInner"> </span><span class="dijitReset dijitInline dijitArrowButtonChar">▼</span></button></span></span></span>
+	<span id="localetipSpan" style="color: gray; vertical-align: middle; display: inline;" onmouseover="this.style.cursor='not-allowed';">More<img src="vccFrame_data/descending.gif"></span>
+	<span class="dijitTooltipData" widgetid="localeSelectTip" id="localeSelectTip" dojotype="dijit.Tooltip" connectid="localetipSpan">No more comments in different language versions of this page</span>
+</div>
+
+
+<!--switch Display on whole toolbar -->
+<div id="middleSpace" style="float:none; width:100%; height:20px; cursor:pointer;" onclick="javascript:theVccFrame.switchDisplay();">&nbsp;</div>
+
+</div>
+<!--  end of toolbar  -->
+
+</div><div style="left: 0px; right: 0px; top: 22px;" widgetid="dijit_layout__Gutter_0" id="dijit_layout__Gutter_0" role="presentation" class="dijitGutter dijitGutterH" wairole="presentation"></div>
+<!-- end of vcc_frame_header -->
+
+<!-- VCC Frame Body Pane container -->
+<div class="dijitContentPane dijitBorderContainer-dijitContentPane dijitBorderContainerPane" role="group" title="" widgetid="message" id="message" dojotype="dijit.layout.ContentPane" region="center" minsize="20" style="visibility: hidden; padding: 0px; border: medium none; top: 27px; left: 0px; right: 0px; bottom: 0px;">
+ 
+
+<script language="javascript">
+	// All comment types
+	var typeList = ["Comment","Change text","Change Graphic","Change Screenshot","Delete","Final Output Formatting Problem","Index Entry","Issue/Problem","New","Question","Reference/Link_Addition","Reference/Link_Broken","Replace","Suggestion","Typo","Wrong Sequence","Response",];
+	
+	// All comment dispositions
+	var dispositionList = ["Unassigned","Open","Accepted","Completed","Rejected","Deferred","Reopened","Duplicate","Response",];
+</script>
+
+
+
+
+
+
+
+
+
+<script language="javascript" src="vccFrame_data/commentMenu.js"> </script>
+<script language="javascript">var commentMenu = new vcc.comment.CommentMenu();</script>
+
+
+
+<!-- VCC Frame toolbar: 3. button "add comment" -->
+
+
+<span class="dijitTooltipData" widgetid="dijit_Tooltip_0" id="dijit_Tooltip_0" dojotype="dijit.Tooltip" connectid="addcomment_btn">Add a new comment.</span>
+
+<span class="dijitTooltipData" widgetid="commentDisabledTip" id="commentDisabledTip" dojotype="dijit.Tooltip" connectid="tipSpan"></span>
+
+<script language="JavaScript">
+	var toolbar = dojo.byId("vccactions");
+	var sep = dojo.byId("comment_separator");
+	var tipSpan = dojo.byId("tipSpan");
+	var commentBTN = dojo.byId("addcomment_btn");
+	toolbar.insertBefore(sep,toolbar.firstChild);
+	toolbar.insertBefore(tipSpan,sep);
+	toolbar.insertBefore(commentBTN,sep);
+</script>
+
+
+<!-- VCC Frame toolbar: 4. button "expand all" -->
+
+<span class="dijitTooltipData" widgetid="dijit_Tooltip_1" id="dijit_Tooltip_1" dojotype="dijit.Tooltip" connectid="exp_all">Expand all comments.</span>
+
+<!-- VCC Frame toolbar: 5. button "collapse all" -->
+
+<span class="dijitTooltipData" widgetid="dijit_Tooltip_2" id="dijit_Tooltip_2" dojotype="dijit.Tooltip" connectid="col_all">Collapse all comments.</span>
+
+<!-- VCC Frame toolbar: 6. button "maximal/restore VCC frame" -->
+<script language="JavaScript">
+	var helpFramesetRowSet;
+	var contentFramesetRowSet;
+</script>
+
+
+
+
+<!-- VCC Frame toolbar: 2.X. menu item in VCC drop down tool button "statistic" -->
+
+
+
+<script language="JavaScript">
+	// arragement on the VCC toolbar.
+	var toolbar = dojo.byId("vccactions");
+	var viewsep = dojo.byId("viewaction_separator");
+	var col = dojo.byId("col_all");
+	var exp = dojo.byId("exp_all");
+	var maximize_restore = dojo.byId("maximize_restore");
+	toolbar.insertBefore(viewsep, toolbar.firstChild);
+	toolbar.insertBefore(col, viewsep);
+	toolbar.insertBefore(exp, col);
+	toolbar.insertBefore(maximize_restore, toolbar.lastChild);
+	
+	var vccoptions = dojo.byId("vccoptionbutton");
+	if(vccoptions){
+		var maximizesep = dojo.byId("maximize_separator");
+		toolbar.insertBefore(maximizesep,maximize_restore);
+		toolbar.insertBefore(vccoptions, maximizesep);
+	}
+
+
+</script>
+
+
+<script language="JavaScript" src="searchView_data/freeselect.js"></script>
+<script language="JavaScript" src="vccFrame_data/commentContent.js"></script>
+<script language="JavaScript">var commentContent = new vcc.comment.CommentContent();</script>
+<!--<script language="JavaScript">var contentTree = new vcc.comment.ContentTree();</script>  -->
+
+<script language="JavaScript" src="vccFrame_data/commentFrameView.js"></script>
+<script language="JavaScript" src="vccFrame_data/commentModels.js"></script>
+<script language="JavaScript">
+	commentActions.showOrHideComment = function(img){
+			var cid = img.parentNode.parentNode.id;
+			var comment = img.parentNode.nextSibling;
+			var type = comment.className;
+			if(type.indexOf("comment_content_action-hidden") > -1){
+				document.images["c_down_"+cid].style.display = "none";
+				document.images["c_up_"+cid].style.display = "inline";
+				var parent_width = comment.parentNode.offsetWidth;
+				comment.className = type.replace("comment_content_action-hidden","comment_content_action-shown");
+				comment.firstChild.style.width = parent_width-31+"px";
+				//if(comment.firstChild.offsetHeight > 80){
+				//	comment.firstChild.className = "comment_content restrictHeight";
+				//}	
+			}else if(type.indexOf("comment_content_action-shown") > -1){
+				document.images["c_up_"+cid].style.display = "none";
+				document.images["c_down_"+cid].style.display = "inline";
+				comment.className = type.replace("comment_content_action-shown","comment_content_action-hidden");	
+			}
+	};
+</script>
+<script language="JavaScript" src="vccFrame_data/commentUtil.js"></script>
+<script language="JavaScript">var cmtUtil = new vcc.comment.Util();</script>
+
+
+
+
+
+
+
+
+<script language="JavaScript" src="vccFrame_data/commentDisplay.js"></script>
+<script language="JavaScript" src="vccFrame_data/commentTableView.js"></script>
+<script language="JavaScript" src="vccFrame_data/commentTreeView.js"></script>
+
+
+<script language="JavaScript">
+	var commentView = new vcc.comment.CommentTableView();
+	var cmtDisplay = commentView.commentDisplay;
+	var isAnonymous = true;
+	var isReviewer = false;
+	var isAdministrator = false;
+	var isModerator = false;
+</script>
+
+<style type="text/css">
+	@IMPORT url("../vccComment/css/commentDisplay.css");
+</style>
+
+<div id="comments_div">
+<table style="display: table;" class="comment_table" id="comment_dis_table" cellspacing="1">
+	<thead>
+		<tr onmouseover="javascript:this.className='hover';">
+			<!-- Catalog -->
+			<th id="comment_level_p" class="headcs" colspan="2" width="10%"><span><a class="commentsListTitle" href="javascript:cmtDisplay.sortByLevel();">Category</a><img id="level_tip" src="vccFrame_data/cd_nosort.gif"></span></th>
+			
+			<!-- Threads -->
+			<th id="comment_title_p" class="headcs" width="50%"><span><a class="commentsListTitle" href="javascript:cmtDisplay.sortByTitle();">Threads</a><img id="title_tip" src="vccFrame_data/cd_nosort.gif"></span></th>
+			
+			<!-- Started By -->
+			<th id="added_by_p" class="headcs" width="18%"><span><a class="commentsListTitle" href="javascript:cmtDisplay.sortByUser();">Started By</a><img id="added_by_tip" src="vccFrame_data/cd_nosort.gif"></span></th>
+			<!-- Last Post -->
+			<th id="comment_time_p" class="headcs" width="12%"><span><a class="commentsListTitle" href="javascript:cmtDisplay.sortByTime();">Last Post</a><img id="time_tip" src="vccFrame_data/cd_nosort.gif"></span></th>
+			<!-- Replies -->
+			<th id="comment_amount_p" class="headcs" width="10%"><span><a class="commentsListTitle" href="javascript:cmtDisplay.sortByAmount();">Replies</a><img id="amount_tip" src="vccFrame_data/cd_nosort.gif"></span></th>
+		</tr>
+	</thead>
+	
+<tbody id="comment_table_body"></tbody></table>
+</div>
+<!-- div style='text-align:center;'>
+	<a href="javascript:theVccFrame.showLocaleDialog()">Click here to see more comments in different language versions of this page.</a>
+</div> -->
+
+
+
+
+
+
+<script language="javascript" src="vccFrame_data/commentDlg.js"> </script>
+<script language="javascript" src="vccFrame_data/enhancedString.js"></script>
+<script language="javascript">
+var commentDlg = new vcc.comment.CommentDialog();
+var limitContentBytesAmount = 2048;
+var limitSubjectBytesAmount = 90;
+if (isInternalMode || !(isAnonymous || isReviewer)) {
+	var dispositionDlg = new vcc.comment.DispositionDialog();
+}
+
+function EventHandler(e){
+		commentDlg.limitSubjectText('commentsubject',limitSubjectBytesAmount);
+		commentDlg.limitContentText('commenttext',limitContentBytesAmount);
+}
+
+dojo.addOnLoad(function(){
+if (isMozilla) {
+  var commenttext = document.getElementById('commenttext');
+  var commentsubject = document.getElementById('commentsubject')
+  commenttext.addEventListener('keyup', EventHandler, true);
+  commentsubject.addEventListener('keyup', EventHandler, true);
+}
+else if (isIE){
+  var commenttext = document.getElementById('commenttext');
+  var commentsubject = document.getElementById('commentsubject')
+  commenttext.onkeyup = EventHandler;
+  commentsubject.onkeyup = EventHandler;
+}
+});
+</script>
+
+<!-- add comment -->
+
+
+
+
+
+<script language="JavaScript">
+theVccFrame.onDisplay =	function(isHide){
+		if(isHide) {
+			commentContent.toICMode();
+		} else {
+			commentContent.toReviewMode();
+			commentView.showCommentsForSelection(commentContent.getSelection());
+		}
+	};
+function commentFuncLoader() {
+	if(!commentContent.isParsed()){
+		return false;
+	}
+		 
+    if(!commentContent.isCommentAble()) {
+    	commentMenu.setSelectLocaleDisabled(true);
+    	commentMenu.setAddButtonsDisabled(true);
+        commentMenu.localeDisabledTip(true);
+        commentMenu.showDisabledTip(true, "Comment on this page is disabled.");
+        if(resetRows){
+            theVccFrame.setDisplay(isInternalMode);
+        }else{
+            theVccFrame.display(true);
+        }
+        commentView.showCommentTip();
+        return true;
+    }
+
+	if(commentContent.isLatestVersion()){
+		commentMenu.showDisabledTip(false);
+		commentMenu.setAddButtonsDisabled(false);
+	}else{
+		commentMenu.showDisabledTip(true, "Comment on this page is disabled.");
+	    commentMenu.setAddButtonsDisabled(true);
+	}
+	commentMenu.setSelectLocaleDisabled(false);
+	commentMenu.localeDisabledTip(false);
+	commentMenu.initLocaleOptions();
+	commentDlg.hide(true);
+	if (isInternalMode) {
+		dispositionDlg.hide();
+	}
+
+  	var htmlid = commentContent.getUrlHtmlID();
+  	if(htmlid){
+  		htmlid = decodeURIComponent(htmlid);
+  	}
+ 
+  	var cid = commentContent.getUrlCommentID();
+  	
+  	var resetFrameset = !vccFrameLoaded && resetRows && !htmlid;
+	commentView.refreshComments(
+		function(){
+	  		if(resetFrameset){
+				theVccFrame.setDisplay(isInternalMode);
+			}else{
+				theVccFrame.display(true);
+			}
+	  		if(htmlid) {
+	  			var selection = commentContent.createSelection(htmlid);
+	  			if(cid){
+	  				commentContent.selectFragment(selection);
+					cmtDisplay.showSelectedComment(cid);
+				}else{
+					commentContent.selectFragmentAndDisplayComment(selection);
+				}
+			}
+			dojo.byId('loading').style.display = 'none';
+	  	}
+	);
+	return true;
+}
+function commentFuncUnloader(){
+	commentMenu.setAddButtonsDisabled(true);
+	commentMenu.showDisabledTip(true, "Comment on this page is disabled.");
+	commentView.hideCommentTip();
+	commentMenu.setSelectLocaleDisabled(true);
+	commentView.reset();
+}
+
+vccFrameloaders.push(commentFuncLoader);
+vccFrameUnloaders.push(commentFuncUnloader);
+</script>
+ 
+</div><div widgetid="dijit_layout__Gutter_1" id="dijit_layout__Gutter_1" role="presentation" class="dijitGutter dijitGutterV" wairole="presentation"></div>
+<!-- end of VCC Frame Body Pane container -->
+
+<!-- VCC Frame Body show tip in VCC frame body -->
+<div class="dijitContentPane" role="group" title="" widgetid="commentTip" id="commentTip" dojotype="dijit.layout.ContentPane" style="margin-top: 30px; text-align: center; font-size: 10pt; color: rgb(204, 102, 0); display: block; visibility: hidden;">
+	Be the first person to comment. Click the comment button.<br>
+	<!-- span id="showLocaleTip" style='font-size:10pt;'>
+		<a href="javascript:theVccFrame.showLocaleDialog()">Click here to see more comments in different language versions of this page.</a>
+	</span> -->
+</div>
+<!-- end of VCC Frame Body show tip in VCC frame body -->
+
+<!-- VCC Frame Foot Pane container -->
+
+
+<!-- ensure the message div is completely visible(dojo bug?) -->
+
+</div>
+<!-- end of main -->
+
+<!-- terms of use -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+<div style="display: none;"></div><div title="" style="visibility: hidden; position: absolute; top: -9999px;" widgetid="addcomment" dir="ltr" id="addcomment" aria-labelledby="addcomment_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-addcomment_title">
+	<div title="null" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="addcomment_title">null</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent">
+	<form action="javascript://needmodel" method="return false;">
+		<table class="tb2" width="95%">
+			<!-- Comment Type -->
+			<tbody><tr id="commentTypeTR">
+				<td colspan="1" nowrap="nowrap" valign="middle" width="105" align="right"><label id="typeSelector_label" for="typeSelector">Comment Type</label>:</td>
+				<td colspan="5"><div aria-labelledby="typeSelector_label" widgetid="typeSelector" style="width: 100%;" role="combobox" class="dijit dijitReset dijitInlineTable dijitLeft dijitComboBox" id="widget_typeSelector" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse" dojoattachpoint="comboNode" wairole="combobox" tabindex="-1"><div style="overflow:hidden;"><div role="presentation" class="dijitReset dijitRight dijitButtonNode dijitArrowButton dijitDownArrowButton" dojoattachpoint="downArrowNode" wairole="presentation" dojoattachevent="onmousedown:_onArrowMouseDown,onmouseup:_onMouse,onmouseenter:_onMouse,onmouseleave:_onMouse"><div class="dijitArrowButtonInner"> </div><div class="dijitArrowButtonChar">▼</div></div><div class="dijitReset dijitValidationIcon"><br></div><div class="dijitReset dijitValidationIconText">Χ</div><div class="dijitReset dijitInputField"><input value="Comment" aria-required="true" tabindex="0" aria-invalid="false" id="typeSelector" aria-autocomplete="list" aria-haspopup="true" role="textbox" autocomplete="off" class="dijitReset" dojoattachevent="onkeypress:_onKeyPress, onfocus:_update, compositionend" dojoattachpoint="textbox,focusNode" wairole="textbox" waistate="haspopup-true,autocomplete-list" type="text"><input value="0" name="" style="display: none;" type="text"></div></div></div>
+				</td>
+			</tr>
+			<tr>
+				<!-- Subject -->
+					<td colspan="1" nowrap="nowrap" valign="middle" width="105" align="right"><font color="#ff0000">*</font><label for="commentsubject">Subject</label>:</td>
+				<td colspan="5"><input widgetid="commentsubject" tabindex="0" style="width: 100%;" id="commentsubject" class="dijit dijitReset dijitLeft dijitTextBox" dojoattachpoint="textbox,focusNode" name="textarea3" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onfocus:_onMouse,onblur:_onMouse,onkeypress:_onKeyPress" autocomplete="off" type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="6" width="105">
+						<div id="dialogLink" style="display:none; top:100px; border:1pt solid lightblue; left:180px; width:280px; height: 110px; position:absolute; background:white">
+						  <br><table>
+							
+							  <tbody><tr>
+								<td><label id="urlLabel" for="url">URL:</label></td>
+								<td><div widgetid="dialogLink.linkUrl" role="presentation" class="dijit dijitReset dijitInlineTable dijitLeft dijitTextBox dijitTextBoxError dijitError" id="widget_dialogLink.linkUrl" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse" wairole="presentation"><div style="overflow:hidden;"><div class="dijitReset dijitValidationIcon"><br></div><div class="dijitReset dijitValidationIconText">Χ</div><div class="dijitReset dijitInputField"><input value="http://" aria-required="true" tabindex="0" aria-invalid="true" id="dialogLink.linkUrl" class="dijitReset" dojoattachpoint="textbox,focusNode" dojoattachevent="onfocus:_update,onkeyup:_update,onblur:_onMouse,onkeypress:_onKeyPress" autocomplete="off" name="texturl" type="text"></div></div></div></td>
+							  </tr>
+				              <tr>
+								<td><label id="titleLabel" for="title">Title: </label></td>
+								<td><div widgetid="dialogLink.linkTitle" role="presentation" class="dijit dijitReset dijitInlineTable dijitLeft dijitTextBox" id="widget_dialogLink.linkTitle" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse" wairole="presentation"><div style="overflow:hidden;"><div class="dijitReset dijitValidationIcon"><br></div><div class="dijitReset dijitValidationIconText">Χ</div><div class="dijitReset dijitInputField"><input aria-invalid="true" aria-required="true" tabindex="0" id="dialogLink.linkTitle" class="dijitReset" dojoattachpoint="textbox,focusNode" dojoattachevent="onfocus:_update,onkeyup:_update,onblur:_onMouse,onkeypress:_onKeyPress" autocomplete="off" name="texttitle" type="text"></div></div></div></td>
+							  </tr>
+						  </tbody></table>
+						  <table>
+							<tbody><tr>
+								<td width="55%">
+									<div id="buttonDiv" align="center">
+										<!-- button id='linkButton'></button-->
+									</div>
+								</td>
+								<td></td>
+								<td width="35%"><div align="center">
+									<span widgetid="dijit_form_Button_0" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="dijit_form_Button_0" aria-labelledby="dijit_form_Button_0_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-dijit_form_Button_0_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="dijit_form_Button_0_label" dojoattachpoint="containerNode">Cancel</span></button></span></span></span>
+									</div>
+								</td>
+							</tr>
+						</tbody></table>
+						</div>
+				</td>
+			</tr>
+			<tr>
+				<!-- Comment -->
+					<td colspan="1" style="padding-top: 5px;" nowrap="nowrap" valign="top" width="105" align="right"><font color="#ff0000">*</font><label for="commenttext">Comment</label>:</td>
+					<td colspan="5">
+					<div widgetid="toolbar" style="width: 100%; border-width: 1pt; border-style: solid solid none; border-color: rgb(179, 179, 179); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none;" id="toolbar" role="toolbar" class="dijit dijitToolbar ctextarea" wairole="toolbar" tabindex="0" dojoattachpoint="containerNode">
+					<table><tbody><tr>
+					<td style="border-right:1pt solid #B3B3B3"><a href="javascript:commentDlg.setFontBold();"><img style="vertical-align:middle" title="Bold" src="vccFrame_data/bold.gif"></a></td>
+					<td style="border-right:1pt solid #B3B3B3"><a href="javascript:commentDlg.setFontItalic();"><img style="vertical-align:middle" title="Italic" src="vccFrame_data/italic.gif"></a></td>
+					<td style="border-right:1pt solid #B3B3B3"><a href="javascript:commentDlg.showLinkDialog();"><img style="vertical-align:middle;" title="URL" src="vccFrame_data/conflink.gif"></a></td>
+					</tr></tbody></table></div>
+					<textarea id="commenttext" name="textarea2" rows="6" class="ctextarea" style="width:100%;border:1pt solid #B3B3B3"></textarea>
+					</td>
+			</tr>
+			<!-- Notify Extra People(Optional) -->
+			<tr id="notify_tr_2" name="notify_tr">
+				<td colspan="1" width="105" align="right"><label for="notifyextra">Send e-mail to:</label></td>
+				<td colspan="5"><div widgetid="notifyextra" style="width: 100%;" role="presentation" class="dijit dijitReset dijitInlineTable dijitLeft medium dijitTextBox" id="widget_notifyextra" dojoattachevent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse" wairole="presentation"><div style="overflow:hidden;"><div class="dijitReset dijitValidationIcon"><br></div><div class="dijitReset dijitValidationIconText">Χ</div><div class="dijitReset dijitInputField"><input aria-required="false" tabindex="0" aria-invalid="false" id="notifyextra" class="dijitReset" dojoattachpoint="textbox,focusNode" dojoattachevent="onfocus:_update,onkeyup:_update,onblur:_onMouse,onkeypress:_onKeyPress" autocomplete="off" name="notifyextra" type="text"></div></div></div> <span class="dijitTooltipData" widgetid="dijit_Tooltip_3" id="dijit_Tooltip_3" dojotype="dijit.Tooltip" connectid="notifyextra">Separate e-mail addresses with commas.</span></td>
+			</tr>
+		</tbody></table>
+		<table width="95%">
+			<tbody><tr>
+				<td width="50%">
+				    <div align="center">
+				        <span widgetid="submitcomment" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="submitcomment" aria-labelledby="submitcomment_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-submitcomment_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="submitcomment_label" dojoattachpoint="containerNode">
+	                    Submit
+	                    
+                        </span></button></span></span></span>
+                    </div>
+				</td>		
+				<td>
+				    <div align="center">
+				        <span widgetid="cancelbutton" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="cancelbutton" aria-labelledby="cancelbutton_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-cancelbutton_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="cancelbutton_label" dojoattachpoint="containerNode">
+	                    Cancel
+	                    
+                        </span></button></span></span></span>
+                    </div>
+				</td>
+			</tr>
+		</tbody></table>
+	</form>
+</div>
+</div><div title="" style="visibility: hidden; position: absolute; top: -9999px;" widgetid="changeDisposition" id="changeDisposition" aria-labelledby="changeDisposition_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-changeDisposition_title">
+	<div title="Change disposition" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="changeDisposition_title">Change disposition</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent">
+<ul id="disproot" class="comments">
+</ul>
+<!-- Submit -->
+<span widgetid="dijit_form_Button_1" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="dijit_form_Button_1" aria-labelledby="dijit_form_Button_1_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-dijit_form_Button_1_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="dijit_form_Button_1_label" dojoattachpoint="containerNode">
+	Submit
+	
+</span></button></span></span></span>
+<!-- Cancel -->
+<span widgetid="dijit_form_Button_2" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="0" id="dijit_form_Button_2" aria-labelledby="dijit_form_Button_2_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="" type="button" wairole="button" waistate="labelledby-dijit_form_Button_2_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="dijit_form_Button_2_label" dojoattachpoint="containerNode">
+	Cancel
+	
+</span></button></span></span></span>
+</div>
+</div><div title="" widgetid="termofusedialog" style="overflow: auto; width: 90%; height: 55%; visibility: hidden; position: absolute; top: -9999px;" id="termofusedialog" aria-labelledby="termofusedialog_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-termofusedialog_title">
+	<div title="Terms of Use" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="termofusedialog_title">Terms of Use</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent">
+</div>
+</div><div title="" widgetid="showTermofusedialog" style="overflow: auto; width: 90%; height: 55%; visibility: hidden; position: absolute; top: -9999px;" id="showTermofusedialog" aria-labelledby="showTermofusedialog_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-showTermofusedialog_title">
+	<div title="Terms of Use" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="showTermofusedialog_title">Terms of Use</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent"></div>
+</div><div title="" widgetid="aboutDlg" style="overflow: auto; width: 50%; height: 55%; visibility: hidden; position: absolute; top: -9999px;" id="aboutDlg" aria-labelledby="aboutDlg_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-aboutDlg_title">
+	<div title="About" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="aboutDlg_title">About</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent"></div>
+</div><div title="" widgetid="logon.Dialog" style="width: 422px; visibility: hidden; position: absolute; top: -9999px;" dir="ltr" id="logon.Dialog" aria-labelledby="logon.Dialog_title" role="dialog" class="dijitDialog dijitContentPane" tabindex="-1" wairole="dialog" waistate="labelledby-logon.Dialog_title">
+	<div title="Sign in" dojoattachpoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoattachpoint="titleNode" class="dijitDialogTitle" id="logon.Dialog_title">Sign in</span>
+	<span dojoattachpoint="closeButtonNode" class="dijitDialogCloseIcon" dojoattachevent="onclick: onCancel" title="Cancel">
+		<span dojoattachpoint="closeText" class="closeText" title="Cancel">x</span>
+	</span>
+	</div>
+		<div dojoattachpoint="containerNode" class="dijitDialogPaneContent">
+<form action="javascript://" method="return false;">
+	<table class="tb1" style="width: 400px;">
+		<tbody><tr>
+			<th colspan="4" style="text-align:left"><font size="+2">Collaboration Center</font></th>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="1"><label for="user">IBM ID</label></td>
+			<td colspan="2">
+				<input name="user" id="useridinput" tabindex="1" maxlength="80" size="20" style="font-family:arial,sans-serif" type="text">
+				<span class="dijitTooltipData" widgetid="useridTip" id="useridTip" dojotype="dijit.Tooltip" connectid="useridinput">
+					Enter your IBM ID.
+				</span>
+			</td>
+			<td colspan="1" style="font-size: 10px;" align="left">
+				<a tabindex="5" style="padding-left: 0px; padding-right: 0px;" class="blue-dark" target="_blank" href="https://www.ibm.com/account/profile?page=reg"><img src="vccFrame_data/forwarding.gif" style="padding-left: 0px; padding-right: 0px;" align="left">Register on IBM.com</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="1"><label for="pwd">Password</label></td>
+			<td colspan="2">
+				<input name="pwd" id="userpwdinput" tabindex="2" maxlength="31" size="20" style="font-family:arial,sans-serif" type="password">
+				<span class="dijitTooltipData" widgetid="passwordTip" id="passwordTip" dojotype="dijit.Tooltip" connectid="userpwdinput">
+					Enter your password.
+				</span>
+			</td>
+			<td colspan="1" style="font-size: 10px;" align="left">
+				<a tabindex="6" style="padding-left: 0px; padding-right: 0px;" class="blue-dark" target="_blank" href="https://www.ibm.com/account/profile?page=forgot"><img src="vccFrame_data/forwarding.gif" style="padding-left: 0px; padding-right: 0px;" align="left"> Forgot your password?</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<span widgetid="logonSubmit" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="3" id="logonSubmit" aria-labelledby="logonSubmit_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="submit" type="submit" wairole="button" waistate="labelledby-logonSubmit_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="logonSubmit_label" dojoattachpoint="containerNode">Sign in
+				
+				</span></button></span></span></span>
+			</td>
+			<td colspan="2" align="center">
+				<span widgetid="dijit_form_Button_3" class="dijit dijitReset dijitLeft dijitInline dijitButton" dojoattachevent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"><span class="dijitReset dijitRight dijitInline"><span class="dijitReset dijitInline dijitButtonNode"><button style="-moz-user-select: none;" tabindex="4" id="dijit_form_Button_3" aria-labelledby="dijit_form_Button_3_label" role="button" class="dijitReset dijitStretch dijitButtonContents" dojoattachpoint="titleNode,focusNode" name="submit" type="button" wairole="button" waistate="labelledby-dijit_form_Button_3_label"><span class="dijitReset dijitInline" dojoattachpoint="iconNode"><span class="dijitReset dijitToggleButtonIconChar">✓</span></span><span class="dijitReset dijitInline dijitButtonText" id="dijit_form_Button_3_label" dojoattachpoint="containerNode">Cancel
+				
+				</span></button></span></span></span>
+			</td>
+		</tr>
+	</tbody></table>
+</form>
+</div>
+</div><div style="visibility: hidden; position: absolute; top: -9999px;" title="" widgetid="localeDialog" class="dijitTooltipDialog dijitContentPane" id="localeDialog" role="presentation" wairole="presentation">
+	<div role="presentation" class="dijitTooltipContainer" wairole="presentation">
+		<div title="" role="dialog" class="dijitTooltipContents dijitTooltipFocusNode" dojoattachpoint="containerNode" tabindex="-1" wairole="dialog">
+	        <table>
+	            <tbody id="localeContent_root">
+	            </tbody>
+	        </table>
+	        <div id="defaultLocale_div" class="defaultLocale"></div>
+	    </div>
+	</div>
+	<div role="presentation" class="dijitTooltipConnector" wairole="presentation"></div>
+</div></body></html>

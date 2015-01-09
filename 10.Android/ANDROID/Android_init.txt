@@ -1,0 +1,216 @@
+Create your own device/my_company/my_device directory with complete product description.
+
+	• Mandatory vendorsetup.sh:
+		add_lunch_combo my_device-eng
+		- This file creats a new entry when we hit lunch command.
+	 
+	• Mandatory Android.mk:
+		LOCAL_PATH := $(call my-dir)
+		include $(call all-makefiles-under,$(LOCAL_PATH))
+		- Used to include all the following makefiles 
+	
+	• Mandatory AndroidProducts.mk:
+		PRODUCT_MAKEFILES := $(LOCAL_DIR)/my_device_name.mk
+
+	• Mandatory my_device_name.mk:
+		- Specify all the make file to include. The best thing for that is
+		  get copy from generic / from the device close to the one that we 
+		  want to build.   
+		
+		For panda board
+		---------------		  	  
+		# Inherit from those products. Most specific first.
+		$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+		$(call inherit-product, device/ti/panda/device.mk)
+		$(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
+
+		PRODUCT_NAME := full_panda
+		PRODUCT_DEVICE := panda
+		PRODUCT_BRAND := Android
+		PRODUCT_MODEL := Panda
+		PRODUCT_MANUFACTURER := Texas_Instruments_Inc
+
+	• Mandatory device.mk:
+		- This file includes all definitions that apply only to specific devices
+		
+		For example 
+		-----------
+			PRODUCT_COPY_FILES : Macro that defines all the files we need in root filesystem.
+			PRODUCT_PACKAGES : Defines the packages that we want to build for android source 
+				
+		ifeq ($(TARGET_PREBUILT_KERNEL),)
+			LOCAL_KERNEL := device/ti/panda/kernel
+		else
+			LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+		endif
+
+		PRODUCT_COPY_FILES := \
+        		$(LOCAL_KERNEL):kernel \
+        		device/ti/panda/init.omap4pandaboard.rc:root/init.omap4pandaboard.rc \
+        		device/ti/panda/init.omap4pandaboard.usb.rc:root/init.omap4pandaboard.usb.rc \
+        		device/ti/panda/fstab.omap4pandaboard:root/fstab.omap4pandaboard \
+
+		$(call inherit-product-if-exists, vendor/ti/panda/device-vendor.mk)
+		$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+		$(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+		$(call inherit-product-if-exists, vendor/ti/proprietary/omap4/ti-omap4-vendor.mk)
+	
+	• Mandatory BoardConfig.mk (product-specific compile-time definitions):
+		In this file we can specify all compiletime options that we want.
+		# Target and compiler options
+			TARGET_CPU_ABI := armeabi-v7a
+			TARGET_CPU_ABI2 := armeabi
+			TARGET_CPU_SMP := true
+			TARGET_ARCH:= arm
+			TARGET_CPU_VARIANT := cortex-a9
+		# Enable NEON feature
+			TARGET_ARCH_VARIANT := armv7-a-neon
+		# Platform
+			TARGET_BOARD_PLATFORM := omap4
+		# Filesystem and partitioning
+			BOARD_SYSTEMIMAGE_PARTITION_SIZE := 256M
+			BOARD_USERDATAIMAGE_PARTITION_SIZE := 512M
+			BOARD_CACHEIMAGE_PARTITION_SIZE := 256M
+			BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+			TARGET_USERIMAGES_USE_EXT4 := true
+			BOARD_FLASH_BLOCK_SIZE := 4096
+	
+	Configuration Overlay
+		- In device.mk:
+		DEVICE_PACKAGE_OVERLAYS := device/my_company/my_device/overlay
+		- Create a device/my_company/my_device/overlay directory with same depth and 
+		  files you want to overwrite. e.g:
+		- frameworks/base/core/res/res/values/config.xml
+		- frameworks/base/core/res/res/values/dimens.xml
+		- frameworks/base/core/res/res/xml/storage_list.xml
+
+
+	Android Init
+	-------------
+		• Initialization Steps:
+			- Creates basic filesystem (/dev, /proc, /sys) and mounts it.
+			- Parses /init.rc
+			- Parses /init.${hw_name}.rc based on kernel command-line or /proc/cpuinfo
+			- Build exec queues
+			- Start triggers and associated actions and services.
+			- e.g. "early-init", "init", "early-fs", "fs", "post-fs", "early-boot", "boot" ...
+		Syntax: on <trigger> <command> <command> ...
+		Example :
+
+			on early-init
+   				write /proc/1/oom_adj -16
+    				start ueventd
+				# create mountpoints
+    				mkdir /mnt 0775 root system	
+			on init
+				sysclktz 0
+				loglevel 3
+
+				# setup the global environment
+    				export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+			on fs
+				# mount mtd partitions
+    				mount yaffs2 mtd@system /system
+    				mount yaffs2 mtd@system /system ro remount
+    				mount yaffs2 mtd@userdata /data nosuid nodev
+    				mount yaffs2 mtd@cache /cache nosuid nodev
+			on post-fs
+    				# once everything is setup, no need to modify /
+    				mount rootfs rootfs / ro remount
+			on boot
+				# basic network init
+				ifup lo
+				hostname localhost
+    				domainname localdomain
+			## Daemon processes to be run by init.
+				service ueventd /sbin/ueventd
+				    class core
+    				    critical
+				    seclabel u:r:ueventd:s0
+				service console /system/bin/sh
+				    class core
+				    console
+				    disabled
+				    user shell
+		
+		Android Init Options
+		--------------------
+
+		Option 				    Syntax Description
+		--------------------------------------------------------
+		critical 			    This is a device-critical service. If it exits more than four times in four
+        					    minutes, the device will reboot into recovery mode.
+
+		disabled 			    This service will not automatically start with its class.
+        					    It must be explicitly started by name.
+
+		setenv <name> <value> 		    Set the environment variable <name> to <value>
+                     				    in the launched process.
+
+		group <groupname> [ <groupname> ]*  Change to groupname before exec'ing this service.
+
+		oneshot 			    Do not restart the service when it exits.
+
+		class <name> 			    Specify a class name for the service. All services in a named class
+            					    may be started or stopped together
+
+		onrestart 			    Execute a Command when service restarts.
+
+		ioprio <rt|be|idle> <ioprio 0-7>    Set service priority and scheduling class.
+						    console Output logs on console.
+
+		capability <keycode> 		    Trigger service through keycode in /dev/keychord
+
+		Android Init Commands
+		---------------------
+		Command Syntax 					Description
+		-----------------------------------------------------------
+		setprop <name> <value> 			Set system property <name> to <value>.
+		setrlimit <resource> <cur> <max> 	Set the rlimit for a resource.
+		start <service> 			Start a service running if it is not already running.
+		stop <service> 				Stop a service from running if it is currently running.
+		restart <service> 			Restart a service from running if it is currently running.
+		symlink <target> <path> 		Create a symbolic link at <path> with the value <target>
+		sysclktz <mins_west_of_gmt> 		Set the system clock base (0 if system clock ticks in GMT)
+		trigger <event> 			Trigger an event. Used to queue an action from another action.
+		write <path> <string> [ <string> ]* 	Open the file at <path> and write one or more strings to it.
+		rm <path> 				Removes a file.
+		rmdir <path> 				Removes a directory.
+		wait <file> 				Wait for file to exist or timeout to be reached.
+		copy <src> <dest> 			Copy from source to dest.
+		loglevel <level> 			Set kernel log level.
+		load_persist_props 			Load properties from files in /data/property
+
+		Example
+		-------
+			# Define TCP buffer sizes for various networks
+			#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    			setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    			setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
+
+			# Set this property so surfaceflinger is not started by system_init
+		    	setprop system_init.startsurfaceflinger 0
+			
+			# set RLIMIT_NICE to allow priorities from 19 to -20
+    			setrlimit 13 40 40
+			
+			symlink /system/etc /etc
+    			symlink /sys/kernel/debug /d
+
+			sysclktz 0
+
+			on property:vold.decrypt=trigger_post_fs_data
+    			trigger post-fs-data
+			
+			onrestart write /sys/android_power/request_state wake
+    			onrestart write /sys/power/state on
+			write /proc/cpu/alignment 4
+    			iwrite /proc/sys/kernel/sched_latency_ns 10000000
+
+			# Collect apanic data, free resources and re-arm trigger
+		    	copy /proc/apanic_console /data/dontpanic/apanic_console
+			
+			loglevel 3
+		
+			on property:vold.decrypt=trigger_load_persist_props
+    			load_persist_props

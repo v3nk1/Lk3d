@@ -1,0 +1,18 @@
+Loading a module dynamically at boot time:
+==========================================
+
+	# cp xxx.ko /lib/modules/$(uname -r)/kernel 
+	# cp <any_dependencies_of_xxx.ko> /lib/modules/$(uname -r)/kernel
+	# cd /lib/modules/$(uname -r)
+	# vi modules.dep
+		at last line (:$) add ur module followed by dependencies if any, like bellow
+		kernel/xxx.ko:
+		kernel/xxx.ko: kernel/depxxx.ko
+
+        To update modules.dep.bin
+	# depmod
+	
+
+	# vi /etc/modules
+		Add ur module name without .ko extention, like
+		xxx

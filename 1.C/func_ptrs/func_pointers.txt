@@ -1,0 +1,64 @@
+Function Pointers
+
+Decalration
+-----------
+	type (*fun_poi)(arg_type list);
+
+	Example
+		int (*fp)(int,int);
+		 - fp is pointer to function which returns an integer and takes two integers as arguments
+
+		float * (*fp)(int *,int *);	
+		 - fp is pointer to function which returns an pointer to integer and takes two pointers to integers as argumants
+		
+
+Initialization
+--------------
+	int add(int x, int y)
+	{
+		return x+y;
+	}
+	
+	int (*fp)(int,int)=add;	
+	
+        int sub(int x, int y)
+        {
+                return x-y;
+        }
+        
+        int (*fp)(int,int);
+	fp = sub; or fp = &sub;
+
+Using pointer to function
+-------------------------
+        int (*fp)(int,int); 
+	
+	int add(int x, int y)
+        {
+                return x+y;
+        }
+        
+	fp = add;	/* Initializing fp with address add function */
+	int i;
+	i = (*fp)(10,20);	/* Calling add function using fp */ 
+	
+Array of function pointers
+--------------------------
+
+	int add(int x, int y)
+        {
+                return x+y;
+        }
+        
+        int sub(int x, int y)
+        {
+                return x-y;
+        }
+	
+	int (*fp[2])(int,int);	/* fp is array of 2 pointer to functions */
+
+	fp[0] = add;
+	fp[1] = sub;
+
+	r = (*fp[0])(10,20);	/* Calling add function */
+	r = (*fp[0])(10,20);	/* Calling sub function */

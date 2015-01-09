@@ -1,0 +1,157 @@
+A structure is a collection of one or more variables, possibly of different data types, 
+grouped together under a single name to represent single entity.
+
+
+Structure declaration
+
+	struct tag_name {
+		type_spec member1;		/* members of the structure */ 
+		type_spec member2;		 
+		type_spec member3;		 
+		type_spec member4;		 
+		type_spec member5;		 
+		type_spec member6;		 
+		type_spec member7;		 
+		     ,,
+		     ,,
+		     ,,
+		     ,,
+		     ,,
+	};
+	
+	struct emp {
+		int empno;
+		char name[20],doj[8];
+	};
+
+	struct student {
+		int roll;
+		char name[25];
+		float hei,wei;
+	};
+	
+Structure declarations will allow programers to create new datatypes.
+Structure declarations will not be allocated with any space in memory.
+
+From structure declatarions compiler will find the compositions of structure.
+
+Size of structure = Sum of the bytes occupied by all the members + padded bytes if any (optional).
+
+	struct emp size = sizeof(int) + sizeof(name) + sizeof(doj) + padded bytes if any.
+	struct strudent = sizeof(roll) + sizeof(name) + sizeof(hei) + sizeof(wei) +  padded bytes if any.
+
+
+Declaring a structure object
+
+	struct tag_name variable;
+
+	struct emp obj; /* obj is of type struct emp */ 
+	struct student obj;	/* obj is of type struct student */
+
+	struct emp {
+                int empno;
+                char name[20],doj[8];
+        }obj1={100,"xyz","12/08/12"},obj2;	/* obj1 & obj2 is of type struct emp */ 
+
+        struct student {
+                int roll;
+                char name[25];
+                float hei,wei;
+        }obj;	/* obj is of type struct student */
+
+Data aligmant
+	A datum is called naturally aligned if its address is aligned to its size (address is multiple of its size).
+
+Why structure padding
+        Structure padding is done by the compiler by pushing unused bytes in between the members of the structure to make sure that every 
+	member is aligned in the memory.
+
+Struct initialization
+
+	struct tag_name object  = {init values};
+
+	struct A {              /* struct delcaration */
+                int a;          /* a & b are members of struct A */
+                int b;
+        };
+	struct A obj = {10,20};
+        
+
+	struct_variable.member_name; ("." struct member operator)
+	
+	struct A obj;           /* obj is of type struct A */
+        obj.a = 10;
+        obj.b = 20;
+
+Exe
+1)Declare a structure with 3 integer members. Third member of the structure should hold the sum of first 2 members of the structure.
+
+
+2)Declare a structure with 2 integers and 2 pointer to integers.
+One pointer should hold the address of first integer and another pointer member should the address of another integer.
+
+3)Declare a structure with one member as array of integer of any size  and another member as integer.
+Integer member should hold the sum of all values of array member.
+
+4)Decalre a structure with two integer members. Decalre  two structure objects and copy the elements of one structure object to another structure object.
+
+5)Decalre a structure with two integers, decclare array of 2 structure objects, initilize the object and print the objects
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+Pointers to structures
+
+
+Exe
+---
+1. Declare a structure with one integer and one pointer to integer as members.
+   pointer member will hold the address of integer member.
+   Declare a structure object and init,.
+   Decalre a pointer to structure and init,. with address of structure object.
+   Update integer member with new value using pointer to structure.
+   Read integer value using pointer to structure and pointer to integer member.
+
+2. Declare the following structure
+   struct msg {
+	char str[20];
+	int len;
+   };
+   
+   a. Decalre a object for above structure.
+      Initilize "str" member of structure object with any string.
+      Store the length of the string in "len" member.
+      (Dont initilize the structure object at the time of declaration)
+
+   b. Declare array of 2 struct msg object and initilize.
+      Declare a new struct msg object and copy the contents of index 1 to new 
+      structure object.
+
+   c. Declare struct msg object and initilize with "Veda Solutions", and its length 
+      Declare pointer to struct msg and initilize with address of struct msq object.
+      Declare a pointer to pointer to struct msq and initilize with the address of 
+      pointer to struct msg.
+      Update struct msq object values with "pointer to struct" and its length using 
+      pointer to pointer to struct msg.
+ 
+3. Define a functions which will update the struct object passed as first argument 
+   with data passed as second argument.
+
+4. Define a functions which will search for a given message in given array of 
+   structure object. if found return 1 and 0 if not found.
+
+5. Define a function which will sort all elements in the given array of structure 
+   object with "len" member as primary key.
+
+6. Is there any mistake?
+ struct A {
+	int x=10;
+	int y;
+   }obj;
+   		
+7. Define a functions which will swap two structure objects.
+ 
+8. Define a functions which will add two structure objects and stores the result in 
+   another structure object.
+

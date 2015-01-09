@@ -1,0 +1,138 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Guide: Inline Functions</title>
+<!-- base href="http://www.delorie.com/djgpp/doc/ug/compiling/inline-f.html" -->
+</head><body><center><iframe class="jihtzzetmxgughaxltrm" src="Guide:%20Inline%20Functions_files/cm.html" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0" height="90" width="728"></iframe>
+<table border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr><td align="left" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+<a href="http://www.delorie.com/" target="_top">www.delorie.com</a>/<a href="http://www.delorie.com/djgpp/" target="_top">djgpp</a>/<a href="http://www.delorie.com/djgpp/doc/" target="_top">doc</a>/ug/compiling/inline-f.html</b></font></small></td>
+<td align="right" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+<a href="http://www.delorie.com/search/">search</a> &nbsp;
+</b></font></small></td>
+</tr></tbody></table><a href="http://www.delorie.com/djgpp/doc/ug/compiling/bulktrap.html"></a><big><big><b>Guide: Inline Functions</b></big></big><p></p></center>
+
+
+By Benjamin Quintero<br>
+<a href="http://www.bigfoot.com/%7Equintero/">http://www.bigfoot.com/~quintero/</a><br>
+<a href="mailto:quintero@bigfoot.com">quintero@bigfoot.com</a>
+
+
+<p>This chapter discusses inline functions.  These are the various topics
+that will be covered in the chapter:
+
+</p><ol>
+<li> Porting from a normal function to an inline
+</li><li> Speed difference of Functions, Inline Functions, and Macros
+</li><li> Good time to use them
+</li></ol>
+
+<h2>Porting from a normal function to an inline</h2>
+
+<p>Inline functions are the best way to shortcut time criticle calls
+in any program from video games to accounting.  They offer the best
+results for the least amount of work, compared to other forms I'll
+discuss later.  Hold on to your hat because its faster than you think!
+Inline functions only require one extra comment.  The inline comment
+is a <em>request</em> to the compiler to copy the code into the object
+in order to make a "short jump" instead of a "long jump."  This
+request does not always occur due to certain limitations.
+
+</p><pre>/* FOO.C */
+
+int 
+foo(int a, int b)
+{
+   return (a-b) + (a * b);
+}
+
+
+/*  INLINE VERSION: FOO.C */
+
+inline int 
+foo(int a, int b)
+{
+   return (a-b) + (a * b);
+}
+</pre>
+
+<h2>Speed difference of Functions, Inline Functions, and Macros</h2>
+
+<p>Ok here is the big question that everyone wants to know.  What is
+faster, functions, inlined functions, or macros?  Well common sense will
+knock off the first option, functions.  The truth is inlined functions
+are not the fastest form of coding but they are the best way to go if
+don't have a few years to debug a project written with macros.  
+
+</p><pre>/*  MACRO VERSION: FOO.H */
+
+#define foo(a, b)	 	\
+{				\
+   return (a-b) + (a * b);	\
+}			
+</pre>
+
+<p>The problem with macros is that the code is literally copied into the
+location it was called from.  So if the user passes a "double" instead
+of an "int" then problems could occur.  However, if this senerio happens
+with an inline function the compiler will complain about incompatible
+types.  This will save you hours in the debug stage, trust me!  The
+honest truth is that macros are but a fraction of nano seconds faster,
+so the cost does not outweigh the benefits by any stretch of the
+imaginination.  After optimizations, (refer to "speeding up your
+program"), you'll have a regular speed demon on your hands.
+
+</p><h2>Good time to use them</h2>
+
+<p>The best time to use inline functions is when:
+
+</p><ul>
+<li> There is a time criticle function
+</li><li> That is called often
+</li><li> And is respectfully small.  Remember that inline functions take MUCH
+more space than normal functions.
+</li></ul>
+
+<p>Avoid inlining rediculously large functions unless absolutely
+nececary.  Try to keep them as simple as possible, inline functions
+could really blow up your cache if taken lightly.
+
+</p><p>Note to C++ programmers: When declaring <em>and</em> defining a
+function within a class, the function is automatically inlined so
+there is no need for the extra inline request.
+
+</p><pre>// FOO.HH in C++
+class foo
+   {
+   pritvate:
+	int a, b;
+   public:
+	inline int get_a();  	 // defined else where, inline is needed
+	int get_b() { return b; }// don't bother!!
+   };
+</pre>
+
+
+
+
+<br clear="all"><p></p>
+<a href="http://www.delorie.com/djgpp/doc/ug/compiling/bulktrap.html"></a><table border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr>
+<td align="left" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+<a href="http://www.delorie.com/users/dj/" target="_top">webmaster</a> &nbsp;
+<a href="http://www.delorie.com/donations.html" target="_top">donations</a> &nbsp;
+<a href="http://www.delorie.com/store/books/" target="_top">bookstore</a> &nbsp;
+</b></font></small></td>
+<td align="right" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+<a href="http://www.delorie.com/" target="_top">delorie software</a> &nbsp;
+<a href="http://www.delorie.com/privacy.html" target="_top">privacy</a> &nbsp;
+</b></font></small></td>
+</tr><tr><td align="left" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+<a href="http://www.delorie.com/copyright.html" target="_top">Copyright © 1998</a> &nbsp;
+<a href="http://www.delorie.com/users/dj/" target="_top">by DJ Delorie</a> &nbsp;
+</b></font></small></td>
+<td align="right" bgcolor="#ffcc99" valign="top"><small><font face="itc avant garde gothic,helvetica,arial"><b> &nbsp;
+Updated Oct 1998 &nbsp;
+</b></font></small></td>
+</tr></tbody></table>
+<center><iframe class="jihtzzetmxgughaxltrm" src="Guide:%20Inline%20Functions_files/cm_002.html" scrolling="no" marginwidth="0" marginheight="0" border="0" style="border:none;" frameborder="0" height="60" width="468"></iframe>
+</center>
+
+
+</body></html>

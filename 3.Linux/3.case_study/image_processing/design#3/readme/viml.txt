@@ -1,0 +1,28 @@
+
+
+From design#2 to design#3 we newly add only one function xtra to load handlers.
+
+	vloadHandlers():
+	````````````````  
+	In this we are opening a pre-saved file ./config.txt in "r" mode by using any of call., ie., u can use open(),fopen() ...
+	In the config.txt just names of all handlers created as shared objects are preserved.
+	
+==>	And reading them line by line by using fgets or fgetc or read; fread is only for binary purpose uncompatible here since we 	are reading ascii file ascciand APPEND A NULL CHAR AT LAST OF THE STRING.
+	and loading them to dynamic lib by dlopen().
+	To place null char generically(means wat ever the name given in config.txt immediate next char must be null) is little 		tricky. To do that we are doing strlen(lib_buff) gives how many char it read.
+	so here one thing is, when ever fgets reads(encounter) a new line it places '\n' also in the char array and stops.. ie it 	didnt append '/0' (NULL char) immediate, but append after '\n'.
+SEE MAN FGETS===========================================================>
+
+	but wemust place '/0' immediate, so we do [strlen(lib_buff)]=12 + 1(for '\n')=13, we require 12 char as it is so 12 char will occupy 0-->11 index. so 12 index in lib_buff must be '\0' so 	
+				lib_buff[strlen(lib_buff)-1]='\0'; it 'll do the job by overriding '\n'..
+	
+	
+==>	If u put dlclose here at the end of this function then library is loaded and unloaded at the end of this function, but we 	 want to have them loaded throughout the programme. so dnt put dlclose, if u put then sigmetation fault becoz u are trying  	   access illigal memory na.., since it unloaded at this function only...
+	
+	findHandler():
+	``````````````  Very small changes done in findHandler that there is no NULL at the end of no.. handlers registation ie., 	no "sh *handlers[]={&gifHandler,&tifHandler,&jpgHandler}" here since we load them in dynamically na.. no need of this..
+			
+		In this we run a loop for finding a suitable handler, condition is index < no_lib-loaded. index is a integer 			datatype which is declared globally and intialized to zero.. keep on incremet index it in the loop.
+		and no_lib is also integer datatype declared in "config.c". so we need to declare it with extern in viml layer.
+
+		 

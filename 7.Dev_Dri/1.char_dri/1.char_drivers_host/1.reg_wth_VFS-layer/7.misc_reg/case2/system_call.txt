@@ -1,0 +1,16 @@
+API's (system calls)
+--------------------
+	
+	open:
+	`````	Open generally used for permissions of the particular file it has opened.
+		Each file descriptor has its own offset instance. ie., once a file has opened through open API there 		is a first argument of type struct file *, in that instance we hav a member f_pos which holds offset of a	      of a particular fd
+
+	read/write:
+	```````````	
+		These are mainly worked using an importent entity called offset.. These functions do operations from 		offset only..
+		These functions get offset from struct file * instance(as 1st argument), in that structure f_pos is a 		member which holds the current offset of a paricular
+	
+		User is the one who should responsible for where the data has to/from writen/red(read), ie he shud use		lseek to navigate offset of a particular fd
+
+	lseek:
+	``````	The most needed entity for read/write API's, Through this we can navigate the offset as required..

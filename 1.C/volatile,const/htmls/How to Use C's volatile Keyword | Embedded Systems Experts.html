@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html class="js" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#"><head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta about="/Embedded-Systems/How-To/C-Volatile-Keyword" property="sioc:num_replies" content="5" datatype="xsd:integer">
+<link rel="shortcut icon" href="http://www.barrgroup.com/misc/favicon.ico" type="image/vnd.microsoft.icon">
+<meta content="How to Use C&amp;#039;s volatile Keyword" about="/Embedded-Systems/How-To/C-Volatile-Keyword" property="dc:title">
+<link rel="shortlink" href="http://www.barrgroup.com/node/80">
+<meta name="Generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="http://www.barrgroup.com/Embedded-Systems/How-To/C-Volatile-Keyword">
+  <title>How to Use C's volatile Keyword | Embedded Systems Experts</title>
+  <style type="text/css" media="all">@import url("http://www.barrgroup.com/modules/system/system.base.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/system/system.menus.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/system/system.messages.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/system/system.theme.css?n3dq70");</style>
+<style type="text/css" media="all">@import url("http://www.barrgroup.com/modules/aggregator/aggregator.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/comment/comment.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/date/date_api/date.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/field/theme/field.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/node/node.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/poll/poll.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/quiz/quiz.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/user/user.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/extlink/extlink.css?n3dq70");
+@import url("http://www.barrgroup.com/modules/forum/forum.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/views/css/views.css?n3dq70");</style>
+<style type="text/css" media="all">@import url("http://www.barrgroup.com/sites/all/modules/ctools/css/ctools.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/nice_menus/css/nice_menus.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/modules/nice_menus/css/nice_menus_default.css?n3dq70");</style>
+<style type="text/css" media="all">@import url("http://www.barrgroup.com/sites/all/themes/netrino/style.css?n3dq70");
+@import url("http://www.barrgroup.com/sites/all/themes/netrino/nice_menus_default.css?n3dq70");</style>
+  <script src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/jquery_004.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/jquery_002.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/drupal.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/jquery.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/jquery_003.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/superfish.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/nice_menus.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/extlink.js"></script>
+<script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/googleanalytics.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-2016180-3"]);_gaq.push(['_setCustomVar', 1, "User roles", "anonymous user", 1]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"bluemarine","theme_token":"rehtBtYUk44feZcWW8lMXXIQo0P-_ExzFyyIBZCvEBM","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/nice_menus\/js\/jquery.bgiframe.js":1,"sites\/all\/modules\/nice_menus\/js\/jquery.hoverIntent.js":1,"sites\/all\/modules\/nice_menus\/js\/superfish.js":1,"sites\/all\/modules\/nice_menus\/js\/nice_menus.js":1,"sites\/all\/modules\/extlink\/extlink.js":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"0":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"sites\/all\/modules\/quiz\/quiz.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/extlink\/extlink.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/nice_menus\/css\/nice_menus.css":1,"sites\/all\/modules\/nice_menus\/css\/nice_menus_default.css":1,"sites\/all\/themes\/netrino\/style.css":1,"sites\/all\/themes\/netrino\/nice_menus_default.css":1}},"nice_menus_options":{"delay":800,"speed":"slow"},"extlink":{"extTarget":"_blank","extClass":"ext","extSubdomains":1,"extExclude":"","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":0,"extAlertText":"This link will take you to an external web site. We are not responsible for their content.","mailtoClass":"mailto"},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-80 node-type-blog">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+     <div id="header" class="clearfix">
+
+  
+      
+  <div id="menu">
+        <h2 class="element-invisible">Main menu</h2><ul id="navlist" class="links"><li class="menu-43 first"><a href="http://www.barrgroup.com/home">Home</a></li>
+<li class="menu-1158"><a href="http://www.barrgroup.com/Boot-Camp-Box" title="">Products</a></li>
+<li class="menu-1162"><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses" title="">Services</a></li>
+<li class="menu-47"><a href="http://www.barrgroup.com/Training-Calendar-TEM/" title="Training Courses">Courses</a></li>
+<li class="menu-48"><a href="http://www.barrgroup.com/Embedded-Systems/How-To" title="Technical Library">How To</a></li>
+<li class="menu-1167"><a href="http://www.barrgroup.com/press-releases" title="">About Us</a></li>
+<li class="menu-50"><a href="http://www.barrgroup.com/contact" title="Contact Barr Group">Contact Us</a></li>
+<li class="menu-56 last"><a href="http://www.barrgroup.com/user" title="User Login">Login</a></li>
+</ul>  </div>
+
+    <div class="region region-header">
+    <div id="block-nice-menus-1" class="block block-nice-menus">
+
+      
+  <div class="content">
+    <ul class="nice-menu nice-menu-down nice-menu-main-menu nice-menus-processed sf-js-enabled" id="nice-menu-1"><li class="menu-43 menu-path-node-1 first odd "><a href="http://www.barrgroup.com/home">Home</a></li>
+<li class="menu-1158 menuparent  menu-path-node-274  even"><a href="http://www.barrgroup.com/Boot-Camp-Box" title="">Products</a><ul style="display: none; visibility: hidden;"><li class="menu-1159 menu-path-node-274 first odd "><a href="http://www.barrgroup.com/Boot-Camp-Box" title="">Embedded Software Training in a Box</a></li>
+<li class="menu-1160 menu-path-node-215  even "><a href="http://www.barrgroup.com/Coding-Standard-Muse" title="">Embedded C Coding Standard (Book)</a></li>
+<li class="menu-1161 menu-path-node-275  odd last"><a href="http://www.barrgroup.com/RMA-DVD" title="">How to Prioritize RTOS Tasks (DVD)</a></li>
+</ul></li>
+<li class="menu-1162 menuparent  menu-path-node-14  odd"><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses" title="">Services</a><ul style="display: none; visibility: hidden;"><li class="menu-1163 menu-path-node-14 first odd "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses" title="">Embedded Software Training</a></li>
+<li class="menu-1164 menu-path-node-13  even "><a href="http://www.barrgroup.com/Embedded-Systems/Consulting/Engineering-Guidance" title="">Process &amp; Architecture Consulting</a></li>
+<li class="menu-1527 menu-path-node-283  odd "><a href="http://www.barrgroup.com/Embedded-Systems/Consulting/Security-Guidance" title="Security Analysis">Security Analysis</a></li>
+<li class="menu-1165 menu-path-node-12  even "><a href="http://www.barrgroup.com/Embedded-Systems/Design-Services/Product-Development" title="">Product Development</a></li>
+<li class="menu-1166 menu-path-node-15  odd last"><a href="http://www.barrgroup.com/Embedded-Systems/Expert-Witness/Testimony-Research" title="">Expert Witness</a></li>
+</ul></li>
+<li class="menu-47 menuparent  menu-path-node-192  even"><a href="http://www.barrgroup.com/Training-Calendar-TEM/" title="Training Courses">Courses</a><ul style="display: none; visibility: hidden;"><li class="menu-141 menu-path-node-192 first odd "><a href="http://www.barrgroup.com/Training-Calendar-TEM/" title="Training Calendar">Training Calendar</a></li>
+<li class="menu-139 menu-path-node-184  even "><a href="http://www.barrgroup.com/Boot-Camp" title="Hands-on Embedded Software Training">Embedded Software Boot Camp</a></li>
+<li class="menu-1533 menu-path-node-304  odd "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Embedded-Android-Boot-Camp" title="">Embedded Android Boot Camp</a></li>
+<li class="menu-1531 menu-path-node-292  even "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Embedded-Security-Boot-Camp" title="Embedded Security Boot Camp">Embedded Security Boot Camp</a></li>
+<li class="menu-1528 menu-path-node-284  odd "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Agile-Extreme" title="Hands-on Embedded Agile Software Development Training">Agile and Test-Driven Embedded Development</a></li>
+<li class="menu-61 menu-path-node-16  even "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/RTOS-Programming" title="Firmware Architecture">Architecture Courses</a></li>
+<li class="menu-62 menu-path-node-17  odd "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Embedded-Software" title="Embedded Software Courses">Language Courses</a></li>
+<li class="menu-63 menu-path-node-18  even "><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Development-Tools" title="Development Tools Courses">Tools Courses</a></li>
+<li class="menu-144 menu-path-node-210  odd last"><a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Development-Processes" title="Development Process Courses">Process Courses</a></li>
+</ul></li>
+<li class="menu-48 menuparent  menu-path-node-19  odd"><a href="http://www.barrgroup.com/Embedded-Systems/How-To" title="Technical Library">How To</a><ul style="display: none; visibility: hidden;"><li class="menu-64 menu-path-node-19 first odd "><a href="http://www.barrgroup.com/Embedded-Systems/How-To" title="Embedded Systems Articles">Embedded Systems Articles</a></li>
+<li class="menu-65 menu-path-node-20  even "><a href="http://www.barrgroup.com/embedded-systems/books" title="Embedded Systems Books">Embedded Systems Books</a></li>
+<li class="menu-66 menu-path-node-21  odd last"><a href="http://www.barrgroup.com/Embedded-Systems/Glossary" title="Embedded Systems Glossary">Embedded Systems Glossary</a></li>
+</ul></li>
+<li class="menu-1167 menuparent  menu-path-node-286  even"><a href="http://www.barrgroup.com/press-releases" title="">About Us</a><ul style="display: none; visibility: hidden;"><li class="menu-1529 menu-path-node-286 first odd "><a href="http://www.barrgroup.com/press-releases" title="Press Releases &amp; Other News">News</a></li>
+<li class="menu-1168 menu-path-node-8  even "><a href="http://www.barrgroup.com/Embedded-Systems/Experts" title="">Embedded Systems Experts</a></li>
+<li class="menu-1169 menu-path-node-83  odd "><a href="http://www.barrgroup.com/Barr%20Group/Client-List" title="">Client List</a></li>
+<li class="menu-1170 menu-path-node-11  even "><a href="http://www.barrgroup.com/Embedded-Systems/Design-Services/Case-Studies" title="">Case Studies</a></li>
+<li class="menu-1171 menu-path-node-197  odd "><a href="http://www.barrgroup.com/Barr%20Group/Testimonials" title="">Testimonials</a></li>
+<li class="menu-1534 menu-path-node-310  even last"><a href="http://www.barrgroup.com/careers" title="Careers">Careers</a></li>
+</ul></li>
+<li class="menu-50 menu-path-contact  odd "><a href="http://www.barrgroup.com/contact" title="Contact Barr Group">Contact Us</a></li>
+<li class="menu-56 menu-path-user  even last"><a href="http://www.barrgroup.com/user" title="User Login">Login</a></li>
+</ul>
+  </div>
+</div>
+<div id="block-block-45" class="block block-block">
+
+      
+  <div class="content">
+    <p></p><div align="Center"><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fall Training Calendar<a href="http://www.barrgroup.com/Training-Calendar"> Live</a> for our Embedded Boot Camps:  <a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Embedded-Security-Boot-Camp">Security</a>,  <a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Boot-Camp">Software</a>,  and  <a href="http://www.barrgroup.com/Embedded-Systems/Training-Courses/Embedded-Android-Boot-Camp">Android</a>.</h3></div>
+
+
+<!--
+
+<p>Keep bugs out of your firmware by following our <a href="/coding-standard">Embedded C Coding Standard</a>.</p>
+
+-->  </div>
+</div>
+  </div>
+
+</div>
+
+<div id="mainContent">
+<div class="layout-columns clearfix">
+
+    <div class="region region-sidebar-first column">
+    <div id="block-block-14" class="block block-block">
+
+        <h2 class="title">Glossary</h2>
+    
+  <div class="content">
+    <p>Find definitions for technical terms in our <a href="http://www.barrgroup.com/Embedded-Systems/Glossary">Embedded Systems Glossary</a>.</p>
+<center>
+<table class="leftTableNav"><tbody><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-A">A</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-B">B</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-C">C</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-D">D</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-E">E</a></td></tr><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-F">F</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-G">G</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-H">H</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-I">I</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-J">J</a></td></tr><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-K">K</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-L">L</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-M">M</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-N">N</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-O">O</a></td></tr><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-P">P</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-Q">Q</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-R">R</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-S">S</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-T">T</a></td></tr><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-U">U</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-V">V</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-W">W</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-X">X</a></td>
+<td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-Y">Y</a></td></tr><tr><td><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-Z">Z</a></td>
+<td colspan="4"><a href="http://www.barrgroup.com/Embedded-Systems/Glossary-Symbols">Symbols</a></td></tr></tbody></table></center>  </div>
+</div>
+<div id="block-block-26" class="block block-block">
+
+        <h2 class="title">Sign Up Now</h2>
+    
+  <div class="content">
+    <p>Receive Michael Barr's <em>Firmware Update</em> ® newsletter for free how-to articles and industry news by e-mail.  <a class="ext" target="_blank" href="http://visitor.constantcontact.com/d.jsp?m=1101728959593&amp;p=oi">Sign up now.</a><span class="ext"></span></p>  </div>
+</div>
+<div id="block-block-20" class="block block-block">
+
+        <h2 class="title">Bookmark It</h2>
+    
+  <div class="content">
+    <p>Bookmark this page or share it with a colleague.</p>
+<p align="center"><!-- AddThis Bookmark Button BEGIN -->
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+  addthis_url    = location.href;   
+  addthis_title  = document.title;  
+  addthis_pub    = 'netrino';     
+
+//--><!]]>
+</script><script type="text/javascript" src="How%20to%20Use%20C%27s%20volatile%20Keyword%20%7C%20Embedded%20Systems%20Experts_files/addthis_widget.html"></script><!-- AddThis Bookmark Button END --></p>  </div>
+</div>
+  </div>
+<div id="mainAndSidebar">
+  
+  
+    	
+    <div class="inner">
+     
+            <h1 class="title" id="page-title">How to Use C's volatile Keyword</h1>            <div class="tabs"></div>                          <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+      
+  <div class="content">
+    <div id="node-80" class="node node-blog clearfix" about="/Embedded-Systems/How-To/C-Volatile-Keyword" typeof="sioc:Post sioct:BlogPost">
+
+  
+      
+      <span class="submitted"><span property="dc:date dc:created" content="2007-11-07T21:07:44-05:00" datatype="xsd:dateTime">Wed, 2007-11-07 21:07</span> - <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/1" typeof="sioc:UserAccount" property="foaf:name">webmaster</span></span></span>
+  
+  <div class="content">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p class="byline">by <a class="ext" href="http://www.embeddedgurus.net/stack-overflow" target="_blank">Nigel Jones</a><span class="ext"></span></p>
+
+<p class="deck">The proper use of C's volatile keyword is poorly 
+understood by many programmers. This is not surprising, as most C texts 
+dismiss it in a sentence or two.  This article will teach you the proper
+ way to do it.</p>
+
+<p>Have you experienced any of the following in your C or C++ embedded code?</p>
+
+<ul><li>Code that works fine--until you enable compiler optimizations
+</li><li>Code that works fine--until interrupts are enabled
+</li><li>Flaky hardware drivers
+</li><li>RTOS tasks that work fine in isolation--until some other task is spawned
+</li></ul><p>If you answered yes to any of the above, it's likely that 
+you didn't use the C keyword volatile. You aren't alone. The use of 
+volatile is poorly understood by many programmers. Unfortunately, most 
+books about the C programming language dismiss volatile in a sentence or
+ two.</p>
+
+<p>C's volatile keyword is a qualifier that is applied to a variable 
+when it is declared. It tells the compiler that the value of the 
+variable may change at any time--without any action being taken by the 
+code the compiler finds nearby. The implications of this are quite 
+serious. However, before we examine them, let's take a look at the 
+syntax.</p>
+
+<h2>volatile keyword syntax</h2>
+
+<p>To declare a variable volatile, include the keyword volatile before 
+or after the data type in the variable definition. For instance both of 
+these declarations will declare foo to be a volatile integer:</p>
+
+<pre>volatile int foo; 
+int volatile foo;
+</pre>
+
+<p>Now, it turns out that pointers to volatile variables are very 
+common, especially with memory-mapped I/O registers. Both of these 
+declarations declare pReg to be a pointer to a volatile unsigned 8-bit 
+integer:</p>
+
+<pre>volatile uint8_t * pReg; 
+uint8_t volatile * pReg;
+</pre>
+
+<p>Volatile pointers to non-volatile data are very rare (I think I've 
+used them once), but I'd better go ahead and give you the syntax:</p>
+
+<pre>int * volatile p;
+</pre>
+
+<p>And just for completeness, if you really must have a volatile pointer to a volatile variable, you'd write:</p>
+
+<pre>int volatile * volatile p;
+</pre>
+
+<p>Incidentally, for a great explanation of why you have a choice of 
+where to place volatile and why you should place it after the data type 
+(for example, int volatile * foo), read Dan Sak's column "Top-Level 
+cv-Qualifiers in Function Parameters" (Embedded Systems Programming, 
+February 2000, p. 63).</p>
+
+<p>Finally, if you apply volatile to a struct or union, the entire 
+contents of the struct/union are volatile. If you don't want this 
+behavior, you can apply the volatile qualifier to the individual members
+ of the struct/union.</p>
+
+<h2>Proper use of volatile</h2>
+
+<p>A variable should be declared volatile whenever its value could 
+change unexpectedly. In practice, only three types of variables could 
+change:</p>
+
+<p>1. Memory-mapped peripheral registers </p>
+
+<p>2. Global variables modified by an interrupt service routine </p>
+
+<p>3. Global variables accessed by multiple tasks within a multi-threaded application</p>
+
+<p>We'll talk about each of these cases in the sections that follow.</p>
+
+<h3>Peripheral registers</h3>
+
+<p>Embedded systems contain real hardware, usually with sophisticated 
+peripherals. These peripherals contain registers whose values may change
+ asynchronously to the program flow. As a very simple example, consider 
+an 8-bit status register that is memory mapped at address 0x1234. It is 
+required that you poll the status register until it becomes non-zero. 
+The naive and incorrect implementation is as follows:</p>
+
+<pre>uint8_t * pReg = (uint8_t *) 0x1234;
+
+// Wait for register to become non-zero 
+while (*pReg == 0) { } // Do something else
+</pre>
+
+<p>This will almost certainly fail as soon as you turn compiler 
+optimization on, since the compiler will generate assembly language that
+ looks something like this:</p>
+
+<pre>  mov ptr, #0x1234 mov a, @ptr
+
+loop:
+  bz loop
+</pre>
+
+<p>The rationale of the optimizer is quite simple: having already read 
+the variable's value into the accumulator (on the second line of 
+assembly), there is no need to reread it, since the value will always be
+ the same. Thus, in the third line, we end up with an infinite loop. To 
+force the compiler to do what we want, we modify the declaration to:</p>
+
+<pre>uint8_t volatile * pReg = (uint8_t volatile *) 0x1234;
+</pre>
+
+<p>The assembly language now looks like this:</p>
+
+<pre>  mov ptr, #0x1234
+
+loop:
+  mov a, @ptr
+  bz loop
+</pre>
+
+<p>The desired behavior is achieved.</p>
+
+<p>Subtler problems tend to arise with registers that have special 
+properties. For instance, a lot of peripherals contain registers that 
+are cleared simply by reading them. Extra (or fewer) reads than you are 
+intending can cause quite unexpected results in these cases.</p>
+
+<h3>Interrupt service routines</h3>
+
+Interrupt service routines often set variables that are tested in 
+mainline code. For example, a serial port interrupt may test each 
+received character to see if it is an ETX character (presumably 
+signifying the end of a message). If the character is an ETX, the ISR 
+might set a global flag. An incorrect implementation of this might be:
+
+<pre>int etx_rcvd = FALSE;
+
+void main() 
+{
+    ... 
+    while (!ext_rcvd) 
+    {
+        // Wait
+    } 
+    ...
+}
+
+interrupt void rx_isr(void) 
+{
+    ... 
+    if (ETX == rx_char) 
+    {
+        etx_rcvd = TRUE;
+    } 
+    ...
+}
+</pre>
+
+<p>With compiler optimization turned off, this code might work. However,
+ any half decent optimizer will "break" the code. The problem is that 
+the compiler has no idea that etx_rcvd can be changed within an ISR. As 
+far as the compiler is concerned, the expression !ext_rcvd is always 
+true, and, therefore, you can never exit the while loop. Consequently, 
+all the code after the while loop may simply be removed by the 
+optimizer. If you are lucky, your compiler will warn you about this. If 
+you are unlucky (or you haven't yet learned to take compiler warnings 
+seriously), your code will fail miserably. Naturally, the blame will be 
+placed on a "lousy optimizer."</p>
+
+<p>The solution is to declare the variable etx_rcvd to be volatile. Then
+ all of your problems (well, some of them anyway) will disappear.</p>
+
+<h3>Multi-threaded applications</h3>
+
+<p>Despite the presence of queues, pipes, and other scheduler-aware 
+communications mechanisms in real-time operating systems, it is still 
+fairly common for two tasks to exchange information via a shared memory 
+location (that is, a global). Even as you add a preemptive scheduler to 
+your code, your compiler has no idea what a context switch is or when 
+one might occur. Thus, another task modifying a shared global is 
+conceptually identical to the problem of interrupt service routines 
+discussed previously. So all shared global variables should be declared 
+volatile. For example, this is asking for trouble:</p>
+
+<pre>int cntr;
+
+void task1(void) 
+{
+    cntr = 0; 
+    
+    while (cntr == 0) 
+    {
+        sleep(1);
+    } 
+    ...
+}
+
+void task2(void) 
+{
+    ...
+    cntr++; 
+    sleep(10); 
+    ...
+}
+</pre>
+
+<p>This code will likely fail once the compiler's optimizer is enabled. 
+Declaring cntr to be volatile is the proper way to solve the problem.</p>
+
+<h2>Final thoughts</h2>
+
+<p>Some compilers allow you to implicitly declare all variables as 
+volatile. Resist this temptation, since it is essentially a substitute 
+for thought. It also leads to potentially less efficient code.</p>
+
+<p>Also, resist the temptation to blame the optimizer or turn it off. 
+Modern optimizers are so good that I cannot remember the last time I 
+came across an optimization bug. In contrast, I come across failures by 
+programmers to use volatile with depressing frequency.</p>
+
+<p>If you are given a piece of flaky code to "fix," perform a grep for 
+volatile. If grep comes up empty, the examples given here are probably 
+good places to start looking for problems.</p>
+
+<hr><p class="citation">This article was published in the July 2001 issue of <a class="ext" href="http://www.embedded.com/mag.htm" target="_blank">Embedded Systems Programming</a><span class="ext"></span>. If you wish to cite the article in your own work, you may find the following MLA-style information helpful:</p>
+
+<p class="mla">Jones, Nigel. "Introduction to the Volatile Keyword" Embedded Systems Programming, July 2001</p></div></div></div><div class="field field-name-taxonomy-vocabulary-3 field-type-taxonomy-term-reference field-label-above"><div class="field-label">Tags:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="http://www.barrgroup.com/taxonomy/term/3" typeof="skos:Concept" property="rdfs:label skos:prefLabel">Embedded C/C++</a></div><div class="field-item odd"><a href="http://www.barrgroup.com/taxonomy/term/5" typeof="skos:Concept" property="rdfs:label skos:prefLabel">Hardware Interfacing</a></div></div></div>  </div>
+      <div class="links">»<ul class="links inline"><li class="blog_usernames_blog first"><a href="http://www.barrgroup.com/blog/1" title="Read webmaster's latest blog entries.">webmaster's blog</a></li>
+<li class="comment_forbidden last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  
+  <div id="comments" class="comment-wrapper">
+          <h2 class="title">Comments</h2>
+      
+  <a id="comment-1"></a>
+<div class="comment clearfix" about="/comment/1#comment-1" typeof="sioc:Post sioct:Comment">
+  
+  
+    <h3 property="dc:title" datatype="" class="title"><a href="http://www.barrgroup.com/comment/1#comment-1" class="permalink" rel="bookmark">Compiler Bugs</a></h3>
+  
+  <div class="submitted">
+    <a href="http://www.barrgroup.com/comment/1#comment-1" class="permalink" rel="bookmark">Permalink</a>    Submitted by <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/8" typeof="sioc:UserAccount" property="foaf:name">mbarr</span></span> on <span property="dc:date dc:created" content="2007-12-06T09:52:40-05:00" datatype="xsd:dateTime">Thu, 2007-12-06 09:52</span>.  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/Embedded-Systems/How-To/C-Volatile-Keyword" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">I blogged on a related subject at <a target="_blank" class="ext" href="http://www.embeddedgurus.net/barr-code/2007/12/compiler-quality-and-cs-volatile.html">http://www.embeddedgurus.net/barr-code/2007/12/compiler-quality-and-cs-v...</a><span class="ext"></span></div></div></div>      </div>
+
+      <div class="links">» <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  </div>
+<a id="comment-17"></a>
+<div class="comment clearfix" about="/comment/17#comment-17" typeof="sioc:Post sioct:Comment">
+  
+  
+    <h3 property="dc:title" datatype="" class="title"><a href="http://www.barrgroup.com/comment/17#comment-17" class="permalink" rel="bookmark">what about structs?</a></h3>
+  
+  <div class="submitted">
+    <a href="http://www.barrgroup.com/comment/17#comment-17" class="permalink" rel="bookmark">Permalink</a>    Submitted by <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/4047" typeof="sioc:UserAccount" property="foaf:name">billt</span></span> on <span property="dc:date dc:created" content="2009-03-23T13:53:00-04:00" datatype="xsd:dateTime">Mon, 2009-03-23 13:53</span>.  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/Embedded-Systems/How-To/C-Volatile-Keyword" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>How
+ do we use volatile with structs and pointers to structs? Do we define 
+the pointer to the struct as volatile, or do we define the individual 
+elements of the struct each as volatile or not? Maybe a peripheral 
+version code register doesn't need volatile as that value should never 
+change, but status, interrupt mask, receive buffer, etc. values will?<br><code><br>
+typedef struct _example_struct{<br>
+  unsigned int STATUS_REG;<br>
+  unsigned int INT_MASK_REG;<br>
+  unsigned int VERSION_REG; //hardwired to value 0xd00d<br>
+} example_struct, *Pexample_struct;</code></p>
+<p>Pexample_struct  Pexs = EXAMPLE_BASE_ADDR;<br>
+unsigned int result;</p>
+<p>result = Pexs-&gt;STATUS_REG;<br></p>
+<p>Where do I put volatile keyword in those definitions to correctly make use of the struct with my pointer?</p>
+</div></div></div>      </div>
+
+      <div class="links">» <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  </div>
+
+<div class="indented"><a id="comment-101"></a>
+<div class="comment comment-by-node-author clearfix" about="/comment/101#comment-101" typeof="sioc:Post sioct:Comment">
+  
+  
+    <h3 property="dc:title" datatype="" class="title"><a href="http://www.barrgroup.com/comment/101#comment-101" class="permalink" rel="bookmark">Placement of Volatile in Struct Definitions</a></h3>
+  
+  <div class="submitted">
+    <a href="http://www.barrgroup.com/comment/101#comment-101" class="permalink" rel="bookmark">Permalink</a>    Submitted by <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/1" typeof="sioc:UserAccount" property="foaf:name">webmaster</span></span> on <span property="dc:date dc:created" content="2010-10-21T15:21:29-04:00" datatype="xsd:dateTime">Thu, 2010-10-21 15:21</span>.  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/Embedded-Systems/How-To/C-Volatile-Keyword" class="rdf-meta"></span><span rel="sioc:reply_of" resource="/comment/17#comment-17" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">Here is the best practice for use with structs that define memory-mapped I/O device registers:
+
+<code>
+typedef struct { ... } volatile newtype_t;
+
+newtype_t * const p_newtype = (newtype_t *) BASEADDR;
+</code></div></div></div>      </div>
+
+      <div class="links">» <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  </div>
+</div><a id="comment-126"></a>
+<div class="comment clearfix" about="/comment/126#comment-126" typeof="sioc:Post sioct:Comment">
+  
+  
+    <h3 property="dc:title" datatype="" class="title"><a href="http://www.barrgroup.com/comment/126#comment-126" class="permalink" rel="bookmark">volatile</a></h3>
+  
+  <div class="submitted">
+    <a href="http://www.barrgroup.com/comment/126#comment-126" class="permalink" rel="bookmark">Permalink</a>    Submitted by <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/11651" typeof="sioc:UserAccount" property="foaf:name">vikrant.ere</span></span> on <span property="dc:date dc:created" content="2010-12-01T01:16:01-05:00" datatype="xsd:dateTime">Wed, 2010-12-01 01:16</span>.  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/Embedded-Systems/How-To/C-Volatile-Keyword" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">Hi
+ All,
+Although I am aware of the use of volatile. But I never practically 
+experience the affect cause when the variable doesn't contain volatile 
+keyword. I never use any RTOS but in normal interrupt ISR and memory 
+mapped peripheral even a normal variable yield the same result as that 
+of volatile defined variable. 
+The compiler I am using is KEIL and CPU is ARM7TDMI LPC2468.
+
+Can anyone suggest me how to visualize the effect of with/without 
+volatile.
+
+Thanks
+With Regards,
+Vikrant (R &amp; D Engg)</div></div></div>      </div>
+
+      <div class="links">» <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  </div>
+<a id="comment-132"></a>
+<div class="comment clearfix" about="/comment/132#comment-132" typeof="sioc:Post sioct:Comment">
+  
+  
+    <h3 property="dc:title" datatype="" class="title"><a href="http://www.barrgroup.com/comment/132#comment-132" class="permalink" rel="bookmark">volatile</a></h3>
+  
+  <div class="submitted">
+    <a href="http://www.barrgroup.com/comment/132#comment-132" class="permalink" rel="bookmark">Permalink</a>    Submitted by <span rel="sioc:has_creator"><span class="username" xml:lang="" about="/user/13779" typeof="sioc:UserAccount" property="foaf:name">dalbert302</span></span> on <span property="dc:date dc:created" content="2011-01-14T12:29:00-05:00" datatype="xsd:dateTime">Fri, 2011-01-14 12:29</span>.  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/Embedded-Systems/How-To/C-Volatile-Keyword" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">Hi,
+If
+ you still need this answer.
+
+One of a few reasons for volatile.
+
+If you have a global that is modified  inside an ISR, you want to make 
+sure that outside the ISR it is read each time it is tested. Since int_a
+ is not modified inside the while loop the compiler may optimize the 
+code so that the value is stored in a register and not re-read. In the 
+following code without the volatile the while loop may never break out. 
+This is compiler dependent. It also depends on the complexity of the 
+code. Look at the assembled code. Change optimizer settings and 
+recompile. Look again for the assembly code changes. Good practice 
+...use volatile.
+
+<code>
+int int_a = 0;
+
+while (int_a == 0) { 
+   printf("still here\r\n");
+}
+
+...
+
+ISR_GPIOA (void){
+   int_a = PORTA;
+...
+}
+</code></div></div></div>      </div>
+
+      <div class="links">» <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://www.barrgroup.com/user/login?destination=node/80%23comment-form">Log in</a> or <a href="http://www.barrgroup.com/user/register?destination=node/80%23comment-form">register</a> to post comments</span></li>
+</ul></div>
+  </div>
+
+  </div>
+
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+  
+    </div>
+
+</div>
+</div>
+
+<div id="footer">
+    <div class="region region-footer">
+    <div id="block-block-42" class="block block-block">
+
+      
+  <div class="content">
+    <p>
+Barr Group, the Barr Group logo, Embedded Software Boot Camp, Embedded 
+Android Boot Camp, and Embedded Security Boot Camp are trademarks or 
+registered trademarks of Barr Group.
+All website contents are copyright © 2012-2013 by Barr Group.  All 
+rights reserved.
+</p>  </div>
+</div>
+  </div>
+</div>
+  
+
+</body></html>

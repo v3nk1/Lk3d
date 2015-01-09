@@ -1,0 +1,15 @@
+
+
+SYNOPSIS FOR UI.C:
+``````````````````
+	menu.c , menuHandler.c also falls under user interface ie., ui.
+
+	In menu.c only menu pattern is there.
+
+	In menuHandler.c the appropriate function calls are there, ie., menuHandler is the one calls viml layer functions..
+	so => ui calls functions provided by viml.
+
+	since we are using viml fuctions here, those not defined in menuHandler.c file ., so we must tell the compiler those are  define esle where, by using a keyword called "extern"; 
+	
+	SYNTAX: extern return_type funct_name (data_type variable_name);
+		signature must be same as function signature.
