@@ -1,10 +1,15 @@
+/*
+ * Test application for sending signal form 
+   kernel to user land.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
 #include <signal.h>
 
-void sighand(int no,siginfo_t *info,void *arg){
+void sighand(int no){
 
 	printf("%s: %s\n",__func__,strsignal(no));
 
@@ -18,10 +23,7 @@ int main(){
 		perror("open");
 		exit(1);
 		}
-	struct sigaction act={};
-	act.sa_sigaction=sighand;
-	act.sa_flags=SA_SIGINFO;
-	sigaction(SIGRTMAX,&act,NULL);
+	signal(SIGRTMAX,sighand);
 	while(1);
 	
 	return 0;

@@ -14,13 +14,20 @@
 #include <linux/sched.h>
 
 #define IRQ 1
+
 int devid,flag;
 dev_t dev;
+struct task_struct *task;
+	/* Task struct should be taken only form open/read/write/close. */
 
 irqreturn_t isr_hand(int irq,void *devp){
 	
 	if(flag)
-		send_sig(SIGRTMAX,current_thread_info()->task,SEND_SIG_NOINFO);
+		send_sig(SIGRTMAX,task,0/*1*/);
+			/*
+			 * 3rd arg: 1 for SEND_SIG_PRIV
+			 *	    0 for SEND_SIG_NOINFO
+			 */
 	
 	return IRQ_HANDLED;
 }
@@ -28,6 +35,7 @@ irqreturn_t isr_hand(int irq,void *devp){
 int drv_open(struct inode *in, struct file *fp){
 	
 	pr_info("%s: Invoked\n",__func__);
+	task=current_thread_info()->task;/*current*/
 	flag=1;
 	return 0;
 }
