@@ -1,1 +1,0 @@
-cmd_/embedded/lked/7.Dev_Dri/4.interrupts/usr2kern_sig.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.13.0-43-generic/scripts/module-common.lds --build-id  -o /embedded/lked/7.Dev_Dri/4.interrupts/usr2kern_sig.ko /embedded/lked/7.Dev_Dri/4.interrupts/usr2kern_sig.o /embedded/lked/7.Dev_Dri/4.interrupts/usr2kern_sig.mod.o
