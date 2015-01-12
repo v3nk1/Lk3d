@@ -2,7 +2,8 @@
 #obj-m:= workq.o
 #obj-m:= workq_new.o
 #obj-m+= tasklets.o
-obj-m+= usr2kern_sig.o
+#obj-m+= usr2kern_sig.o
+obj-m+= threaded_irq.o
 
 KDIR=/lib/modules/$(shell uname -r)/build
 

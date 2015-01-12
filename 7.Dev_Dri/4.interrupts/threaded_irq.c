@@ -17,22 +17,32 @@
 
 int irq=SH_IRQ,intrr_cnt,devid;
 module_param(irq,int,0644);
+char kb_arr[]="  1234567890-=  qwertyuiop[]  asdfghjkl;'   zxcvbnm,./";
+static unsigned char scancode;
 
 irqreturn_t my_intrrupt_hand(int irq,void *devid){
 
 	intrr_cnt++;
 	pr_info("ISR: called %d times\n",intrr_cnt);
+	scancode = inb(0x60);	
 	
-	return IRQ_NONE;	
-	/*return IRQ_HANDLED*/
+	return IRQ_WAKE_THREAD;
+}	
+
+irqreturn_t my_thrd_hand(int irq,void *devid){
+
+	if(scancode &= 0x7f)
+		pr_info("Scan Code: %d -->%c\n",scancode,kb_arr[scancode]);
+	return IRQ_HANDLED;
 }	
 
 int __init init_module(void){
 
-	if(request_irq(irq,my_intrrupt_hand,IRQF_SHARED,"my_shared_intrr",&devid)){
-							pr_info("req_irq: Failed\n");
-							return -1;
-							}
+	if(request_threaded_irq(irq,my_intrrupt_hand,my_thrd_hand,
+				IRQF_SHARED,"my_shared_intrr",&devid)){
+						pr_err("req_irq: Failed\n");
+						return -1;
+						}
 	pr_info("Registered interrupt module for irq %d\n",irq);
 	return 0;
 
