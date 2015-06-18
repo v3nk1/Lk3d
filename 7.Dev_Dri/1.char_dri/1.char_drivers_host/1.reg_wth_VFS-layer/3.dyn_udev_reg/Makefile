@@ -1,4 +1,5 @@
 obj-m:=chrdrv_udev.o
+obj-m+=chrdrv_udev1.o
 
 KDIR=/lib/modules/$(shell uname -r)/build
 

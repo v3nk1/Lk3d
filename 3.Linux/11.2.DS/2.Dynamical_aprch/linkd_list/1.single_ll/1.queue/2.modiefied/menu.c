@@ -12,6 +12,8 @@ void menu(void){
 	printf("\t\t\t\t\t``````````````````````````````````\n");
 	printf("\t\t\t\t\t|    s/S        |     sort_list  |\n");
 	printf("\t\t\t\t\t``````````````````````````````````\n");
+	printf("\t\t\t\t\t|    m/M        |     mid ele    |\n");
+	printf("\t\t\t\t\t``````````````````````````````````\n");
 	printf("\t\t\t\t\t|    p/P        |     disp_list  |\n");
 	printf("\t\t\t\t\t``````````````````````````````````\n");
 	printf("\t\t\t\t\t|   0/x/X       |     exit       |\n");

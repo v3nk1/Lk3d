@@ -2,6 +2,8 @@
 
 #define __RTC__H
 
+#include <linux/io.h>
+
 #define RTC_COMD_REG 	0x70
 #define RTC_DATA_REG	0x71
 

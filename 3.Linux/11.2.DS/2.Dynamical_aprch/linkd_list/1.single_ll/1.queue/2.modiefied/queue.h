@@ -163,7 +163,18 @@ loop:
 /*==>*/	}
 }
 
-	
+/*********** mid ele*********/
+
+que_t *midele(void){
+
+	que_t *alt,*seq;
+	alt=seq=start;
+	while(alt && alt->next){
+		seq = seq->next;
+		alt = alt-> next->next;
+		}
+	return seq;
+}
 
 /**************************************************** DELETION FUNCTIONS ********************************************************/
 

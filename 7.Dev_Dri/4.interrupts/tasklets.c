@@ -12,7 +12,7 @@ void taskfunc(unsigned long data){
 }
 
 DECLARE_TASKLET(mytasklet,taskfunc,1234);
-
+//tasklet_init();
 irqreturn_t intrpthand(int i,void *devid){
 
 	static int icount;

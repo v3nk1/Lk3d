@@ -108,7 +108,7 @@ int load_backup(void){
 		//ltmp=ltmp->lnext;
 
 			}
-//becareful dont give close here..
+//becareful dont give close(fd) here..
 }
 
 printf("Loading backup has done\n\n");

@@ -25,8 +25,6 @@
 
 #define COUNT 17
 
-
-
 void read_eeprom(struct i2c_client *client)
 {
 	
@@ -51,9 +49,6 @@ void read_eeprom(struct i2c_client *client)
 	
 }
 
-
-
-
 int write_eeprom(struct i2c_client *client, char data)
 {
 	char buf[17];
@@ -76,7 +71,6 @@ int write_eeprom(struct i2c_client *client, char data)
 	
 	return ret;
 }
-
 
 /*
  * Called by i2c-core when the i2c device with the address

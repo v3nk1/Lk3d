@@ -37,7 +37,7 @@ void errmsg(char *str){
 					printf("%s: Success\n",str);
 					break;
 			default   :
-					printf("No errno is set\n",str);
+					printf("No errno is set\n");
 					break;
 	}
 

@@ -9,4 +9,5 @@
 
 app:	test.c $(PWD)/headers/*.h $(PWD)/menu/*.c $(PWD)/handlers/*.c $(PWD)/modules/*.c $(PWD)/backup/*.c
 	cc -g test.c $(PWD)/menu/*.c $(PWD)/handlers/*.c $(PWD)/modules/*.c $(PWD)/backup/*.c -o app
-
+clean:
+	rm -rf app

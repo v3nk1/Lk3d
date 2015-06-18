@@ -139,7 +139,7 @@ return (errno = SUCCESS);
 }
 
 void revorder(que_t *tmp){
-
+/*
 	if(!tmp->next){
 		printf("%d ",tmp->data);
 		}
@@ -147,7 +147,10 @@ void revorder(que_t *tmp){
 		revorder(tmp->next);
 		printf("%d ",tmp->data);
 	}
-
+*/
+	if(tmp->next)
+		revorder(tmp->next);
+	printf("%d ",tmp->data);
 }
 
 int disp_list_rev(void){

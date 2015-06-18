@@ -1,8 +1,3 @@
-/* eeprom.c - A small char driver to work with mini2440 eeprom
- *
- * Author: Veda Solutions (www.techveda.org)
- *
- */
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/module.h>
@@ -19,8 +14,6 @@
 #include <linux/device.h>
 #include <asm/uaccess.h>
 #include <linux/cdev.h>
-
-
 
 /*
  * Called by i2c-core when the i2c device with the address
@@ -76,6 +69,18 @@ static struct i2c_driver eeprom_driver = {
 	.remove = eeprom_remove,
 	.id_table = eeprom_ids,
 };
+
+#define my_i2c_auto(arg)	{static int __init myeeprom_init(void){\
+				        /*register with i2c-core*/\
+				        return i2c_add_driver(arg);\
+					}\
+				module_init(myeeprom_init);\
+				static void __exit myeeprom_exit(void){\
+				        i2c_del_driver(arg);\
+					}\
+				module_exit(myeeprom_exit);\
+				}
+
 
 /*module initialization routine*/
 static int __init eeprom_init(void)

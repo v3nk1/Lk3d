@@ -1,0 +1,36 @@
+Each process is associated with 3 standard descriptors.
+Those are
+	standard input |		stdin	fd=0
+	standard output|		stdout	fd=1
+	standard error |		stderr	fd=2
+
+
+1) stdin is ment for taking input from console, using scanf(),getchar()
+   fread(),read().
+   without this '0' descriptor above functions will not work. bcoz those
+   are deadly dependent on stdin.
+
+	close(0);
+	getchar();		/* It wont block/seek for input*/
+	scanf("%d",&a);		/* It wont block/seek for input*/
+
+2) stdout is ment for printing output to console, using printf(),putchar(),
+   fwrite(),write() calls.
+   without this '1' descriptor above functions will not work. bcoz those
+   are deadly dependent on stdout. without stdout to where those print 
+   information.
+
+	close(1);
+	putchar('h');		/* It wont print to output*/
+	printf("%d",a);		/* It wont print to output*/
+
+3) stderr is ment for printing error msg to console, using perror(),ferror()..
+   without this '2' descriptor above functions will not work.
+   Those fuctions neither fail nor print any thing.
+
+	close(2);
+	open("non_exist_file",O_RDWR);
+	perror("open");		/* It wont print to error console*/
+
+   error console is internally connect/redirect to stdout.
+

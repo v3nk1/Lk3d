@@ -8,6 +8,7 @@ main(){
 	
 	printf("glob: %d\n",a);
 	a=20;
+	printf("glob: %d\n",a);
 	function();
 }
 

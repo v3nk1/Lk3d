@@ -69,7 +69,7 @@ static int __init chrdrv_init(void){
 
 Create a device node for aquired major and minor no.. dynamincally using udev userspace deamon. U can see it in "ls /sys/class/VIRTUAL" */	
 	clas = class_create(THIS_MODULE,"VIRTUAL");
-	devp = device_create(clas,NULL,devid,NULL,"%s%i","vdev",123);//
+	devp = device_create(clas,NULL,devid,NULL,"%s%i","vdev",123);//if u give 6th arg as "ven/vdev" then inside /dev/ven/vdev123.
 
 /* Registering our routines with VFS	*/
 	cdevp = cdev_alloc();

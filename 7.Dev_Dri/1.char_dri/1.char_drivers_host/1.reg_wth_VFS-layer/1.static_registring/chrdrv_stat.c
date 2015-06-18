@@ -14,6 +14,7 @@
 dev_t dev;
 struct cdev *mycdev;
 
+/*Driver entry points*/
 int my_cdrv_open(struct inode *ind, struct file *fl){
 	
 	pr_info("open: Opening a dev(%s)",DEV_NAME);

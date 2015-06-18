@@ -2,6 +2,7 @@ obj-m:= rtc_sysfs.o
 obj-m+= rtc_sys_sub.o
 
 KDIR=/lib/modules/$(shell uname -r)/build
+#KDIR=/embedded/mini2440/uImages/eeprom/linux-3.15.3
 
 all:	
 		

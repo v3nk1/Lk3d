@@ -29,7 +29,7 @@ SOCK_STREAM:
 	|->	accept()				|						|
 	|->	we can use normal read/write API's	|	-> Same					|
 	|						|						|
-	|->	recvfrom() {specify source addrs}	|	-> connect(addr);Here addr is serveraddr|	
+	|->	recvfrom() {specify source addrs}	|	-> connect(addr);Here addr is serveraddr|
 	|	recvfrom returns the num of bytes recvd	|	   					|
 	|	& if u pass 5th arg it'll come populatd	|	-> sendto() {specify destination addr}	|
 	|	with client addrs to knw to whome we are|						|

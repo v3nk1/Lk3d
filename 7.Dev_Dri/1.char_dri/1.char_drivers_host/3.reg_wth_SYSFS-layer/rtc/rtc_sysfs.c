@@ -109,7 +109,8 @@ static ssize_t dt_store(struct kobject *kobj, struct kobj_attribute *attr,
 	int date,mon,year;
         int len;
 	pr_info("%s: Invoked\n",__func__);
-
+	
+pr_info("drv_dbg: %lu %c\n",count,buf[0]);
         if(mutex_is_locked(&rtclock))
                               return -EBUSY;
         mutex_lock_interruptible(&rtclock);

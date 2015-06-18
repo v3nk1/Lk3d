@@ -5,6 +5,6 @@ unsigned int a=65539;
 printf("%hu\n",a);
 
 
-printf("%d",(char) a);
+printf("%d\n",(char) a);
 }
 

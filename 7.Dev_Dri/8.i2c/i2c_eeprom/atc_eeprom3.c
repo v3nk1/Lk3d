@@ -1,8 +1,3 @@
-/* eeprom.c - A small char driver to work with mini2440 eeprom
- *
- * Author: Veda Solutions (www.techveda.org)
- *
- */
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/module.h>

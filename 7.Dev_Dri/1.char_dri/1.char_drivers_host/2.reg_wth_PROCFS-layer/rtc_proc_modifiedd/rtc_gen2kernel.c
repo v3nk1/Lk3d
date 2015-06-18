@@ -3,6 +3,9 @@
  * create entry in /proc.
 	cat /proc/RTC/rw_time
 	cat /proc/RTC/rw_date
+
+	Problem: Infinite looping itself.
+	Solution: sequetial fs.
  */
 
 

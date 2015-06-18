@@ -1,0 +1,72 @@
+Shared memory:
+==============
+
+	Shared memory come into picture only if you want to 
+	share anything among diff processes, but not b/w parent
+	and child case.
+
+
+					  |||||||||
+					  ||shmem||
+     process1 addrspace			  |||||||||			process1 addrspace
+	_________			      |				_________
+  ^	|	|		 _____________|___________		|	|    ^
+  |	|	|	Process1/			  \Process2	|       |    |
+mmap	|	|	|`````````|			|`````````|	|       |   mmap
+  |	|	|	|	  |			|         |	|       |    |
+  ^	|_______|	|	  |			|         |	|_______|    ^
+	|	|	|_________|			|_________|	|       |
+	|	|							|       |
+	|_______|							|_______|
+
+
+
+	1st some how one process should create a shared memory.
+	The shared mem created is global/unique in entire system wide.
+	Who ever(processes) know the key or keyfile can open the shared memory,
+	using shm_open(), shmget(). And use it.
+
+	In order to use/perform-I/O, It is mandatory to map the shared memory 
+	in their own process address space using MAP_SHARED., 
+	for that you need to use mmap the
+	shared memory by pasing the fd of opened shared mem returned by shm_open(),shmget()
+	calls.
+
+Then the layout of before like this.
+					
+					Key = 0x1234
+                                          |||||||||
+                                          ||shmem||
+       shmem_fd=3                         |||||||||			shmem_fd=4
+        _________                             |                         _________
+  ^     |       |                _____________|___________              |       |    ^
+  |     |       |       Process1/                         \Process2     |       |    |
+mmap    |XXXXXXX|       |`````````|                     |`````````|     |       |   mmap
+  |     |       |       |         |                     |         |     |XXXXXXX|    |
+  ^     |_______|       |         |                     |         |     |_______|    ^
+        |       |       |_________|                     |_________|     |       |
+        |       |                                                       |       |
+        |_______|                                                       |_______|
+
+
+	Here XXXXX is the mapped shared memory to their own address spaces.
+	The map address could be differ and shared memory fd also could be differ.
+	
+	But the pages wil be linked/shared. 
+	Here the same resource is sharing among diff processes you might require
+	locking machanisms to avoid race/stalled data.
+
+	The created shared memories can be seen using
+	# sudo ipcs
+	# ls /dev/shm
+
+	The mapped memory should also traditionally unmapped using munmap();
+	The created shared memory will be there until you unlink that using 
+	shm_unlink()/shmctl(shmid,IPC_RMID,NULL).
+	 
+
+					----------X-----------
+Fork():
+=======
+Since parent and child case no need of shared memory. only
+mmap will b sufficient. MAP_SHARED.

@@ -24,7 +24,6 @@ irqreturn_t my_intrrupt_hand(int irq,void *devid){
 	intrr_cnt++;
 	pr_info("ISR: called %d times\n",intrr_cnt);
 	//pr_info("@%d\n",MY_SOFTIRQ_SOFTIRQ);
-	open_softirq(MY_SOFTIRQ,softhand);
 	raise_softirq(MY_SOFTIRQ);
 	return IRQ_NONE;	
 
@@ -36,6 +35,7 @@ int __init init_module(void){
 							pr_info("req_irq: Failed\n");
 							return -1;
 							}
+	open_softirq(MY_SOFTIRQ,softhand);
 	pr_info("Registered interrupt module for irq %d\n",irq);
 	return 0;
 

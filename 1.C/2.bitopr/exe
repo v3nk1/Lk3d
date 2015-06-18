@@ -1,0 +1,6 @@
+bit print
+bit set/clear/toggle
+no of bits enable/disable/toggle/reverse/(replace with another no)
+swap nibble in char.
+transform little endian to big endian vice versa.
+reverse individual bit in a uchar.

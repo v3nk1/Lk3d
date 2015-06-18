@@ -1,0 +1,1 @@
+gcc -E hello.c -D__KERNEL__ -I /usr/src/linux-headers-3.13.0-45-generic/include/ -I /usr/include -I /usr/src/linux-headers-3.13.0-45-generic/arch/x86/include/ > pre-processer.i

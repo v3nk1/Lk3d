@@ -1,0 +1,24 @@
+Pthread_mutex:
+--------------
+	All concepts like locking are normal.
+	
+And one more:
+	The pthread mutex can be shared among diff threads in diff process
+	by using 
+	pthread_mutexattr_setpshared(), 
+	but you
+	need to somehow share that mutex object between 2 different 
+	processes using shared memory.
+
+Why shared memory?
+	Bcoz if you create a mutex in process1 then it will be
+	local to that process, means only in that process1 address space.
+	So how can u share the some location in process1 to process2?
+	You can't share by just sending references like if suppose
+	mutex stored location address in process1's address space is
+	like 0x1234.
+	and some how you sent this address to process2 to access that particular
+	mutex, what do you think? the address has been sent is fall under process2
+	address space? 
+	No, So if u access voilation of memory. segmentation fault.
+	So put it in shared memory.

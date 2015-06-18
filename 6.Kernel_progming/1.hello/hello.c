@@ -2,18 +2,19 @@
 #include<linux/kernel.h>
 #include<linux/version.h>
 
-void func(void){
+void SaMpLe_FuNc(void){
 
 	pr_info("\n*********************************************************\n");
 	pr_info("|            Hello!! Welcome to Linux-13.10             |\n");
 	pr_info("*********************************************************\n\n");
 
 }
+EXPORT_SYMBOL(SaMpLe_FuNc);//To check in cat /proc/kallsyms | grep SaMpLe_FuNc
 
 int init_module(void){
 
 	printk("module inserted\n");
-	func();
+	SaMpLe_FuNc();
 	return 0; /* returning -ve values are not permitted*/
 	
 }

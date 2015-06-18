@@ -5,9 +5,11 @@
 	2. Using sigaction()
 		gcc sigque.c
 
- * Without these 2 even though process has been blocked by sleep() or getchar()
+ * Without these 2, even though process has been blocked by sleep() or getchar()
    after signal asserstion default handler will be invoked means automatic termination for
    realtime signals.
+ * To make not to terminate the process some how defualt signal dis-position should be changed.
+   means some handler should be installed or those to be asserted signal shud be blocked.
  */
 
 

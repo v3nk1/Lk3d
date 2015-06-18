@@ -1,0 +1,49 @@
+Semaphores
+----------
+|
+|-----> possix ---------|
+|			|--- Named
+|			|--- Un-named
+|
+|-----> sysV
+
+
+Possix-Named semaphores:
+------------------------
+	Used for data synchronization among threads or processes.
+	But each processes has to open the semaphore using 
+	sem_open(). For that u need to provide the unique semaphore
+	name and the other process also has to know that name inorder to 
+	open and access that particular semaphore.
+
+	Ex:
+		sem_t *sem;
+		sem_open("/mydatasync",O_RDWR|O_CREAT,0666,sem_init_value);
+
+Possix-Un-named semaphores:
+---------------------------
+	Used for data synchronization among threads or processes.
+	But here each process has to be given access to a particular
+	semaphore, using shared mem..
+	No need to open or close the semaphore.
+	
+	Ex:
+		sem_t sem;
+		sem_init(&sem,0/1,init_value);
+
+sem_t datatype:
+---------------
+check them out.
+	glibc/include/semaphore.h
+	glibc/nptl/sem_getvalue.c
+	glibc/nptl/sem_wait.c
+
+
+SysV:
+-----
+	These are key based semaphores, User can see them in
+	# sudo ipcs
+
+	semget() etc..	
+	IPC_PRIVATE: dont use it until unless you know what you are doing
+

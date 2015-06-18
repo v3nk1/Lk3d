@@ -42,11 +42,14 @@
 /**
  * Kernel version:(< 3.10)
  *
- * When you register proc-entry, proc_register() checks if you specify proc_fops. If you don't, it will set default 
- * file operations for procfs. Default operations calls your proc_read and proc_write. So, if you specify proc_fops 
+ * When you register proc-entry, proc_register() checks if you 
+   specify proc_fops. If you don't, it will set default 
+ * file operations for procfs. Default operations calls your 
+   proc_read and proc_write. So, if you specify proc_fops 
  * by yourself, proc_read and proc_write members will not be called.
  *
- * In linux-3.10 there aren't such things as write_proc_t and read_proc_t. proc_dir_entry has no members read_proc 
+ * In linux-3.10 there aren't such things as write_proc_t and read_proc_t. 
+   proc_dir_entry has no members read_proc 
  * and write_proc. Instead, only proc_fops is used.
  */
 
@@ -88,7 +91,7 @@ static void *seq_start(struct seq_file *s, loff_t *pos)
 {
 	if (*pos > 0)
 		return NULL;
-	/* No more to read */
+	// No more to read
 	return pos;
 }
 
@@ -166,6 +169,7 @@ struct seq_operations date_seq_fops={
                         };
 
 
+
 int time_open(struct inode *in, struct file *fl){
 
         pr_info("%s: Invoked\n",__func__);
@@ -182,8 +186,12 @@ int date_open(struct inode *in, struct file *fl){
 
 ssize_t write_time(struct file *fl, const char __user *buffer, size_t sz, loff_t *loff)
 {
-			//we are unable to write directly,coz no echo and vi editor are unable to write the 
-			// vi "/proc/RTC/rw_time" file, so from test_application only we can interact with RTC
+			/*
+			 * we are unable to write directly,coz no echo and vi 
+			   editor are unable to write the 
+			 * vi "/proc/RTC/rw_time" file, so from test_application 
+			   only we can interact with RTC
+			 */
         int hr,min,sec;
         int len;
 
@@ -201,8 +209,12 @@ ssize_t write_time(struct file *fl, const char __user *buffer, size_t sz, loff_t
 
 ssize_t write_date(struct file *fl, const char __user *buffer, size_t sz, loff_t *loff)
 {	
-			//we are unable to write directly,coz no echo and vi editor are unable to write the 
-                        // vi "/proc/RTC/rw_time" file, so from test_application only we can interact with RTC
+			/*
+                         * we are unable to write directly,coz no echo and vi 
+                           editor are unable to write the 
+                         * vi "/proc/RTC/rw_time" file, so from test_application 
+                           only we can interact with RTC
+                         */
 
         int date,mon,year;
         int len;
