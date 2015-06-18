@@ -1,0 +1,60 @@
+Creation/Applying a patch:
+==========================
+1. To a file:
+-------------
+	- Took a file in which you want to modify the things
+		- modify means add/append/alter/delete line or character
+	- Make a copy of the file to some name.
+	- So that you are having 2 files,
+		one is orignal file,
+		2nd is to be modified file.
+
+	- So do modification what ever you want in the second file.
+
+	- Creation of patch:
+		# diff -Naurp original modified > gen.patch
+				file	 file
+
+	- vi gen.patch
+		See things about modifications.
+
+	- Maitain the gen.patch in the same directory where original
+	  file present.
+	  Copy that 'gen.patch' to the orignal file directory 
+		# patch < gen.patch
+
+                        or
+
+          Don't copy 'gen.patch' to the orignal directory
+                # cd to <original-file-directory>
+                # patch < /path/to/patch
+
+	- Then original file has to be altered as per patch.
+
+2. To a folder/directory/recursive patch:
+-----------------------------------------
+	- Took a directory in which you want to modify the things
+	- Make a copy of the dir to some name.
+	- So that you are having 2 dirs,
+                one is orignal dir,
+                2nd is to be modified dir.
+
+	- So do modification in any file you want in the 2nd dir.
+
+	- Creation of patch:
+                # diff -Naurp original modified > gen.patch
+                                dir      dir
+
+        - vi gen.patch
+                See things about modifications.
+
+        - Copy that 'gen.patch' to the orignal directory
+		# cd to <original-directory>  in which dir patch shud be applied.
+                # patch -p1 < gen.patch
+
+			or
+	  Don't copy 'gen.patch' to the orignal directory
+		# cd to <original-directory>
+		# patch -p1 < /path/to/patch
+		
+	- Then all the changes will be applied to the original dir.

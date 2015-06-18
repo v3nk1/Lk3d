@@ -1,0 +1,31 @@
+diff -Naurp orig/dir1/1.patch new/dir1/1.patch
+--- orig/dir1/1.patch	1970-01-01 05:30:00.000000000 +0530
++++ new/dir1/1.patch	2015-01-09 15:52:48.157823216 +0530
+@@ -0,0 +1,10 @@
++--- first	2015-01-09 12:48:15.604977879 +0530
+++++ second	2015-01-09 12:21:41.078199791 +0530
++@@ -1,4 +1,4 @@
++-`1234567890-=
++-qwertyuiop[]\
+++zxcvbnm,./
++ asdfghjkl;'
++-zxcbnm,./
+++qwertyuiop[]\
+++1234567890-=
+diff -Naurp orig/dir1/first new/dir1/first
+--- orig/dir1/first	2015-01-09 13:06:31.320444246 +0530
++++ new/dir1/first	2015-01-09 15:53:45.237824745 +0530
+@@ -1,4 +1,10 @@
+-`1234567890-=
+-qwertyuiop[]\
++
++dddd
++d
++d
++d
++d
++zxcvbnm,./
+ asdfghjkl;'
+-zxcbnm,./
++qwertyuiop[]\
++1234567890-=
