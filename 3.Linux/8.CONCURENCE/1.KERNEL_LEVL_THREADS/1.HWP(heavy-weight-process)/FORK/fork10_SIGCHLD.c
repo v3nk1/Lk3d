@@ -67,17 +67,19 @@ main(){
 
 			//cleanin_bySig(0); it not be here, no need of it here, BLUNDER.
 
-			getchar();// to stop untill child termintes and to see the "ps -Af". since ZOMBIE process(defunc process) is created or not?
+			getchar();
+			/* To stop untill child termintes and to see the "ps -Af". 
+			since ZOMBIE process(defunc process) is created or not?*/
 			printf("parent terminated\n");
 			break;
 		}
 
 }
 
-/********************************************************************************************************************************
+/************************************************************************************
 NOTES:
 ``````	its more clear in "ps -el" than "ps -Af"
 	In ps -el the 2st column state of processes will be there, "S = SUSPEND",
 				 				   "T = TERMINATION", 
 
-********************************************************************************************************************************/
+**************************************************************************************/

@@ -3,20 +3,26 @@
         - This method requires  parent process to be suspended until termination of child process.
         - When child is terminated instruct the kernel to destroy the child and resume execution.
         - Wait call can also be used to collect the exit value of the child process.
-        Exit value collected can be inspected  to know the actual cause of termination using any of the following resources
+          Exit value collected can be inspected  to know the actual cause 
+	of termination using any of the following resources
         1) WIFEXITED (status)  :  returns true if the child terminated normally
         2) WEXITSTATUS(status) :  returns the exit status of the child
         3) WIFSIGNALED(status) :  returns true if the child process was terminated by a signal.
-        4) WTERMSIG (status)   :  returns the number of the signal that caused the child process to terminate.
+        4) WTERMSIG (status)   :  returns the number of the signal that 
+				  caused the child process to terminate.
 
 2) Asynchronous clean up: (in sigaction, obj.sa_flags = SA_NOCLDSTOP)
 `````````````````````````````````````````````````````````````````````
         - This method requires parent to register a signal handler for SIGCHILD.
-        - Process manger delivers SIGCHILD to parent process whenever child process is terminated, stopped, continued.
+        - Process manger delivers SIGCHILD to parent process whenever child 
+	  process is terminated, stopped, continued.
 
 3) Auto cleanup: (in sigaction, obj.sa_flags = SA_NOCLDWAIT)
 ````````````````````````````````````````````````````````````
-        - Terminated child process can be set to automatically destroyed without any further instruction from the parent.
-        - This requires the parent process to enable the default handler for SIGCHILD with a flag SA_NOCLDWAIT.
-        - Auto clean up is recommended to be applied only when child exit status is not important to parent.
+        - Terminated child process can be set to automatically destroyed 
+	  without any further instruction from the parent.
+        - This requires the parent process to enable the default handler 
+	  for SIGCHILD with a flag SA_NOCLDWAIT.
+        - Auto clean up is recommended to be applied only when child 
+	  exit status is not important to parent.
 

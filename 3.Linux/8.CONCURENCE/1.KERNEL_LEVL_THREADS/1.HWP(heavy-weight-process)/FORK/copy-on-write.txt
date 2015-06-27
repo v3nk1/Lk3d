@@ -2,22 +2,36 @@ COPY-ON-WRITE:
 ``````````````
 	It will be in fork(), u can see it in "man fork".
 	
-	This is after fork() invoked then the child and parent are having its own resouces(pcb and adress space). In those resouces before the fork() invoked data will be shared.
-	See actually fork() doesnt copy any data intially, instead it just shares fork() above data to parent and child.
+	This is after fork() invoked then the child and parent are 
+	having its own resouces(pcb and adress space). In those resouces 
+	before the fork() invoked data will be shared.
+	See actually fork() doesnt copy any data intially, instead it 
+	just shares fork() above data to parent and child.
 
 
   EXAMPLE:
   ````````	
 	-> Say you opened a file before fork(); (ie., above switch case).
-	  so it will be opened in both parent and in child (ie., indefault: & case 0:).
+	   so it will be opened in both parent and in child 
+	   (ie., indefault: & case 0:).
 
-	-> Immediate after fork(), sharing of data which is present at above fork() happens.		
+	-> Immediate after fork(), sharing of data which is present 
+	   at above fork() happens.		
 
-        -> After fork(), parent and child have those own resources. so if u write any data into file already opened above fork() invoke from child context (ie.,in case0:) then fork() creates a copy of page to child such that modied data wil be child. called copy-on-write.
-		actually we didnt say its copy-on-write is only happens for write becoz the data wont write into the opened file immediate after write util and unless u inkove close() or syncfs() api's.
+        -> After fork(), parent and child have those own resources. 
+	   so if u write any data into file already opened above fork() invoke 
+	   from child context (ie.,in case0:) then fork() creates a copy of page 
+	   to child such that modied data wil be child. called copy-on-write.
+		actually we didnt say its copy-on-write is only happens 
+		for write becoz the data wont write into the opened file 
+		immediate after write util and unless u inkove close() or syncfs() api's.
 	
-	-> So from this we can justfy that copy-on-write will be takes place only in 2 cases:(where the file discriptors state changes)
-				ie., for what the file descriptor table changes, means new fd added to fd-table(ie.,when open() invoked) and fd is removed from fd-table(ie.,when close() invoked);
-											1.open()
-											2.close()
-	   Most of the student wil confuse like cp-on-wr will take place when we invoking write/read.. but it not true..? you know that now.  
+	-> So from this we can justfy that copy-on-write will be 
+	   takes place only in 2 cases:(where the file discriptors state changes)
+				ie., for what the file descriptor table changes, 
+				     means new fd added to fd-table(ie.,when open() invoked) 
+				     and fd is removed from fd-table(ie.,when close() invoked);
+				     1.open()
+				     2.close()
+	   Most of the student wil confuse like cp-on-wr will take 
+	   place when we invoking write/read.. but it not true..? you know that now.  
