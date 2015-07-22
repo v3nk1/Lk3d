@@ -42,7 +42,7 @@ main(){
 				exit(1);
 				}
 		printf("Yipeee!! Got a client :) \n\n");
-		printf("Connectd: Client(%u)		(o_O)\n",claddr.sin_port);
+		printf("Connectd: Client(%s:%u)		(o_O)\n",inet_ntoa(claddr.sin_addr),claddr.sin_port);
 
 		while(1){
 

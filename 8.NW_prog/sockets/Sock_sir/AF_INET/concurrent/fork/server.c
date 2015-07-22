@@ -76,7 +76,7 @@ main(){
 			printf("\nYipeee!! Got a client :) \n\n");
 
 		cl_cnt++;
-		printf("Connectd: Client(%u)		(o_O)\n",claddr.sin_port);
+		printf("Connectd: Client(%s:%u)		(o_O)\n",inet_ntoa(claddr.sin_addr),claddr.sin_port);
 
 		switch(fork()){
 
@@ -92,7 +92,8 @@ main(){
 						}
 					//printf("Connected: Client(%u)	(o_O)\n",claddr.sin_port);
 								//place it top
-					printf("Data_rcv(%d B) frm client %u: ",rd,claddr.sin_port);
+					printf("Data_rcv(%d B) frm client %s(%u): ",rd,
+							inet_ntoa(claddr.sin_addr),claddr.sin_port);
 					fflush(stdout);
 	
 					write(1,buf,rd);

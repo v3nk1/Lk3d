@@ -104,7 +104,7 @@ loop:
 		sntB+=rd;/*To count how many bytes sent to client*/
 
 		if(wr<=0){
-			printf("\nDis_Conn: Client(%u)		(-_-)\n",curr_claddr.sin_port);
+			printf("\nDis_Conn: Client(%s:%u)		(-_-)\n",inet_ntoa(curr_claddr.sin_addr),curr_claddr.sin_port);
 			break;
 			}	
 		
@@ -189,7 +189,7 @@ main(){
 	if(!cl_cnt)
 		printf("Yipeee!! Got a client :) \n\n");
 		cl_cnt++;
-		printf("Connectd: Client(%u)		(o_O)\n",claddr.sin_port);
+		printf("Connectd: Client(%s:%u)		(o_O)\n",inet_ntoa(claddr.sin_addr),claddr.sin_port);
 
 	pthread_t tid;
 	pthread_create(&tid,NULL,thread_for_client,NULL);
