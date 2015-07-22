@@ -48,7 +48,8 @@ main(){
 
 			int rd = read(cfd,buf,sizeof(buf));
 			if(rd==0){
-				printf("Dis_Conn: Client(%u)		(-_-)\n",claddr.sin_port);
+				printf("Dis_Conn: Client(%s:%u)		(-_-)\n",
+						inet_ntoa(claddr.sin_addr),claddr.sin_port);
 						//For all clients claddr.sin_addr.s_addr will be same..
 						//port no will be different..
 				break;
