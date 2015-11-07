@@ -1,0 +1,7 @@
+kernel//home/ven/KernPro/irq/inttest.ko
+kernel//home/ven/KernPro/irq/inttest1.ko
+kernel//home/ven/KernPro/irq/tasklet_ex.ko
+kernel//home/ven/KernPro/irq/tasklet_ex2.ko
+kernel//home/ven/KernPro/irq/tasklet_ex3.ko
+kernel//home/ven/KernPro/irq/tbh.ko
+kernel//home/ven/KernPro/irq/intthread.ko

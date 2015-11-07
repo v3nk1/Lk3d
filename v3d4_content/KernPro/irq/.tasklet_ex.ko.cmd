@@ -1,0 +1,1 @@
+cmd_/home/ven/KernPro/irq/tasklet_ex.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.13.0-43-generic/scripts/module-common.lds --build-id  -o /home/ven/KernPro/irq/tasklet_ex.ko /home/ven/KernPro/irq/tasklet_ex.o /home/ven/KernPro/irq/tasklet_ex.mod.o
