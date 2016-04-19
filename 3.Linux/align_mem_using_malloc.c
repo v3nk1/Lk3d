@@ -2,13 +2,19 @@
  * Sample program for implementing your own aligned memory
  * routines for linux using standard API's not using library
  * routines like posix_memalign(),memalign() & aligned_alloc().
+ *
+ * Aligned Memory: The base address of chunk or memory bank should be
+ * divisible by 2^n. There is no such alignment like 10 byte alignment.
+ * So alignment always be 2^n.
+ * And you shuld not check alignement like (ptr % align) ? "aligned" : "not aligned";
+ * as this check will pass if even chunk didn't aligned to 2^n like 10 byte alignment.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*We can check alignment by this macro*/
-#define is_align(ptr,align)  (unsigned long long)(ptr) & (align -1)
+#define is_align(ptr,align)  !((unsigned long long)(ptr) & (align -1))
 
 static inline void *
 os_aalloc (int size, int align)
@@ -36,8 +42,9 @@ os_free (void *p)
 int main(void){
 
 	void *ptr = NULL;
-	ptr = os_aalloc(2000,64);
-	printf("Allocated %s memory.\n",is_align(ptr,64) ? "Not aligned":"Aligned");
+	int align = 64; /*Always give like 2^n*/
+	ptr = os_aalloc(2000,align);
+	printf("Allocated %s memory.\n",is_align(ptr,align) ? "Aligned" : "Not Aligned");
 	os_free(ptr);
 	return 0;
 
