@@ -1,0 +1,332 @@
+[36665.456218] copy_mbr(157): disk_start: ffffc900051df000
+[36665.456226] copy_mbr(160): disk+sig: ffffc900051df1b8
+[36665.456230] copy_mbr(162): disk+ptbl: ffffc900051df1be
+[36665.456233] copy_mbr(164): disk+aa55: ffffc900051df1fe
+[36665.456237] copy_br(169): disk+br: ffffc90005207000
+[36665.456240] copy_br(173): disk+ptbl: ffffc900052071be
+[36665.456244] copy_br(175): disk+aa55: ffffc900052071fe
+[36665.456247] copy_br(169): disk+br: ffffc90005217000
+[36665.456251] copy_br(173): disk+ptbl: ffffc900052171be
+[36665.456254] copy_br(175): disk+aa55: ffffc900052171fe
+[36665.456257] copy_br(169): disk+br: ffffc90005227000
+[36665.456261] copy_br(173): disk+ptbl: ffffc900052271be
+[36665.456264] copy_br(175): disk+aa55: ffffc900052271fe
+[36665.456755] rb: Device is opened
+[36665.456760] rb: Inode number is 0
+[36665.456852] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff88022e89a000; Length: 8 sectors
+[36665.456886] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff880214f4e000; Length: 8 sectors
+[36665.456904] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff88015d822000; Length: 8 sectors
+[36665.456922] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff880232b9d000; Length: 8 sectors
+[36665.456930]  rb: rb1 rb2 < rb5 rb6 rb7 > rb3
+[36665.458202] rb: Device is closed
+[36665.458362] rb: Ram Block driver initialised (1024 sectors; 524288 bytes)
+[36665.459108] rb: Device is opened
+[36665.459113] rb: Inode number is 0
+[36665.459308] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff880113362000; Length: 8 sectors
+[36665.459379] rb: Device is closed
+[36665.461588] rb: Device is opened
+[36665.461591] rb: Inode number is 0
+[36665.461630] rb: Device is opened
+[36665.461634] rb: Inode number is 0
+[36665.461702] rb: Start Sector: 1, Sector Offset: 0; Buffer: ffff88022c697000; Length: 1 sectors
+[36665.461705] rb: Start Sector: 1, Sector Offset: 1; Buffer: ffff88022c697200; Length: 1 sectors
+[36665.461707] rb: Start Sector: 1, Sector Offset: 2; Buffer: ffff88022c697400; Length: 1 sectors
+[36665.461709] rb: Start Sector: 1, Sector Offset: 3; Buffer: ffff88022c697600; Length: 1 sectors
+[36665.461711] rb: Start Sector: 1, Sector Offset: 4; Buffer: ffff88022c697800; Length: 1 sectors
+[36665.461713] rb: Start Sector: 1, Sector Offset: 5; Buffer: ffff88022c697a00; Length: 1 sectors
+[36665.461715] rb: Start Sector: 1, Sector Offset: 6; Buffer: ffff88022c697c00; Length: 1 sectors
+[36665.461717] rb: Start Sector: 1, Sector Offset: 7; Buffer: ffff88022c697e00; Length: 1 sectors
+[36665.461745] rb: Start Sector: 9, Sector Offset: 0; Buffer: ffff8801fbc50000; Length: 1 sectors
+[36665.461747] rb: Start Sector: 9, Sector Offset: 1; Buffer: ffff8801fbc50200; Length: 1 sectors
+[36665.461749] rb: Start Sector: 9, Sector Offset: 2; Buffer: ffff8801fbc50400; Length: 1 sectors
+[36665.461750] rb: Start Sector: 9, Sector Offset: 3; Buffer: ffff8801fbc50600; Length: 1 sectors
+[36665.461752] rb: Start Sector: 9, Sector Offset: 4; Buffer: ffff8801fbc50800; Length: 1 sectors
+[36665.461754] rb: Start Sector: 9, Sector Offset: 5; Buffer: ffff8801fbc50a00; Length: 1 sectors
+[36665.461756] rb: Start Sector: 9, Sector Offset: 6; Buffer: ffff8801fbc50c00; Length: 1 sectors
+[36665.461758] rb: Start Sector: 9, Sector Offset: 7; Buffer: ffff8801fbc50e00; Length: 1 sectors
+[36665.461774] rb: Start Sector: 25, Sector Offset: 0; Buffer: ffff8802185a5000; Length: 1 sectors
+[36665.461776] rb: Start Sector: 25, Sector Offset: 1; Buffer: ffff8802185a5200; Length: 1 sectors
+[36665.461778] rb: Start Sector: 25, Sector Offset: 2; Buffer: ffff8802185a5400; Length: 1 sectors
+[36665.461780] rb: Start Sector: 25, Sector Offset: 3; Buffer: ffff8802185a5600; Length: 1 sectors
+[36665.461782] rb: Start Sector: 25, Sector Offset: 4; Buffer: ffff8802185a5800; Length: 1 sectors
+[36665.461784] rb: Start Sector: 25, Sector Offset: 5; Buffer: ffff8802185a5a00; Length: 1 sectors
+[36665.461786] rb: Start Sector: 25, Sector Offset: 6; Buffer: ffff8802185a5c00; Length: 1 sectors
+[36665.461788] rb: Start Sector: 25, Sector Offset: 7; Buffer: ffff8802185a5e00; Length: 1 sectors
+[36665.461799] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff88011b5d3000; Length: 2 sectors
+[36665.461810] rb: Start Sector: 57, Sector Offset: 0; Buffer: ffff8802311ef000; Length: 1 sectors
+[36665.461812] rb: Start Sector: 57, Sector Offset: 1; Buffer: ffff8802311ef200; Length: 1 sectors
+[36665.461814] rb: Start Sector: 57, Sector Offset: 2; Buffer: ffff8802311ef400; Length: 1 sectors
+[36665.461816] rb: Start Sector: 57, Sector Offset: 3; Buffer: ffff8802311ef600; Length: 1 sectors
+[36665.461818] rb: Start Sector: 57, Sector Offset: 4; Buffer: ffff8802311ef800; Length: 1 sectors
+[36665.461820] rb: Start Sector: 57, Sector Offset: 5; Buffer: ffff8802311efa00; Length: 1 sectors
+[36665.461822] rb: Start Sector: 57, Sector Offset: 6; Buffer: ffff8802311efc00; Length: 1 sectors
+[36665.461824] rb: Start Sector: 57, Sector Offset: 7; Buffer: ffff8802311efe00; Length: 1 sectors
+[36665.461839] rb: Start Sector: 121, Sector Offset: 0; Buffer: ffff8801d03a3000; Length: 1 sectors
+[36665.461841] rb: Start Sector: 121, Sector Offset: 1; Buffer: ffff8801d03a3200; Length: 1 sectors
+[36665.461843] rb: Start Sector: 121, Sector Offset: 2; Buffer: ffff8801d03a3400; Length: 1 sectors
+[36665.461845] rb: Start Sector: 121, Sector Offset: 3; Buffer: ffff8801d03a3600; Length: 1 sectors
+[36665.461847] rb: Start Sector: 121, Sector Offset: 4; Buffer: ffff8801d03a3800; Length: 1 sectors
+[36665.461849] rb: Start Sector: 121, Sector Offset: 5; Buffer: ffff8801d03a3a00; Length: 1 sectors
+[36665.461851] rb: Start Sector: 121, Sector Offset: 6; Buffer: ffff8801d03a3c00; Length: 1 sectors
+[36665.461852] rb: Start Sector: 121, Sector Offset: 7; Buffer: ffff8801d03a3e00; Length: 1 sectors
+[36665.461856] rb: Device is opened
+[36665.461858] rb: Inode number is 0
+[36665.461872] rb: Start Sector: 65, Sector Offset: 0; Buffer: ffff88022fbba000; Length: 1 sectors
+[36665.461874] rb: Start Sector: 65, Sector Offset: 1; Buffer: ffff88022fbba200; Length: 1 sectors
+[36665.461876] rb: Start Sector: 65, Sector Offset: 2; Buffer: ffff88022fbba400; Length: 1 sectors
+[36665.461878] rb: Start Sector: 65, Sector Offset: 3; Buffer: ffff88022fbba600; Length: 1 sectors
+[36665.461880] rb: Start Sector: 65, Sector Offset: 4; Buffer: ffff88022fbba800; Length: 1 sectors
+[36665.461882] rb: Start Sector: 65, Sector Offset: 5; Buffer: ffff88022fbbaa00; Length: 1 sectors
+[36665.461884] rb: Start Sector: 65, Sector Offset: 6; Buffer: ffff88022fbbac00; Length: 1 sectors
+[36665.461886] rb: Start Sector: 65, Sector Offset: 7; Buffer: ffff88022fbbae00; Length: 1 sectors
+[36665.461895] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff8801d0233000; Length: 8 sectors
+[36665.461906] rb: Start Sector: 17, Sector Offset: 0; Buffer: ffff880232632000; Length: 1 sectors
+[36665.461908] rb: Start Sector: 17, Sector Offset: 1; Buffer: ffff880232632200; Length: 1 sectors
+[36665.461910] rb: Start Sector: 17, Sector Offset: 2; Buffer: ffff880232632400; Length: 1 sectors
+[36665.461912] rb: Start Sector: 17, Sector Offset: 3; Buffer: ffff880232632600; Length: 1 sectors
+[36665.461914] rb: Start Sector: 17, Sector Offset: 4; Buffer: ffff880232632800; Length: 1 sectors
+[36665.461916] rb: Start Sector: 17, Sector Offset: 5; Buffer: ffff880232632a00; Length: 1 sectors
+[36665.461918] rb: Start Sector: 17, Sector Offset: 6; Buffer: ffff880232632c00; Length: 1 sectors
+[36665.461920] rb: Start Sector: 17, Sector Offset: 7; Buffer: ffff880232632e00; Length: 1 sectors
+[36665.461928] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff88022e6d6000; Length: 8 sectors
+[36665.461938] rb: Start Sector: 129, Sector Offset: 0; Buffer: ffff8801d1d69000; Length: 1 sectors
+[36665.461940] rb: Start Sector: 129, Sector Offset: 1; Buffer: ffff8801d1d69200; Length: 1 sectors
+[36665.461942] rb: Start Sector: 129, Sector Offset: 2; Buffer: ffff8801d1d69400; Length: 1 sectors
+[36665.461944] rb: Start Sector: 129, Sector Offset: 3; Buffer: ffff8801d1d69600; Length: 1 sectors
+[36665.461945] rb: Start Sector: 129, Sector Offset: 4; Buffer: ffff8801d1d69800; Length: 1 sectors
+[36665.461947] rb: Start Sector: 129, Sector Offset: 5; Buffer: ffff8801d1d69a00; Length: 1 sectors
+[36665.461949] rb: Start Sector: 129, Sector Offset: 6; Buffer: ffff8801d1d69c00; Length: 1 sectors
+[36665.461951] rb: Start Sector: 129, Sector Offset: 7; Buffer: ffff8801d1d69e00; Length: 1 sectors
+[36665.461958] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff880219336000; Length: 8 sectors
+[36665.461971] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff88022fad1000; Length: 8 sectors
+[36665.461976] rb: Start Sector: 33, Sector Offset: 0; Buffer: ffff8801d0236000; Length: 1 sectors
+[36665.461978] rb: Start Sector: 33, Sector Offset: 1; Buffer: ffff8801d0236200; Length: 1 sectors
+[36665.461980] rb: Start Sector: 33, Sector Offset: 2; Buffer: ffff8801d0236400; Length: 1 sectors
+[36665.461982] rb: Start Sector: 33, Sector Offset: 3; Buffer: ffff8801d0236600; Length: 1 sectors
+[36665.461984] rb: Start Sector: 33, Sector Offset: 4; Buffer: ffff8801d0236800; Length: 1 sectors
+[36665.461986] rb: Start Sector: 33, Sector Offset: 5; Buffer: ffff8801d0236a00; Length: 1 sectors
+[36665.461988] rb: Start Sector: 33, Sector Offset: 6; Buffer: ffff8801d0236c00; Length: 1 sectors
+[36665.461990] rb: Start Sector: 33, Sector Offset: 7; Buffer: ffff8801d0236e00; Length: 1 sectors
+[36665.462035] rb: Device is opened
+[36665.462037] rb: Inode number is 0
+[36665.462065] rb: Device is closed
+[36665.462076] rb: Device is closed
+[36665.462151] rb: Device is closed
+[36665.462187] rb: Device is closed
+[36665.462333] rb: Device is opened
+[36665.462336] rb: Inode number is 0
+[36665.462477] rb: Start Sector: 640, Sector Offset: 0; Buffer: ffff88023199a000; Length: 8 sectors
+[36665.462498] rb: Start Sector: 648, Sector Offset: 0; Buffer: ffff88011a0ee000; Length: 8 sectors
+[36665.462509] rb: Start Sector: 664, Sector Offset: 0; Buffer: ffff880231ca1000; Length: 8 sectors
+[36665.462518] rb: Start Sector: 696, Sector Offset: 0; Buffer: ffff880217c1b000; Length: 8 sectors
+[36665.462527] rb: Start Sector: 760, Sector Offset: 0; Buffer: ffff88017c269000; Length: 8 sectors
+[36665.462540] rb: Start Sector: 704, Sector Offset: 0; Buffer: ffff8801efd02000; Length: 8 sectors
+[36665.462554] rb: Start Sector: 656, Sector Offset: 0; Buffer: ffff88015dbc1000; Length: 8 sectors
+[36665.462563] rb: Start Sector: 768, Sector Offset: 0; Buffer: ffff88017d19c000; Length: 8 sectors
+[36665.462574] rb: Start Sector: 672, Sector Offset: 0; Buffer: ffff880204586000; Length: 8 sectors
+[36665.462617] rb: Device is opened
+[36665.462618] rb: Inode number is 0
+[36665.462636] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff8801d1d6c000; Length: 8 sectors
+[36665.462660] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff88012ec45000; Length: 8 sectors
+[36665.462676] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff8801e11c2000; Length: 8 sectors
+[36665.462686] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff880152d3e000; Length: 8 sectors
+[36665.462777] rb: Device is closed
+[36665.462800] rb: Device is closed
+[36665.463040] rb: Device is opened
+[36665.463047] rb: Inode number is 0
+[36665.463192] rb: Start Sector: 577, Sector Offset: 0; Buffer: ffff880230b7f000; Length: 1 sectors
+[36665.463195] rb: Start Sector: 577, Sector Offset: 1; Buffer: ffff880230b7f200; Length: 1 sectors
+[36665.463198] rb: Start Sector: 577, Sector Offset: 2; Buffer: ffff880230b7f400; Length: 1 sectors
+[36665.463200] rb: Start Sector: 577, Sector Offset: 3; Buffer: ffff880230b7f600; Length: 1 sectors
+[36665.463202] rb: Start Sector: 577, Sector Offset: 4; Buffer: ffff880230b7f800; Length: 1 sectors
+[36665.463204] rb: Start Sector: 577, Sector Offset: 5; Buffer: ffff880230b7fa00; Length: 1 sectors
+[36665.463206] rb: Start Sector: 577, Sector Offset: 6; Buffer: ffff880230b7fc00; Length: 1 sectors
+[36665.463209] rb: Start Sector: 577, Sector Offset: 7; Buffer: ffff880230b7fe00; Length: 1 sectors
+[36665.463241] rb: Start Sector: 593, Sector Offset: 0; Buffer: ffff8802004ec000; Length: 1 sectors
+[36665.463243] rb: Start Sector: 593, Sector Offset: 1; Buffer: ffff8802004ec200; Length: 1 sectors
+[36665.463245] rb: Start Sector: 593, Sector Offset: 2; Buffer: ffff8802004ec400; Length: 1 sectors
+[36665.463247] rb: Start Sector: 593, Sector Offset: 3; Buffer: ffff8802004ec600; Length: 1 sectors
+[36665.463248] rb: Start Sector: 593, Sector Offset: 4; Buffer: ffff8802004ec800; Length: 1 sectors
+[36665.463250] rb: Start Sector: 593, Sector Offset: 5; Buffer: ffff8802004eca00; Length: 1 sectors
+[36665.463252] rb: Start Sector: 593, Sector Offset: 6; Buffer: ffff8802004ecc00; Length: 1 sectors
+[36665.463253] rb: Start Sector: 593, Sector Offset: 7; Buffer: ffff8802004ece00; Length: 1 sectors
+[36665.463271] rb: Start Sector: 601, Sector Offset: 0; Buffer: ffff8801f2859000; Length: 1 sectors
+[36665.463274] rb: Start Sector: 601, Sector Offset: 1; Buffer: ffff8801f2859200; Length: 1 sectors
+[36665.463275] rb: Start Sector: 601, Sector Offset: 2; Buffer: ffff8801f2859400; Length: 1 sectors
+[36665.463277] rb: Start Sector: 601, Sector Offset: 3; Buffer: ffff8801f2859600; Length: 1 sectors
+[36665.463279] rb: Start Sector: 601, Sector Offset: 4; Buffer: ffff8801f2859800; Length: 1 sectors
+[36665.463281] rb: Start Sector: 601, Sector Offset: 5; Buffer: ffff8801f2859a00; Length: 1 sectors
+[36665.463283] rb: Start Sector: 601, Sector Offset: 6; Buffer: ffff8801f2859c00; Length: 1 sectors
+[36665.463285] rb: Start Sector: 601, Sector Offset: 7; Buffer: ffff8801f2859e00; Length: 1 sectors
+[36665.463300] rb: Start Sector: 609, Sector Offset: 0; Buffer: ffff880117f88000; Length: 1 sectors
+[36665.463302] rb: Start Sector: 609, Sector Offset: 1; Buffer: ffff880117f88200; Length: 1 sectors
+[36665.463304] rb: Start Sector: 609, Sector Offset: 2; Buffer: ffff880117f88400; Length: 1 sectors
+[36665.463306] rb: Start Sector: 609, Sector Offset: 3; Buffer: ffff880117f88600; Length: 1 sectors
+[36665.463308] rb: Start Sector: 609, Sector Offset: 4; Buffer: ffff880117f88800; Length: 1 sectors
+[36665.463310] rb: Start Sector: 609, Sector Offset: 5; Buffer: ffff880117f88a00; Length: 1 sectors
+[36665.463311] rb: Start Sector: 609, Sector Offset: 6; Buffer: ffff880117f88c00; Length: 1 sectors
+[36665.463313] rb: Start Sector: 609, Sector Offset: 7; Buffer: ffff880117f88e00; Length: 1 sectors
+[36665.463333] rb: Start Sector: 585, Sector Offset: 0; Buffer: ffff88022fb63000; Length: 1 sectors
+[36665.463335] rb: Start Sector: 585, Sector Offset: 1; Buffer: ffff88022fb63200; Length: 1 sectors
+[36665.463337] rb: Start Sector: 585, Sector Offset: 2; Buffer: ffff88022fb63400; Length: 1 sectors
+[36665.463338] rb: Start Sector: 585, Sector Offset: 3; Buffer: ffff88022fb63600; Length: 1 sectors
+[36665.463340] rb: Start Sector: 585, Sector Offset: 4; Buffer: ffff88022fb63800; Length: 1 sectors
+[36665.463342] rb: Start Sector: 585, Sector Offset: 5; Buffer: ffff88022fb63a00; Length: 1 sectors
+[36665.463344] rb: Start Sector: 585, Sector Offset: 6; Buffer: ffff88022fb63c00; Length: 1 sectors
+[36665.463346] rb: Start Sector: 585, Sector Offset: 7; Buffer: ffff88022fb63e00; Length: 1 sectors
+[36665.463386] rb: Device is opened
+[36665.463388] rb: Inode number is 0
+[36665.463400] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff88022fb0c000; Length: 8 sectors
+[36665.463423] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff880232b1b000; Length: 8 sectors
+[36665.463433] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff8801d39dc000; Length: 8 sectors
+[36665.463445] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff88017c25b000; Length: 8 sectors
+[36665.463534] rb: Device is closed
+[36665.464146] rb: Device is closed
+[36665.465003] rb: Device is opened
+[36665.465006] rb: Inode number is 0
+[36665.465140] rb: Start Sector: 449, Sector Offset: 0; Buffer: ffff88022fc2e000; Length: 1 sectors
+[36665.465142] rb: Start Sector: 449, Sector Offset: 1; Buffer: ffff88022fc2e200; Length: 1 sectors
+[36665.465143] rb: Start Sector: 449, Sector Offset: 2; Buffer: ffff88022fc2e400; Length: 1 sectors
+[36665.465144] rb: Start Sector: 449, Sector Offset: 3; Buffer: ffff88022fc2e600; Length: 1 sectors
+[36665.465146] rb: Start Sector: 449, Sector Offset: 4; Buffer: ffff88022fc2e800; Length: 1 sectors
+[36665.465147] rb: Start Sector: 449, Sector Offset: 5; Buffer: ffff88022fc2ea00; Length: 1 sectors
+[36665.465148] rb: Start Sector: 449, Sector Offset: 6; Buffer: ffff88022fc2ec00; Length: 1 sectors
+[36665.465149] rb: Start Sector: 449, Sector Offset: 7; Buffer: ffff88022fc2ee00; Length: 1 sectors
+[36665.465169] rb: Start Sector: 457, Sector Offset: 0; Buffer: ffff880214fe3000; Length: 1 sectors
+[36665.465171] rb: Start Sector: 457, Sector Offset: 1; Buffer: ffff880214fe3200; Length: 1 sectors
+[36665.465172] rb: Start Sector: 457, Sector Offset: 2; Buffer: ffff880214fe3400; Length: 1 sectors
+[36665.465173] rb: Start Sector: 457, Sector Offset: 3; Buffer: ffff880214fe3600; Length: 1 sectors
+[36665.465175] rb: Start Sector: 457, Sector Offset: 4; Buffer: ffff880214fe3800; Length: 1 sectors
+[36665.465176] rb: Start Sector: 457, Sector Offset: 5; Buffer: ffff880214fe3a00; Length: 1 sectors
+[36665.465177] rb: Start Sector: 457, Sector Offset: 6; Buffer: ffff880214fe3c00; Length: 1 sectors
+[36665.465178] rb: Start Sector: 457, Sector Offset: 7; Buffer: ffff880214fe3e00; Length: 1 sectors
+[36665.465188] rb: Start Sector: 473, Sector Offset: 0; Buffer: ffff8801b312f000; Length: 1 sectors
+[36665.465190] rb: Start Sector: 473, Sector Offset: 1; Buffer: ffff8801b312f200; Length: 1 sectors
+[36665.465191] rb: Start Sector: 473, Sector Offset: 2; Buffer: ffff8801b312f400; Length: 1 sectors
+[36665.465192] rb: Start Sector: 473, Sector Offset: 3; Buffer: ffff8801b312f600; Length: 1 sectors
+[36665.465194] rb: Start Sector: 473, Sector Offset: 4; Buffer: ffff8801b312f800; Length: 1 sectors
+[36665.465195] rb: Start Sector: 473, Sector Offset: 5; Buffer: ffff8801b312fa00; Length: 1 sectors
+[36665.465196] rb: Start Sector: 473, Sector Offset: 6; Buffer: ffff8801b312fc00; Length: 1 sectors
+[36665.465197] rb: Start Sector: 473, Sector Offset: 7; Buffer: ffff8801b312fe00; Length: 1 sectors
+[36665.465206] rb: Start Sector: 505, Sector Offset: 0; Buffer: ffff8801e02a5000; Length: 1 sectors
+[36665.465208] rb: Start Sector: 505, Sector Offset: 1; Buffer: ffff8801e02a5200; Length: 1 sectors
+[36665.465209] rb: Start Sector: 505, Sector Offset: 2; Buffer: ffff8801e02a5400; Length: 1 sectors
+[36665.465210] rb: Start Sector: 505, Sector Offset: 3; Buffer: ffff8801e02a5600; Length: 1 sectors
+[36665.465212] rb: Start Sector: 505, Sector Offset: 4; Buffer: ffff8801e02a5800; Length: 1 sectors
+[36665.465213] rb: Start Sector: 505, Sector Offset: 5; Buffer: ffff8801e02a5a00; Length: 1 sectors
+[36665.465214] rb: Start Sector: 505, Sector Offset: 6; Buffer: ffff8801e02a5c00; Length: 1 sectors
+[36665.465215] rb: Start Sector: 505, Sector Offset: 7; Buffer: ffff8801e02a5e00; Length: 1 sectors
+[36665.465225] rb: Start Sector: 569, Sector Offset: 0; Buffer: ffff8801e0398000; Length: 1 sectors
+[36665.465226] rb: Start Sector: 569, Sector Offset: 1; Buffer: ffff8801e0398200; Length: 1 sectors
+[36665.465227] rb: Start Sector: 569, Sector Offset: 2; Buffer: ffff8801e0398400; Length: 1 sectors
+[36665.465229] rb: Start Sector: 569, Sector Offset: 3; Buffer: ffff8801e0398600; Length: 1 sectors
+[36665.465230] rb: Start Sector: 569, Sector Offset: 4; Buffer: ffff8801e0398800; Length: 1 sectors
+[36665.465231] rb: Start Sector: 569, Sector Offset: 5; Buffer: ffff8801e0398a00; Length: 1 sectors
+[36665.465232] rb: Start Sector: 569, Sector Offset: 6; Buffer: ffff8801e0398c00; Length: 1 sectors
+[36665.465246] rb: Start Sector: 513, Sector Offset: 0; Buffer: ffff880231d9b000; Length: 1 sectors
+[36665.465248] rb: Start Sector: 513, Sector Offset: 1; Buffer: ffff880231d9b200; Length: 1 sectors
+[36665.465249] rb: Start Sector: 513, Sector Offset: 2; Buffer: ffff880231d9b400; Length: 1 sectors
+[36665.465251] rb: Start Sector: 513, Sector Offset: 3; Buffer: ffff880231d9b600; Length: 1 sectors
+[36665.465252] rb: Start Sector: 513, Sector Offset: 4; Buffer: ffff880231d9b800; Length: 1 sectors
+[36665.465253] rb: Start Sector: 513, Sector Offset: 5; Buffer: ffff880231d9ba00; Length: 1 sectors
+[36665.465254] rb: Start Sector: 513, Sector Offset: 6; Buffer: ffff880231d9bc00; Length: 1 sectors
+[36665.465256] rb: Start Sector: 513, Sector Offset: 7; Buffer: ffff880231d9be00; Length: 1 sectors
+[36665.465268] rb: Start Sector: 465, Sector Offset: 0; Buffer: ffff880152c29000; Length: 1 sectors
+[36665.465269] rb: Start Sector: 465, Sector Offset: 1; Buffer: ffff880152c29200; Length: 1 sectors
+[36665.465271] rb: Start Sector: 465, Sector Offset: 2; Buffer: ffff880152c29400; Length: 1 sectors
+[36665.465272] rb: Start Sector: 465, Sector Offset: 3; Buffer: ffff880152c29600; Length: 1 sectors
+[36665.465273] rb: Start Sector: 465, Sector Offset: 4; Buffer: ffff880152c29800; Length: 1 sectors
+[36665.465274] rb: Start Sector: 465, Sector Offset: 5; Buffer: ffff880152c29a00; Length: 1 sectors
+[36665.465276] rb: Start Sector: 465, Sector Offset: 6; Buffer: ffff880152c29c00; Length: 1 sectors
+[36665.465277] rb: Start Sector: 465, Sector Offset: 7; Buffer: ffff880152c29e00; Length: 1 sectors
+[36665.465287] rb: Start Sector: 481, Sector Offset: 0; Buffer: ffff880231a99000; Length: 1 sectors
+[36665.465289] rb: Start Sector: 481, Sector Offset: 1; Buffer: ffff880231a99200; Length: 1 sectors
+[36665.465290] rb: Start Sector: 481, Sector Offset: 2; Buffer: ffff880231a99400; Length: 1 sectors
+[36665.465291] rb: Start Sector: 481, Sector Offset: 3; Buffer: ffff880231a99600; Length: 1 sectors
+[36665.465293] rb: Start Sector: 481, Sector Offset: 4; Buffer: ffff880231a99800; Length: 1 sectors
+[36665.465294] rb: Start Sector: 481, Sector Offset: 5; Buffer: ffff880231a99a00; Length: 1 sectors
+[36665.465295] rb: Start Sector: 481, Sector Offset: 6; Buffer: ffff880231a99c00; Length: 1 sectors
+[36665.465296] rb: Start Sector: 481, Sector Offset: 7; Buffer: ffff880231a99e00; Length: 1 sectors
+[36665.465328] rb: Device is opened
+[36665.465329] rb: Inode number is 0
+[36665.465341] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff88021488c000; Length: 8 sectors
+[36665.465358] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff88022b4c2000; Length: 8 sectors
+[36665.465365] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff880114b10000; Length: 8 sectors
+[36665.465372] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff8801f1598000; Length: 8 sectors
+[36665.465437] rb: Device is closed
+[36665.465462] rb: Device is closed
+[36665.469484] rb: Device is opened
+[36665.469487] rb: Inode number is 0
+[36665.469615] rb: Start Sector: 321, Sector Offset: 0; Buffer: ffff8802310d9000; Length: 1 sectors
+[36665.469618] rb: Start Sector: 321, Sector Offset: 1; Buffer: ffff8802310d9200; Length: 1 sectors
+[36665.469619] rb: Start Sector: 321, Sector Offset: 2; Buffer: ffff8802310d9400; Length: 1 sectors
+[36665.469620] rb: Start Sector: 321, Sector Offset: 3; Buffer: ffff8802310d9600; Length: 1 sectors
+[36665.469622] rb: Start Sector: 321, Sector Offset: 4; Buffer: ffff8802310d9800; Length: 1 sectors
+[36665.469623] rb: Start Sector: 321, Sector Offset: 5; Buffer: ffff8802310d9a00; Length: 1 sectors
+[36665.469624] rb: Start Sector: 321, Sector Offset: 6; Buffer: ffff8802310d9c00; Length: 1 sectors
+[36665.469625] rb: Start Sector: 321, Sector Offset: 7; Buffer: ffff8802310d9e00; Length: 1 sectors
+[36665.469650] rb: Start Sector: 329, Sector Offset: 0; Buffer: ffff8801d4a4c000; Length: 1 sectors
+[36665.469651] rb: Start Sector: 329, Sector Offset: 1; Buffer: ffff8801d4a4c200; Length: 1 sectors
+[36665.469653] rb: Start Sector: 329, Sector Offset: 2; Buffer: ffff8801d4a4c400; Length: 1 sectors
+[36665.469654] rb: Start Sector: 329, Sector Offset: 3; Buffer: ffff8801d4a4c600; Length: 1 sectors
+[36665.469655] rb: Start Sector: 329, Sector Offset: 4; Buffer: ffff8801d4a4c800; Length: 1 sectors
+[36665.469657] rb: Start Sector: 329, Sector Offset: 5; Buffer: ffff8801d4a4ca00; Length: 1 sectors
+[36665.469658] rb: Start Sector: 329, Sector Offset: 6; Buffer: ffff8801d4a4cc00; Length: 1 sectors
+[36665.469659] rb: Start Sector: 329, Sector Offset: 7; Buffer: ffff8801d4a4ce00; Length: 1 sectors
+[36665.469670] rb: Start Sector: 345, Sector Offset: 0; Buffer: ffff88013429c000; Length: 1 sectors
+[36665.469672] rb: Start Sector: 345, Sector Offset: 1; Buffer: ffff88013429c200; Length: 1 sectors
+[36665.469674] rb: Start Sector: 345, Sector Offset: 2; Buffer: ffff88013429c400; Length: 1 sectors
+[36665.469675] rb: Start Sector: 345, Sector Offset: 3; Buffer: ffff88013429c600; Length: 1 sectors
+[36665.469676] rb: Start Sector: 345, Sector Offset: 4; Buffer: ffff88013429c800; Length: 1 sectors
+[36665.469677] rb: Start Sector: 345, Sector Offset: 5; Buffer: ffff88013429ca00; Length: 1 sectors
+[36665.469679] rb: Start Sector: 345, Sector Offset: 6; Buffer: ffff88013429cc00; Length: 1 sectors
+[36665.469680] rb: Start Sector: 345, Sector Offset: 7; Buffer: ffff88013429ce00; Length: 1 sectors
+[36665.469690] rb: Start Sector: 377, Sector Offset: 0; Buffer: ffff88012f27a000; Length: 1 sectors
+[36665.469691] rb: Start Sector: 377, Sector Offset: 1; Buffer: ffff88012f27a200; Length: 1 sectors
+[36665.469692] rb: Start Sector: 377, Sector Offset: 2; Buffer: ffff88012f27a400; Length: 1 sectors
+[36665.469694] rb: Start Sector: 377, Sector Offset: 3; Buffer: ffff88012f27a600; Length: 1 sectors
+[36665.469695] rb: Start Sector: 377, Sector Offset: 4; Buffer: ffff88012f27a800; Length: 1 sectors
+[36665.469696] rb: Start Sector: 377, Sector Offset: 5; Buffer: ffff88012f27aa00; Length: 1 sectors
+[36665.469697] rb: Start Sector: 377, Sector Offset: 6; Buffer: ffff88012f27ac00; Length: 1 sectors
+[36665.469699] rb: Start Sector: 377, Sector Offset: 7; Buffer: ffff88012f27ae00; Length: 1 sectors
+[36665.469708] rb: Start Sector: 441, Sector Offset: 0; Buffer: ffff88010f494000; Length: 1 sectors
+[36665.469709] rb: Start Sector: 441, Sector Offset: 1; Buffer: ffff88010f494200; Length: 1 sectors
+[36665.469711] rb: Start Sector: 441, Sector Offset: 2; Buffer: ffff88010f494400; Length: 1 sectors
+[36665.469712] rb: Start Sector: 441, Sector Offset: 3; Buffer: ffff88010f494600; Length: 1 sectors
+[36665.469713] rb: Start Sector: 441, Sector Offset: 4; Buffer: ffff88010f494800; Length: 1 sectors
+[36665.469715] rb: Start Sector: 441, Sector Offset: 5; Buffer: ffff88010f494a00; Length: 1 sectors
+[36665.469716] rb: Start Sector: 441, Sector Offset: 6; Buffer: ffff88010f494c00; Length: 1 sectors
+[36665.469731] rb: Start Sector: 385, Sector Offset: 0; Buffer: ffff880114779000; Length: 1 sectors
+[36665.469732] rb: Start Sector: 385, Sector Offset: 1; Buffer: ffff880114779200; Length: 1 sectors
+[36665.469733] rb: Start Sector: 385, Sector Offset: 2; Buffer: ffff880114779400; Length: 1 sectors
+[36665.469735] rb: Start Sector: 385, Sector Offset: 3; Buffer: ffff880114779600; Length: 1 sectors
+[36665.469736] rb: Start Sector: 385, Sector Offset: 4; Buffer: ffff880114779800; Length: 1 sectors
+[36665.469737] rb: Start Sector: 385, Sector Offset: 5; Buffer: ffff880114779a00; Length: 1 sectors
+[36665.469739] rb: Start Sector: 385, Sector Offset: 6; Buffer: ffff880114779c00; Length: 1 sectors
+[36665.469740] rb: Start Sector: 385, Sector Offset: 7; Buffer: ffff880114779e00; Length: 1 sectors
+[36665.469753] rb: Start Sector: 337, Sector Offset: 0; Buffer: ffff880216e54000; Length: 1 sectors
+[36665.469754] rb: Start Sector: 337, Sector Offset: 1; Buffer: ffff880216e54200; Length: 1 sectors
+[36665.469756] rb: Start Sector: 337, Sector Offset: 2; Buffer: ffff880216e54400; Length: 1 sectors
+[36665.469757] rb: Start Sector: 337, Sector Offset: 3; Buffer: ffff880216e54600; Length: 1 sectors
+[36665.469758] rb: Start Sector: 337, Sector Offset: 4; Buffer: ffff880216e54800; Length: 1 sectors
+[36665.469759] rb: Start Sector: 337, Sector Offset: 5; Buffer: ffff880216e54a00; Length: 1 sectors
+[36665.469761] rb: Start Sector: 337, Sector Offset: 6; Buffer: ffff880216e54c00; Length: 1 sectors
+[36665.469762] rb: Start Sector: 337, Sector Offset: 7; Buffer: ffff880216e54e00; Length: 1 sectors
+[36665.469774] rb: Start Sector: 353, Sector Offset: 0; Buffer: ffff8801d1cf2000; Length: 1 sectors
+[36665.469776] rb: Start Sector: 353, Sector Offset: 1; Buffer: ffff8801d1cf2200; Length: 1 sectors
+[36665.469777] rb: Start Sector: 353, Sector Offset: 2; Buffer: ffff8801d1cf2400; Length: 1 sectors
+[36665.469778] rb: Start Sector: 353, Sector Offset: 3; Buffer: ffff8801d1cf2600; Length: 1 sectors
+[36665.469780] rb: Start Sector: 353, Sector Offset: 4; Buffer: ffff8801d1cf2800; Length: 1 sectors
+[36665.469781] rb: Start Sector: 353, Sector Offset: 5; Buffer: ffff8801d1cf2a00; Length: 1 sectors
+[36665.469782] rb: Start Sector: 353, Sector Offset: 6; Buffer: ffff8801d1cf2c00; Length: 1 sectors
+[36665.469783] rb: Start Sector: 353, Sector Offset: 7; Buffer: ffff8801d1cf2e00; Length: 1 sectors
+[36665.469817] rb: Device is opened
+[36665.469818] rb: Inode number is 0
+[36665.469829] rb: Start Sector: 0, Sector Offset: 0; Buffer: ffff88023096c000; Length: 8 sectors
+[36665.469852] rb: Start Sector: 320, Sector Offset: 0; Buffer: ffff8801edf34000; Length: 8 sectors
+[36665.469859] rb: Start Sector: 448, Sector Offset: 0; Buffer: ffff880231a61000; Length: 8 sectors
+[36665.469867] rb: Start Sector: 576, Sector Offset: 0; Buffer: ffff88022c6aa000; Length: 8 sectors
+[36665.469933] rb: Device is closed
+[36665.469966] rb: Device is closed
+[36675.866786] wlan0: AP 64:66:b3:53:7f:62 changed bandwidth, new config is 2437 MHz, width 1 (2437/0 MHz)
+[36676.792303] wlan0: AP 64:66:b3:53:7f:62 changed bandwidth, new config is 2437 MHz, width 2 (2427/0 MHz)

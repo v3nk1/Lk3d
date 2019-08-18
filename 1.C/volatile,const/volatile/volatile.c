@@ -12,7 +12,7 @@
 /*1*/
 //volatile
 /*2*/
-VOLATILE
+//VOLATILE
 int quit;
 
 void hand(int no){
@@ -23,14 +23,17 @@ void hand(int no){
 }
 
 main(){
-	
-/*	struct sigaction act;
+
+#if 1   
+	struct sigaction act;
 	memset(&act,0,sizeof(act));
 	act.sa_handler=hand;
 	act.sa_flags=SA_RESTART;
 	sigaction(SIGINT,&act,NULL);
-*/	signal(SIGINT,hand);
-	while(!quit);
+#else
+    signal(SIGINT,hand);
+#endif
+    while(!quit);
 		// without volatile !quit replaced by 1(true).
 
 }
